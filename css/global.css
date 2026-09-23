@@ -1,0 +1,125 @@
+/* Base styles & Custom Scrollbar */
+        body { background-color: #f8fafc; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Page Transitions for SPA */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Backgrounds */
+        .hero-home {
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 105, 161, 0.75) 100%), url('https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .hero-inner {
+            background-image: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(3, 105, 161, 0.85)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+
+        /* Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #fcd34d);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Nav states */
+        .nav-scrolled { background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1); border-bottom: 1px solid #f1f5f9; }
+        .nav-scrolled .nav-link-text { color: #334155; }
+        .nav-scrolled .nav-link-text:hover { color: #f59e0b; }
+        .nav-scrolled .nav-link.active-nav { background-color: #f1f5f9; color: #0369a1; font-weight: 700; }
+        .nav-scrolled .logo-text { color: #0f172a; }
+
+        .nav-transparent { background-color: transparent; }
+        .nav-transparent .nav-link-text { color: #ffffff; }
+        .nav-transparent .nav-link-text:hover { color: #fcd34d; }
+        .nav-transparent .nav-link.active-nav { background-color: rgba(255,255,255,0.15); color: #ffffff; }
+        .nav-transparent .logo-text { color: #ffffff; }
+
+        /* Top Bar */
+        #top-bar { transition: all 0.3s ease; }
+
+        /* Dropdown Styles */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .group:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Image Fallback Background */
+        img { background-color: #e2e8f0; position: relative; }
+        img::after {
+            content: "\f1c5  Image Loading...";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            display: flex; justify-content: center; align-items: center;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #e2e8f0; color: #64748b; font-size: 0.875rem;
+        }
+
+        /* Advanced UI Elements */
+        .accordion-content { transition: max-height 0.4s ease-out, padding 0.4s ease; max-height: 0; overflow: hidden; }
+        .accordion-content.expanded { max-height: 500px; padding-bottom: 1.5rem; }
+
+        /* Modal */
+        #custom-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 1000; }
+        #custom-modal.show { opacity: 1; pointer-events: auto; }
+        .modal-body { transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        #custom-modal.show .modal-body { transform: scale(1); }
+
+        /* Process Steps */
+        .process-step::after {
+            content: ''; position: absolute; right: -50%; top: 3rem; width: 100%; height: 2px;
+            background: dashed 2px #cbd5e1; z-index: -1;
+        }
+        .process-step:last-child::after { display: none; }
+        @media (max-width: 1024px) { .process-step::after { display: none; } }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Hero Slider */
+        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
+        .hero-slide.active-slide { opacity: 1; }

@@ -1,165 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certifications - Al Muraqib</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <meta name="description" content="AL MURAQIB FIBER GLASS INDUSTRY L.L.C. provides innovative GRP products and water storage systems in Sharjah, UAE. ISO 9001:2008 Certified.">
 
-    <!-- Utility Bar -->
-    <div class="utility-bar">
-        <div class="container">
-            <div class="utility-left">
-                <a href="mailto:sales@almuraqib.ae" class="utility-link"><span class="icon">✉</span> sales@almuraqib.ae</a>
-                <a href="tel:+97165691110" class="utility-link"><span class="icon">📞</span> +971 6 569 1110</a>
-                <span class="utility-location"><span class="icon">📍</span> UAE</span>
-            </div>
-            <div class="utility-right">
-                <button class="search-btn" aria-label="Search">🔍</button>
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn">in</a>
-                    <a href="#" aria-label="Twitter">tw</a>
-                    <a href="#" aria-label="Facebook">fb</a>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0369a1', // Sky 700 (Deep Blue)
+                        secondary: '#0284c7', // Sky 600
+                        accent: '#f59e0b', // Amber 500 (Industrial Gold)
+                        dark: '#0f172a', // Slate 900
+                        light: '#f8fafc', // Slate 50
+                        surface: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'glow': '0 0 15px rgba(245, 158, 11, 0.5)',
+                        'inner-glow': 'inset 0 0 20px rgba(0,0,0,0.1)',
+                    }
+                }
+            }
+        }
+
+        // Init functions on load
+        window.addEventListener('load', () => {
+            triggerReveals();
+            runCounters();
+        });
+    </script>
+
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body class="font-sans text-gray-700 antialiased relative selection:bg-primary selection:text-white">
+
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 nav-transparent border-b border-white/10">
+        <!-- Top Bar -->
+        <div id="top-bar" class="hidden lg:flex bg-dark/90 backdrop-blur-sm text-gray-300 text-xs py-2 border-b border-white/10 w-full">
+            <div class="flex justify-between items-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+                <div class="flex gap-6">
+                    <a href="mailto:sales@almuraqib.ae" class="hover:text-accent transition-colors"><i class="fas fa-envelope text-accent mr-1"></i> sales@almuraqib.ae</a>
+                    <a href="tel:+97165691110" class="hover:text-accent transition-colors"><i class="fas fa-phone text-accent mr-1"></i> +971 6 569 1110</a>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Main Header -->
-    <header class="main-header" id="mainHeader">
-        <div class="container header-container">
-            <div class="logo">
-                <a href="index.html"><span class="logo-text">AL MURAQIB</span></a>
-            </div>
-            <nav class="main-nav" id="mainNav">
-                <ul class="nav-list">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="has-dropdown">
-                        <a href="#">Company <span class="caret">▼</span></a>
-                        <ul class="dropdown">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="certifications.html">Certifications</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown mega-menu-trigger">
-                        <a href="#">Solutions <span class="caret">▼</span></a>
-                        <div class="mega-menu">
-                            <div class="mega-menu-column">
-                                <h4>Water Storage</h4>
-                                <ul>
-                                    <li><a href="products.html#panel-tanks">GRP Panel Tanks</a></li>
-                                    <li><a href="products.html#cylindrical-tanks">GRP Cylindrical Tanks</a></li>
-                                </ul>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 transition-all">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-3 group">
+                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:bg-accent transition-colors duration-300 p-2">
+                            <img src="https://almuraqib.ae/wp-content/uploads/2020/09/white-logo-glyph.svg" alt="Al Muraqib Logo" class="w-full h-full object-contain" style="background-color: transparent;">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-heading font-black text-xl tracking-tight logo-text transition-colors duration-300">
+                                AL MURAQIB
+                            </span>
+                            <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-accent">Fiber Glass Ind. L.L.C</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu with Dropdowns -->
+                <div class="hidden lg:flex space-x-1 items-center z-50">
+                    <a href="index.html" class="nav-link px-3 py-2 rounded-lg nav-link-text font-semibold transition-all text-sm uppercase tracking-wide">Home</a>
+
+                    <!-- Company Dropdown -->
+                    <div class="relative group">
+                        <button class="nav-link px-3 py-2 rounded-lg nav-link-text font-semibold transition-all text-sm uppercase tracking-wide flex items-center gap-1 focus:outline-none">
+                            Company <i class="fas fa-chevron-down text-[10px] opacity-70"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-100 flex flex-col py-2 z-50">
+                            <a href="about.html" class="px-5 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary font-bold transition-colors">About Us</a>
+                            <a href="certifications.html" class="px-5 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary font-bold transition-colors">Certifications</a>
+                        </div>
+                    </div>
+
+
+                    <!-- Solutions Mega Menu -->
+                    <div class="relative group">
+                        <button class="nav-link px-3 py-2 rounded-lg nav-link-text font-semibold transition-all text-sm uppercase tracking-wide flex items-center gap-1 focus:outline-none">
+                            Solutions <i class="fas fa-chevron-down text-[10px] opacity-70"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[1000px] bg-white rounded-xl shadow-2xl border border-gray-100 flex py-6 z-50 overflow-hidden">
+                            <!-- Left Dark Panel -->
+                            <div class="w-1/4 bg-[#0a2540] text-white p-8 rounded-xl ml-4 flex flex-col justify-between shrink-0">
+                                <div>
+                                    <h4 class="text-accent text-xs font-bold uppercase tracking-widest mb-4">Al Muraqib Solutions</h4>
+                                    <h3 class="text-2xl font-bold mb-4 leading-tight font-heading">GRP engineered around your project.</h3>
+                                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Explore water storage, pools, structural linings and specialist GRP products from a UAE-based manufacturer.</p>
+                                </div>
+                                <a href="products.html" class="inline-block bg-accent text-dark font-bold py-3 px-6 rounded-lg text-sm transition-colors hover:bg-yellow-400 text-center">
+                                    View all solutions &rarr;
+                                </a>
                             </div>
-                            <div class="mega-menu-column">
-                                <h4>Pools</h4>
-                                <ul>
-                                    <li><a href="pools.html#prefabricated">Prefabricated GRP Plunge Pools</a></li>
-                                    <li><a href="pools.html#bespoke">Bespoke GRP Plunge Pools</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-menu-column">
-                                <h4>Structural Linings</h4>
-                                <ul>
-                                    <li><a href="products.html#lining-rcc">GRP Lining on RCC Tank</a></li>
-                                    <li><a href="products.html#manholes">Manholes, Drains & Sump Pits</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-menu-column">
-                                <h4>Services</h4>
-                                <ul>
-                                    <li><a href="services.html">GRP Repair</a></li>
-                                    <li><a href="products.html#custom">Custom GRP</a></li>
-                                </ul>
+
+                            <!-- Right Links Area -->
+                            <div class="w-3/4 grid grid-cols-3 gap-8 px-8">
+                                <!-- Column 1 -->
+                                <div>
+                                    <div class="text-primary text-xs font-bold tracking-widest uppercase mb-2">01 &middot; Water Storage</div>
+                                    <h4 class="text-xl font-bold text-dark mb-2 font-heading">Tanks</h4>
+                                    <p class="text-sm text-gray-500 mb-6">Sectional and cylindrical GRP storage systems.</p>
+                                    <ul class="space-y-4">
+                                        <li><a href="products.html#panel-tanks" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Hot Press Panel Tanks</a></li>
+                                        <li><a href="products.html#panel-tanks" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Cold Press Panel Tanks</a></li>
+                                        <li><a href="products.html#cylindrical-tanks" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">GRP Cylindrical Water Tanks</a></li>
+                                        <li><a href="products.html#septic" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">GRP Septic & Sewerage Tanks</a></li>
+                                    </ul>
+                                </div>
+
+                                <!-- Column 2 -->
+                                <div>
+                                    <div class="text-primary text-xs font-bold tracking-widest uppercase mb-2">02 &middot; Pools & Architecture</div>
+                                    <h4 class="text-xl font-bold text-dark mb-2 font-heading">Leisure & Design</h4>
+                                    <p class="text-sm text-gray-500 mb-6">Premium GRP solutions for hospitality and architectural projects.</p>
+                                    <ul class="space-y-4">
+                                        <li><a href="pools.html#prefabricated" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Prefabricated GRP Plunge Pools</a></li>
+                                        <li><a href="pools.html#bespoke" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Bespoke GRP Plunge Pools</a></li>
+                                        <li><a href="products.html#claddings" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">GRP Claddings</a></li>
+                                        <li><a href="products.html#planters" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Planter Boxes & Water Features</a></li>
+                                    </ul>
+                                </div>
+
+                                <!-- Column 3 -->
+                                <div>
+                                    <div class="text-primary text-xs font-bold tracking-widest uppercase mb-2">03 &middot; Infrastructure & Services</div>
+                                    <h4 class="text-xl font-bold text-dark mb-2 font-heading">Protection & Repair</h4>
+                                    <p class="text-sm text-gray-500 mb-6">Linings, drainage components and maintenance support.</p>
+                                    <ul class="space-y-4">
+                                        <li><a href="services.html#lining" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">GRP Lining on RCC Tanks</a></li>
+                                        <li><a href="products.html#manholes" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Manholes, Sump Pits & Trenches</a></li>
+                                        <li><a href="products.html#sand-traps" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">Sand Trap Buckets</a></li>
+                                        <li><a href="services.html#repair" class="text-sm font-bold text-gray-700 hover:text-primary transition-colors">GRP Repair & Restoration</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                    <li><a href="products.html">Industries</a></li>
-                    <li><a href="portfolio.html">Projects</a></li>
-                    <li><a href="knowledgebase.html">Resources</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="contact.html" class="btn btn-primary">Get a Quote</a>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">☰</button>
+                    </div>
+
+
+                    <a href="portfolio.html" class="nav-link px-3 py-2 rounded-lg nav-link-text font-semibold transition-all text-sm uppercase tracking-wide">Portfolio</a>
+                    <a href="knowledgebase.html" class="nav-link px-3 py-2 rounded-lg nav-link-text font-semibold transition-all text-sm uppercase tracking-wide">Knowledgebase</a>
+
+                    <!-- Global Search Icon -->
+                    <button class="nav-link-text hover:text-accent focus:outline-none transition-colors p-2 ml-2" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <a href="contact.html" class="ml-4 bg-accent hover:bg-yellow-400 text-dark px-7 py-2.5 rounded-lg font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm uppercase tracking-wide flex items-center gap-2">
+                        Get Quote <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="nav-link-text hover:text-accent focus:outline-none transition-colors p-2 z-50">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-white shadow-2xl absolute w-full left-0 top-full border-t border-gray-100 origin-top animate-fade-in-down max-h-[80vh] overflow-y-auto z-40">
+            <div class="px-4 py-6 space-y-2">
+                <a href="index.html" class="mobile-link block px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors">Home</a>
+
+                <!-- Mobile Accordion: Company -->
+                <div class="mobile-accordion">
+                    <button class="w-full text-left px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors flex justify-between items-center focus:outline-none">
+                        Company <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden pl-8 pr-4 py-2 space-y-2 border-l-2 border-gray-100 ml-4 mt-1">
+                        <a href="about.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">About Us</a>
+                        <a href="certifications.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">Certifications</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Accordion: Products -->
+                <div class="mobile-accordion">
+                    <button class="w-full text-left px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors flex justify-between items-center focus:outline-none">
+                        Products <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden pl-8 pr-4 py-2 space-y-2 border-l-2 border-gray-100 ml-4 mt-1">
+                        <a href="products.html#panel-tanks" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">GRP Panel Tanks</a>
+                        <a href="pools.html#prefabricated" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">Prefabricated GRP Pools</a>
+                        <a href="pools.html#bespoke" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">Bespoke GRP Plunge Pools</a>
+                        <a href="products.html#cylindrical-tanks" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">GRP Cylindrical Tanks</a>
+                        <a href="services.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">Sand Trap Buckets</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Accordion: Services -->
+                <div class="mobile-accordion">
+                    <button class="w-full text-left px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors flex justify-between items-center focus:outline-none">
+                        Services <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden pl-8 pr-4 py-2 space-y-2 border-l-2 border-gray-100 ml-4 mt-1">
+                        <a href="services.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">GRP Lining on RCC Tanks</a>
+                        <a href="services.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">Manholes, Drains & Sump Pits</a>
+                        <a href="services.html" class="mobile-link block py-2 text-sm text-gray-600 hover:text-primary font-semibold">GRP Repair & Maintenance</a>
+                    </div>
+                </div>
+
+                <a href="portfolio.html" class="mobile-link block px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors">Portfolio</a>
+                <a href="knowledgebase.html" class="mobile-link block px-4 py-3 text-dark font-bold hover:bg-blue-50 hover:text-primary rounded-xl transition-colors">Knowledgebase</a>
+                <a href="contact.html" class="mobile-link block px-4 py-3 bg-primary text-white text-center font-bold hover:bg-secondary rounded-xl transition-colors mt-4 shadow-md">Contact Us / Get Quote</a>
             </div>
         </div>
     </header>
+<main id="main-content">
 
-    <!-- Main Content Area -->
-    <main id="main-content">
-        <section class="page-header dark-bg">
-            <div class="container">
-                <h1>Certifications</h1>
+        <section class="pt-32 pb-24 hero-inner text-center text-white relative">
+            <div class="absolute inset-0 bg-dark/40"></div>
+            <div class="max-w-4xl mx-auto px-4 reveal active relative z-10">
+                <span class="text-accent font-bold tracking-widest uppercase mb-2 block">Quality Assurance</span>
+                <h1 class="text-4xl md:text-6xl font-heading font-black mb-6">Accreditations & Certifications</h1>
+                <p class="text-xl text-gray-200 leading-relaxed font-light">We adhere to the highest international standards, ensuring every product we deliver meets rigorous quality and safety benchmarks.</p>
             </div>
         </section>
-        <section class="page-content section-padding">
-            <div class="container">
-                <p>Content for Certifications will go here.</p>
-            </div>
-        </section>
-    </main>
 
-    <!-- Global Footer -->
-    <footer class="main-footer">
-        <div class="container footer-container">
-            <div class="footer-column brand-column">
-                <div class="footer-logo">
-                    <a href="index.html"><span class="logo-text-white">AL MURAQIB</span></a>
+
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-4xl font-heading font-black text-dark mb-6">Commitment to Excellence</h2>
+                    <p class="text-gray-600 text-lg">Al Muraqib operates under strict international quality management standards. Our processes, from raw material sourcing to final installation, are certified to ensure maximum reliability and safety.</p>
                 </div>
-                <p>Leading GRP & FRP Manufacturers in the UAE. Certified water storage, pools, and engineered structural linings.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="bg-gray-50 rounded-3xl p-10 border border-gray-200 text-center reveal hover:shadow-xl transition-shadow">
+                        <div class="w-32 h-32 mx-auto bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-primary/20 mb-8">
+                            <i class="fas fa-award text-6xl text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-black font-heading text-dark mb-4">ISO 9001:2008</h3>
+                        <h4 class="text-primary font-bold uppercase tracking-wider mb-4 text-sm">Quality Management System</h4>
+                        <p class="text-gray-600 mb-6">Certified for the design, manufacture, and installation of GRP/FRP products. This certification guarantees our operational consistency and dedication to continuous improvement.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-primary font-bold hover:text-dark transition-colors"><i class="fas fa-file-pdf"></i> Download Certificate</a>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-3xl p-10 border border-gray-200 text-center reveal hover:shadow-xl transition-shadow">
+                        <div class="w-32 h-32 mx-auto bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-accent/20 mb-8">
+                            <i class="fas fa-shield-alt text-6xl text-accent"></i>
+                        </div>
+                        <h3 class="text-2xl font-black font-heading text-dark mb-4">Local Approvals</h3>
+                        <h4 class="text-accent font-bold uppercase tracking-wider mb-4 text-sm">Municipality & Civil Defense</h4>
+                        <p class="text-gray-600 mb-6">Our water storage tanks and structural linings meet and exceed the stringent health, safety, and structural guidelines set by UAE municipalities and regulatory authorities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+</main>
+<footer class="bg-dark text-white pt-24 pb-8 border-t-[8px] border-primary relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute -right-40 -top-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute -left-40 top-40 w-96 h-96 bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Branding -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg p-2">
+                            <img src="https://almuraqib.ae/wp-content/uploads/2020/09/white-logo-glyph.svg" alt="Al Muraqib Logo" class="w-full h-full object-contain" style="background-color: transparent;">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-heading font-black text-xl tracking-tight">AL MURAQIB</span>
+                            <span class="text-[10px] text-accent uppercase tracking-widest font-bold">Fiber Glass Ind. L.L.C</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light">
+                        Engineering innovative GRP products and robust water storage systems in Sharjah, UAE. Delivering uncompromising quality and structural reliability to the Middle East since 2016.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-gray-300 hover:text-white shadow-lg"><i class="fab fa-linkedin-in text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-gray-300 hover:text-white shadow-lg"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-gray-300 hover:text-white shadow-lg"><i class="fab fa-twitter text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white uppercase tracking-wider text-sm border-b border-white/10 pb-2 inline-block">Quick Navigation</h4>
+                    <ul class="space-y-4">
+                        <li><a href="index.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> About Us</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> Products & Services</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> Portfolio / Case Studies</a></li>
+                        <li><a href="knowledgebase.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> Knowledgebase</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-accent transition-colors text-sm flex items-center gap-3 group"><i class="fas fa-angle-right text-[10px] text-primary group-hover:translate-x-1 transition-transform"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white uppercase tracking-wider text-sm border-b border-white/10 pb-2 inline-block">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4 leading-relaxed">Subscribe to receive the latest updates, engineering articles, and corporate news from Al Muraqib.</p>
+                    <form id="newsletter-form" class="flex flex-col gap-3">
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="email" placeholder="Your email address" required class="w-full bg-white/5 border border-white/10 text-white text-sm rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-primary focus:bg-white/10 transition-colors">
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-bold py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2">
+                            Subscribe <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact & Accreditation -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white uppercase tracking-wider text-sm border-b border-white/10 pb-2 inline-block">Core Capabilities</h4>
+                    <ul class="space-y-4">
+                        <li><span class="text-gray-400 text-sm flex items-center gap-3"><i class="fas fa-check-square text-accent text-xs"></i> GRP Sectional Tanks</span></li>
+                        <li><span class="text-gray-400 text-sm flex items-center gap-3"><i class="fas fa-check-square text-accent text-xs"></i> Cylindrical Tanks</span></li>
+                        <li><span class="text-gray-400 text-sm flex items-center gap-3"><i class="fas fa-check-square text-accent text-xs"></i> Custom GRP Molding</span></li>
+                        <li><span class="text-gray-400 text-sm flex items-center gap-3"><i class="fas fa-check-square text-accent text-xs"></i> Specialized Installation</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white uppercase tracking-wider text-sm border-b border-white/10 pb-2 inline-block">Accreditation</h4>
+                    <div class="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 p-6 rounded-2xl flex items-center gap-5 mb-6 hover:from-white/15 hover:to-white/10 transition-colors shadow-inner-glow">
+                        <i class="fas fa-award text-5xl text-accent drop-shadow-lg"></i>
+                        <div>
+                            <p class="font-black text-lg text-white font-heading">ISO 9001:2008</p>
+                            <p class="text-xs text-gray-300 mt-1 uppercase tracking-wider font-semibold">Certified Quality</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="footer-column links-column">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="knowledgebase.html">Knowledgebase</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column contact-column">
-                <h4>Contact Info</h4>
-                <ul>
-                    <li><span class="icon">✉</span> <a href="mailto:info@almuraqib.ae">info@almuraqib.ae</a></li>
-                    <li><span class="icon">📞</span> <a href="tel:+97165691110">(+971) 6 569 1110</a></li>
-                    <li><span class="icon">📍</span> Sharjah, United Arab Emirates</li>
-                </ul>
-            </div>
-
-            <div class="footer-column newsletter-column">
-                <h4>Newsletter</h4>
-                <p>Subscribe to get the latest updates and technical guides.</p>
-                <form class="newsletter-form" id="newsletterForm" novalidate>
-                    <input type="email" id="newsletterEmail" placeholder="Email Address" required>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <div class="form-message" id="newsletterMessage"></div>
-                </form>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container footer-bottom-container">
-                <p>Copyright &copy; 2016 - 2022; Al Muraqib Fiber Glass Industry LLC; All Rights Reserved</p>
-                <button class="back-to-top" id="backToTop" aria-label="Go to Top">↑ Go to Top</button>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-gray-500 text-sm font-medium">
+                    &copy; 2016 - <span id="year"></span> Al Muraqib Fiber Glass Industry LLC. All Rights Reserved.
+                </p>
+                <div class="text-gray-500 text-xs flex gap-6 font-semibold uppercase tracking-wider">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Main Script -->
-    <script src="js/script.js"></script>
+    <!-- Custom Success Modal (Replaces alert) -->
+    <div id="custom-modal" class="fixed inset-0 bg-dark/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="modal-body bg-white rounded-[2rem] p-10 max-w-md w-full text-center shadow-2xl relative border-t-[10px] border-green-500">
+            <button id="close-modal" class="absolute top-5 right-6 text-gray-400 hover:text-dark text-2xl transition-colors"><i class="fas fa-times"></i></button>
+            <div class="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-5xl mx-auto mb-6 shadow-inner">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="text-3xl font-heading font-black text-dark mb-3">Inquiry Sent!</h3>
+            <p class="text-gray-600 text-base mb-8 leading-relaxed">Thank you for reaching out to Al Muraqib. Our engineering and sales team will review your project details and respond shortly.</p>
+            <button id="modal-ok-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl transition-colors text-lg shadow-lg">
+                Understood
+            </button>
+        </div>
+    </div>
+
+    <!-- Portfolio Lightbox Modal -->
+    <div id="portfolio-lightbox" class="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center z-[2000] opacity-0 pointer-events-none transition-opacity duration-300">
+        <button id="close-lightbox" class="absolute top-6 right-8 text-white/70 hover:text-white text-4xl transition-colors focus:outline-none"><i class="fas fa-times"></i></button>
+        <img id="lightbox-img" src="" alt="Portfolio Full View" class="max-w-[90%] max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
+        <div id="lightbox-caption" class="absolute bottom-8 left-0 w-full text-center text-white font-heading font-bold text-xl tracking-wide drop-shadow-md"></div>
+    </div>
+
+    <!-- Back To Top Button -->
+    <button id="back-to-top" class="fixed bottom-28 right-8 w-12 h-12 bg-dark hover:bg-primary text-white rounded-full shadow-2xl flex items-center justify-center text-xl z-40 transition-all duration-300 opacity-0 pointer-events-none translate-y-4 border border-white/10 hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Floating Action Button (WhatsApp) -->
+    <a href="contact.html" class="fixed bottom-8 right-8 w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl z-40 transition-transform hover:scale-110 border-4 border-white/50">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="js/global.js"></script>
 </body>
 </html>
