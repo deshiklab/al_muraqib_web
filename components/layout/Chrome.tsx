@@ -32,7 +32,7 @@ export function BackToTop({ d }: { d: Dict }) {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label={d.common.backToTop}
-      className={`fixed bottom-5 start-5 z-40 grid place-items-center w-11 h-11 rounded-full bg-white text-navy-900 shadow-dropdown border border-slate-200 hover:text-brand-700 transition-all cursor-pointer ${
+      className={`fixed bottom-20 md:bottom-5 start-5 z-40 grid place-items-center w-11 h-11 rounded-full bg-white text-navy-900 shadow-dropdown border border-slate-200 hover:text-brand-700 transition-all cursor-pointer ${
         show ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-3"
       }`}
     >
