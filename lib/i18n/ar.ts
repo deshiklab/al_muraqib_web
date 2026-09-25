@@ -76,6 +76,8 @@ export const ar: Dict = {
     quoteAllTogether: "اطلب سعر الجميع معاً",
     translationNote: "يتم عرض النسخة الإنجليزية — الترجمة العربية قيد الإنجاز.",
     language: "اللغة",
+    themeToLight: "التبديل إلى المظهر الفاتح",
+    themeToDark: "التبديل إلى المظهر الداكن",
     english: "English",
     arabic: "العربية",
   },

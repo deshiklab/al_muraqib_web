@@ -12,6 +12,7 @@ import { products } from "@/lib/data/catalog";
 import { articlesByKind } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 interface HeaderProps {
   locale: Locale;
@@ -178,6 +179,7 @@ export default function Header({ locale, d }: HeaderProps) {
             </div>
             <div className="flex items-center gap-5">
               <span className="hidden xl:inline text-slate-400">{d.topbar.quoteFast}</span>
+              <ThemeToggle d={d} />
               <div className="flex items-center gap-1 rounded-full bg-white/10 p-0.5" aria-label={d.common.language}>
                 {locales.map((loc) => (
                   <button
@@ -488,19 +490,24 @@ export default function Header({ locale, d }: HeaderProps) {
               {d.nav.getQuote}
             </Link>
             <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-2 rounded-full bg-slate-200 p-1">
-                {locales.map((loc) => (
-                  <button
-                    key={loc}
-                    onClick={() => switchLocale(loc)}
-                    className={cn(
-                      "px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer",
-                      loc === locale ? "bg-navy-900 text-white" : "text-slate-600"
-                    )}
-                  >
-                    {loc === "en" ? "EN" : "AR"}
-                  </button>
-                ))}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 rounded-full bg-slate-200 p-1">
+                  {locales.map((loc) => (
+                    <button
+                      key={loc}
+                      onClick={() => switchLocale(loc)}
+                      className={cn(
+                        "px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer",
+                        loc === locale ? "bg-navy-900 text-white" : "text-slate-600"
+                      )}
+                    >
+                      {loc === "en" ? "EN" : "AR"}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-slate-600">
+                  <ThemeToggle d={d} />
+                </span>
               </div>
               <a
                 href={`tel:${site.phoneIntl}`}

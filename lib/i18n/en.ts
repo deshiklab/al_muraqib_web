@@ -74,6 +74,8 @@ export const en = {
     quoteAllTogether: "Quote all together",
     translationNote: "English version shown — Arabic translation in progress.",
     language: "Language",
+    themeToLight: "Switch to light theme",
+    themeToDark: "Switch to dark theme",
     english: "English",
     arabic: "العربية",
   },

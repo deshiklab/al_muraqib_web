@@ -16,6 +16,18 @@ const fontLinks = (
   </>
 );
 
+/* No-flash theme init: applies the stored (or OS) theme before first paint.
+   Keep in sync with localStorage key in components/layout/ThemeToggle.tsx. */
+const themeInit = `
+(function () {
+  try {
+    var t = localStorage.getItem("alm-theme");
+    if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    if (t === "dark") document.documentElement.classList.add("dark");
+  } catch (e) {}
+})();
+`;
+
 export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ar" }];
 }
@@ -80,8 +92,15 @@ export default async function LocaleLayout({
     <html
       lang={l}
       dir={dir(l)}
+      suppressHydrationWarning
     >
-      <head>{fontLinks}</head>
+      <head>
+        {fontLinks}
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0f172a" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1222" />
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
       <body>
         {children}
       </body>
