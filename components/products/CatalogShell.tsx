@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Icon from "@/components/ui/Icon";
 import { cn, track } from "@/lib/utils";
@@ -30,6 +30,7 @@ export default function CatalogShell({
   locale,
   d,
   applied,
+  onApplied,
   counts,
   total,
   labels,
@@ -38,12 +39,12 @@ export default function CatalogShell({
   locale: Locale;
   d: Dict;
   applied: Applied;
+  onApplied: (next: Applied) => void;
   counts: Counts;
   total: number;
   labels: Record<FacetKey, string> & { insulation: string; sort: string };
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -53,15 +54,18 @@ export default function CatalogShell({
       : d.products.options[val as keyof typeof d.products.options] ?? val;
 
   const navigate = (next: Applied) => {
+    // State-driven filtering + URL kept shareable via replaceState — works in
+    // both the server build and the static (GitHub Pages) export.
+    onApplied(next);
     const qs = new URLSearchParams();
     if (next.group.length) qs.set("group", next.group.join(","));
     if (next.tech.length) qs.set("tech", next.tech.join(","));
     if (next.size.length) qs.set("size", next.size.join(","));
     if (next.cert.length) qs.set("cert", next.cert.join(","));
     if (next.insulation) qs.set("insulation", next.insulation);
-    if (next.sort && next.sort !== "newest") qs.set("sort", next.sort);
+    if (next.sort && next.sort !== "featured") qs.set("sort", next.sort);
     const q = qs.toString();
-    router.replace(`${pathname}${q ? `?${q}` : ""}`, { scroll: false });
+    window.history.replaceState(null, "", `${pathname}${q ? `?${q}` : ""}`);
     track("catalog_filter", { ...next });
   };
 

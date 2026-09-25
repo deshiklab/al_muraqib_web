@@ -63,7 +63,7 @@ export default async function LocaleLayout({
             <p style={{ fontSize: 64, fontWeight: 900, color: "#f59e0b", margin: 0 }}>404</p>
             <h1 style={{ marginTop: 12 }}>Page not found</h1>
             <p style={{ color: "#64748b" }}>The page you are looking for does not exist or has moved.</p>
-            <a href="/en" style={{ display: "inline-block", marginTop: 20, background: "#0f172a", color: "#fff", padding: "12px 24px", borderRadius: 10, fontWeight: 700, textDecoration: "none" }}>
+            <a href="en" style={{ display: "inline-block", marginTop: 20, background: "#0f172a", color: "#fff", padding: "12px 24px", borderRadius: 10, fontWeight: 700, textDecoration: "none" }}>
               Back to home
             </a>
           </div>

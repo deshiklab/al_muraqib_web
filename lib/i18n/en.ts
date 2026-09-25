@@ -221,6 +221,8 @@ export const en = {
       next2: "You will receive an email confirmation shortly.",
       another: "Submit another request",
       whatsapp: "Continue on WhatsApp",
+      staticNote:
+        "Your request will be delivered via WhatsApp — send the prepared message there and attach drawings/files in the chat.",
     },
     errors: {
       required: "Please fill in the required fields",

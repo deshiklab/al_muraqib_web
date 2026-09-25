@@ -24,6 +24,21 @@ npx tsc --noEmit   # type-check
 
 Requires Node.js 18.18+ (Node 20/22 recommended).
 
+## Static export (GitHub Pages)
+
+```bash
+NEXT_PUBLIC_STATIC_EXPORT=1 npm run build   # → out/  (basePath /al_muraqib_web)
+node scripts/static-index.cjs               # locale-aware / index redirect
+```
+
+Deployed automatically by `.github/workflows/pages.yml` on every push to the
+main working branch → `https://deshiklab.github.io/al_muraqib_web/`.
+One-time setup: **Settings → Pages → Source: “GitHub Actions”**.
+
+Static-build differences: API routes don't exist, so the RFQ/contact forms
+hand the request to **WhatsApp** (auto-composed message with a generated
+reference number) instead of `POST /api/*`.
+
 ## Routes (quick tour)
 
 | Route | What it shows |

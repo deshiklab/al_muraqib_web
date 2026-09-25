@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { track } from "@/lib/utils";
+import { track, waLink } from "@/lib/utils";
+import { site } from "@/lib/data/site";
 import type { Dict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 
@@ -31,6 +32,13 @@ export default function ContactForm({ locale, d }: { locale: Locale; d: Dict }) 
         try {
           const fd = new FormData(e.currentTarget);
           fd.append("locale", locale);
+          if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "1") {
+            const lines = [...fd.entries()].map(([k, v]) => `${k}: ${String(v)}`).filter((l) => !l.endsWith(": "));
+            window.open(waLink(site.whatsapp, `Al Muraqib — ${d.nav.contact}\n${lines.join("\n")}`), "_blank");
+            track("generate_lead", { type: "contact", reason, locale, via: "whatsapp" });
+            setSent(true);
+            return;
+          }
           const res = await fetch("/api/contact", { method: "POST", body: fd });
           if (!res.ok) throw new Error("failed");
           track("generate_lead", { type: "contact", reason, locale });

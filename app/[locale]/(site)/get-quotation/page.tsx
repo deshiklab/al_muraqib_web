@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
-import RfqWizard from "@/components/rfq/RfqWizard";
+import RfqPageClient from "@/components/rfq/RfqPageClient";
 import { getDict, isLocale } from "@/lib/i18n";
 import { site } from "@/lib/data/site";
-import { products } from "@/lib/data/catalog";
-import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 
 export async function generateMetadata({
@@ -21,24 +19,13 @@ export async function generateMetadata({
 
 export default async function QuotationPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const l = locale as Locale;
   const d = getDict(l);
-  const sp = await searchParams;
-
-  const rawProduct = typeof sp.product === "string" ? sp.product : "";
-  const initialProducts = rawProduct
-    .split(",")
-    .map((s) => s.trim())
-    .filter((slug) => products.some((p) => p.slug === slug));
-  const source = typeof sp.source === "string" ? sp.source : undefined;
-  const variant = typeof sp.variant === "string" ? sp.variant : undefined;
 
   const trust = [
     { icon: "clock" as const, text: l === "en" ? "Response within 1 working day" : "الرد خلال يوم عمل واحد" },
@@ -70,27 +57,7 @@ export default async function QuotationPage({
 
       <section className="py-10 md:py-14 bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          {initialProducts.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
-              <span className="text-slate-500 font-semibold">
-                {l === "en" ? "Requesting quote for:" : "طلب سعر لـ:"}
-              </span>
-              {initialProducts.map((slug) => (
-                <span key={slug} className="inline-flex items-center gap-1.5 bg-brand-700 text-white font-bold rounded-full px-3.5 py-1.5 text-xs">
-                  <Icon name="check" className="w-3.5 h-3.5" />
-                  {t(products.find((p) => p.slug === slug)?.name ?? { en: slug, ar: slug }, l)}
-                </span>
-              ))}
-              {variant && (
-                <span className="inline-flex items-center gap-1.5 bg-navy-900 text-gold-400 font-bold rounded-full px-3.5 py-1.5 text-xs" dir="ltr">
-                  <Icon name="ruler" className="w-3.5 h-3.5" />
-                  {variant}
-                </span>
-              )}
-            </div>
-          )}
-
-          <RfqWizard locale={l} d={d} initialProducts={initialProducts} source={source} />
+          <RfqPageClient locale={l} d={d} />
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-500">
             <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-2 hover:text-brand-700 font-semibold">

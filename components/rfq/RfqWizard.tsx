@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { cn, track, waLink } from "@/lib/utils";
+import { cn, track, waLink, makeRfqRef } from "@/lib/utils";
 import { site } from "@/lib/data/site";
 import { products } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
@@ -21,6 +21,8 @@ const MAX_TOTAL = 25 * 1024 * 1024;
 const MAX_FILES = 5;
 const EXT_OK = [".pdf", ".dwg", ".dxf", ".xls", ".xlsx", ".doc", ".docx", ".jpg", ".jpeg", ".png", ".webp", ".zip", ".csv", ".txt"];
 const DRAFT_KEY = "almuraqib-rfq-draft";
+/** Static (GitHub Pages) build: no API routes — submissions go via WhatsApp. */
+const isStatic = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
 type Step = 0 | 1 | 2 | 3 | 4;
 
@@ -145,6 +147,26 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
     setSubmitting(true);
     setError(null);
     try {
+      if (isStatic) {
+        // Static build has no API — hand the request over to WhatsApp.
+        const ref = makeRfqRef();
+        const lines = [
+          `${d.rfq.success.title} — ${ref}`,
+          `${d.rfq.fields.name}: ${form.name}`,
+          form.company ? `${d.rfq.fields.company}: ${form.company}` : "",
+          `${d.rfq.fields.email}: ${form.email}`,
+          `${d.rfq.fields.phone}: ${form.phone}`,
+          form.country ? `${d.rfq.fields.country}: ${form.country}` : "",
+          form.products.length ? `${d.rfq.fields.products}: ${form.products.join(", ")}` : "",
+          form.notes ? `${d.rfq.fields.notes}: ${form.notes}` : "",
+        ].filter(Boolean);
+        window.open(waLink(site.whatsapp, lines.join("\n")), "_blank");
+        setRefNo(ref);
+        localStorage.removeItem(DRAFT_KEY);
+        track("generate_lead", { ref, items: form.products.length, files: files.length, locale, via: "whatsapp" });
+        return;
+      }
+
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => {
         if (k === "consent") return;
@@ -183,14 +205,23 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
           {refNo}
         </p>
         <div className="mt-6 space-y-2 text-sm text-slate-500 text-start max-w-md mx-auto">
-          <p className="flex items-start gap-2">
-            <Icon name="check" className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />
-            {d.rfq.success.next1}
-          </p>
-          <p className="flex items-start gap-2">
-            <Icon name="check" className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />
-            {d.rfq.success.next2}
-          </p>
+          {isStatic ? (
+            <p className="flex items-start gap-2 bg-gold-50 border border-gold-200 text-navy-900 rounded-lg px-3 py-2.5">
+              <Icon name="whatsapp" className="w-4 h-4 text-[#25D366] mt-0.5 shrink-0" />
+              {d.rfq.success.staticNote}
+            </p>
+          ) : (
+            <>
+              <p className="flex items-start gap-2">
+                <Icon name="check" className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />
+                {d.rfq.success.next1}
+              </p>
+              <p className="flex items-start gap-2">
+                <Icon name="check" className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />
+                {d.rfq.success.next2}
+              </p>
+            </>
+          )}
         </div>
         <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
           <button
