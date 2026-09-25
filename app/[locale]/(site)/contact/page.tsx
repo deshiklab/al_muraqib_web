@@ -55,7 +55,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                     <Icon name="mail" className="w-5 h-5" />
                   </span>
                   <span>
-                    <span className="block text-xs text-slate-400 font-semibold uppercase tracking-wider">{d.contact.emailUs}</span>
+                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider">{d.contact.emailUs}</span>
                     <span className="block font-bold text-navy-900 group-hover:text-brand-700" dir="ltr">{site.emails.sales}</span>
                   </span>
                 </a>
@@ -64,7 +64,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                     <Icon name="phone" className="w-5 h-5" />
                   </span>
                   <span>
-                    <span className="block text-xs text-slate-400 font-semibold uppercase tracking-wider">{d.contact.callUs}</span>
+                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider">{d.contact.callUs}</span>
                     <span className="block font-bold text-navy-900 group-hover:text-brand-700" dir="ltr">{site.phone}</span>
                   </span>
                 </a>
@@ -73,7 +73,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                     <Icon name="pin" className="w-5 h-5" />
                   </span>
                   <span>
-                    <span className="block text-xs text-slate-400 font-semibold uppercase tracking-wider">{d.contact.visit}</span>
+                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider">{d.contact.visit}</span>
                     <span className="block font-bold text-navy-900 leading-relaxed">{t(site.address, l)}</span>
                   </span>
                 </div>

@@ -82,7 +82,7 @@ export default async function LegalPage({
           {copy[legal as LegalSlug][l].map((para, i) => (
             <p key={i}>{para}</p>
           ))}
-          <p className="text-sm text-slate-400">© {new Date().getFullYear()} {d.meta.siteName}</p>
+          <p className="text-sm text-slate-500">© {new Date().getFullYear()} {d.meta.siteName}</p>
         </div>
       </section>
     </>

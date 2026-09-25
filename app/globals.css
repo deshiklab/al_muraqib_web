@@ -15,6 +15,7 @@
   --color-gold-500: #f59e0b;
   --color-gold-600: #d97706;
   --color-gold-400: #fbbf24;
+  --color-gold-700: #b45309;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-montserrat), var(--font-inter), ui-sans-serif, sans-serif;
@@ -320,4 +321,12 @@
 .dark ::selection {
   background: rgba(245, 158, 11, 0.32);
   color: #f8fafc;
+}
+
+/* gold-700 is a light-theme ink color — lift it on dark surfaces */
+.dark .text-gold-700 {
+  color: #fbbf24;
+}
+.dark .hover\:text-gold-700:hover {
+  color: #fbbf24;
 }

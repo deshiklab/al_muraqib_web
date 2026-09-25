@@ -52,11 +52,11 @@ export default async function CertificationsPage({ params }: { params: Promise<{
                 <h2 className="mt-4 font-heading font-black text-xl text-navy-900">{t(c.title, l)}</h2>
                 <dl className="mt-4 space-y-2 text-sm">
                   <div className="flex gap-2">
-                    <dt className="text-slate-400 font-semibold min-w-24">{d.certifications.issuer}:</dt>
+                    <dt className="text-slate-500 font-semibold min-w-24">{d.certifications.issuer}:</dt>
                     <dd className="text-navy-900 font-medium">{t(c.issuer, l)}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="text-slate-400 font-semibold min-w-24">{d.certifications.validity}:</dt>
+                    <dt className="text-slate-500 font-semibold min-w-24">{d.certifications.validity}:</dt>
                     <dd className="text-navy-900 font-medium">{t(c.validity, l)}</dd>
                   </div>
                 </dl>

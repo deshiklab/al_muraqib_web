@@ -57,7 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             {t(post.category, l)}
           </span>
           <h1 className="mt-4 font-heading font-black text-white text-3xl md:text-5xl leading-tight">{t(post.title, l)}</h1>
-          <div className="mt-5 flex items-center gap-4 text-sm text-slate-400">
+          <div className="mt-5 flex items-center gap-4 text-sm text-slate-500">
             <time>{date}</time>
             <span className="flex items-center gap-1.5">
               <Icon name="clock" className="w-4 h-4" /> {post.readingMinutes} {d.common.min}
@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             ))}
           </div>
           {l === "ar" && (
-            <p className="mt-6 text-xs text-slate-400 bg-slate-50 rounded-lg px-3 py-2 inline-block">{d.common.translationNote}</p>
+            <p className="mt-6 text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2 inline-block">{d.common.translationNote}</p>
           )}
 
           {linkedProducts.length > 0 && (

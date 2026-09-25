@@ -91,7 +91,7 @@ export default function CatalogShell({
           {d.common.filters}
         </h2>
         {activeChips.length > 0 && (
-          <button onClick={clearAll} className="text-xs font-bold text-brand-700 hover:text-gold-600 cursor-pointer">
+          <button onClick={clearAll} className="text-xs font-bold text-brand-700 hover:text-gold-700 cursor-pointer">
             {d.common.clearAll}
           </button>
         )}
@@ -243,7 +243,7 @@ function FacetGroup({ title, options }: { title: string; options: { value: strin
   return (
     <fieldset className="border-t border-slate-100 pt-4">
       <legend className="sr-only">{title}</legend>
-      <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-400 mb-2.5">{title}</p>
+      <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 mb-2.5">{title}</p>
       <ul className="space-y-1.5">
         {options.map((o) => (
           <li key={o.value}>
@@ -268,7 +268,7 @@ function FacetGroup({ title, options }: { title: string; options: { value: strin
                 {o.checked && <Icon name="check" className="w-3 h-3" strokeWidth={3} />}
               </span>
               <span className="flex-1">{o.label}</span>
-              {o.count >= 0 && <span className="text-xs text-slate-400">{o.count}</span>}
+              {o.count >= 0 && <span className="text-xs text-slate-500">{o.count}</span>}
             </label>
           </li>
         ))}

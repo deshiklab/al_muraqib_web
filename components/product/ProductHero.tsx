@@ -84,7 +84,7 @@ export default function ProductHero({
               </button>
             );
           })}
-          <span className="ms-auto text-xs text-slate-400 flex items-center gap-1.5">
+          <span className="ms-auto text-xs text-slate-500 flex items-center gap-1.5">
             <Icon name="image" className="w-4 h-4" />
             {imgIdx + 1} / {activeItems.length}
           </span>
@@ -139,7 +139,7 @@ export default function ProductHero({
         {/* Variants */}
         {product.variantAxes && product.variantAxes.length > 0 && (
           <div className="mt-6 space-y-4 bg-slate-50 border border-slate-100 rounded-[12px] p-4">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-400 flex items-center gap-2">
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 flex items-center gap-2">
               <Icon name="ruler" className="w-4 h-4 text-gold-600" />
               {d.product.variantSelect}
             </p>
@@ -166,7 +166,7 @@ export default function ProductHero({
                       >
                         {t(opt.label, locale)}
                         {opt.note && (
-                          <span className={cn("block text-[10px] font-medium", active ? "text-white/70" : "text-slate-400")}>
+                          <span className={cn("block text-[10px] font-medium", active ? "text-white/70" : "text-slate-500")}>
                             {t(opt.note, locale)}
                           </span>
                         )}
@@ -183,7 +183,7 @@ export default function ProductHero({
         <div className="mt-6 grid grid-cols-2 gap-3">
           {product.keyFacts.map((f) => (
             <div key={f.label.en} className="bg-white border border-slate-200 rounded-[10px] p-3.5">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t(f.label, locale)}</p>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">{t(f.label, locale)}</p>
               <p className="mt-1 font-heading font-bold text-navy-900 text-[15px]">{t(f.value, locale)}</p>
             </div>
           ))}
@@ -218,7 +218,7 @@ export default function ProductHero({
               {d.common.whatsapp}
             </a>
           </div>
-          <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+          <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
             <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-1.5 hover:text-brand-700 font-semibold">
               <Icon name="phone" className="w-4 h-4" /> {site.phone}
             </a>

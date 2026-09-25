@@ -298,7 +298,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="mt-10 flex flex-wrap justify-center items-center gap-5 md:gap-10">
             {clients.map((c, i) => (
               <Reveal key={c.name} delay={i * 60}>
-                <span className="grid place-items-center h-14 px-6 rounded-lg bg-slate-50 ring-1 ring-slate-200/70 font-heading font-black text-slate-400 tracking-widest text-sm hover:text-brand-700 hover:ring-brand-600/30 transition-all">
+                <span className="grid place-items-center h-14 px-6 rounded-lg bg-slate-50 ring-1 ring-slate-200/70 font-heading font-black text-slate-500 tracking-widest text-sm hover:text-brand-700 hover:ring-brand-600/30 transition-all">
                   {c.logoText}
                 </span>
               </Reveal>

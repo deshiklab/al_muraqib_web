@@ -52,7 +52,7 @@ export default function ChatDock({ locale, d }: { locale: Locale; d: Dict }) {
             <button
               onClick={() => setOpen(false)}
               aria-label={d.nav.close}
-              className="p-1 -m-1 text-slate-400 hover:text-navy-900 transition-colors cursor-pointer"
+              className="p-1 -m-1 text-slate-500 hover:text-navy-900 transition-colors cursor-pointer"
             >
               <Icon name="close" className="w-4 h-4" />
             </button>

@@ -38,7 +38,7 @@ export default function ArticleCard({
           {t(article.excerpt, locale)}
         </p>
         <div className="mt-4 flex items-center justify-between text-xs">
-          <time className="text-slate-400">{date}</time>
+          <time className="text-slate-500">{date}</time>
           <span className="inline-flex items-center gap-1 font-bold text-brand-700 group-hover:gap-2 transition-all">
             {locale === "en" ? "Read" : "اقرأ"}
             <Icon name="arrowRight" className="w-3.5 h-3.5 flip-x" />

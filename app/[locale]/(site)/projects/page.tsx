@@ -70,7 +70,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                         <Icon name="pin" className="w-3.5 h-3.5" />
                         {t(proj.location, l)}
                       </span>
-                      <span className="text-slate-400">{proj.year}</span>
+                      <span className="text-slate-500">{proj.year}</span>
                     </div>
                     <h2 className="mt-2 font-heading font-bold text-navy-900 group-hover:text-brand-700 transition-colors leading-snug">
                       {t(proj.title, l)}

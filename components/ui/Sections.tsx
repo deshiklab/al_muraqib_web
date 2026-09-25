@@ -25,7 +25,7 @@ export function SectionHeading({
           className={cn(
             "text-[11px] font-black uppercase tracking-[0.22em] mb-3 flex items-center gap-2",
             center && "justify-center",
-            light ? "text-gold-500" : "text-gold-600"
+            light ? "text-gold-500" : "text-gold-700"
           )}
         >
           <span className={cn("w-6 h-px bg-current", !center && "hidden sm:block")} />

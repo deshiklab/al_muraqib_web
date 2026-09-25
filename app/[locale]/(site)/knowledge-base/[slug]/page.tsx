@@ -58,7 +58,7 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
             {t(doc.category, l)}
           </span>
           <h1 className="mt-4 font-heading font-black text-white text-3xl md:text-5xl leading-tight">{t(doc.title, l)}</h1>
-          <div className="mt-5 flex items-center gap-4 text-sm text-slate-400">
+          <div className="mt-5 flex items-center gap-4 text-sm text-slate-500">
             <time>{date}</time>
             <span className="flex items-center gap-1.5">
               <Icon name="clock" className="w-4 h-4" /> {doc.readingMinutes} {d.common.min}
@@ -71,7 +71,7 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-5 text-[17px] leading-relaxed text-slate-700">{doc.body.map((para, i) => <p key={i}>{para}</p>)}</div>
           {l === "ar" && (
-            <p className="mt-6 text-xs text-slate-400 bg-slate-50 rounded-lg px-3 py-2 inline-block">{d.common.translationNote}</p>
+            <p className="mt-6 text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2 inline-block">{d.common.translationNote}</p>
           )}
 
           <div className="mt-8 pt-6 border-t border-slate-100">

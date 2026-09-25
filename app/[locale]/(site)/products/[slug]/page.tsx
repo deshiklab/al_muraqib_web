@@ -112,7 +112,7 @@ export default async function ProductPage({
                 ))}
               </div>
               {l === "ar" && (
-                <p className="mt-3 text-xs text-slate-400 bg-slate-50 rounded-lg px-3 py-2 inline-block">
+                <p className="mt-3 text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2 inline-block">
                   {d.common.translationNote}
                 </p>
               )}
@@ -147,7 +147,7 @@ export default async function ProductPage({
                 </h2>
                 <Link
                   href={`/${l}/get-quotation?product=${product.slug}&source=spec-sheet`}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-gold-600 border border-slate-200 rounded-[10px] px-4 py-2 hover:border-gold-500 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-gold-700 border border-slate-200 rounded-[10px] px-4 py-2 hover:border-gold-500 transition-colors"
                 >
                   <Icon name="download" className="w-4 h-4" />
                   {d.common.downloadSpec}

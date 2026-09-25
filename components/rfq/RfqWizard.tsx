@@ -267,7 +267,7 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
                   "w-full flex items-center justify-center gap-2 px-3 py-4 text-xs font-bold border-b-2 transition-colors",
                   state === "current" && "border-gold-500 text-navy-900 bg-white",
                   state === "done" && "border-brand-700 text-brand-700 cursor-pointer",
-                  state === "todo" && "border-transparent text-slate-400"
+                  state === "todo" && "border-transparent text-slate-500"
                 )}
                 aria-current={state === "current" ? "step" : undefined}
               >
@@ -455,12 +455,12 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
                   <li key={`${f.name}-${i}`} className="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-[10px] px-4 py-3">
                     <Icon name="file" className="w-5 h-5 text-brand-700 shrink-0" />
                     <span className="flex-1 text-sm font-semibold text-navy-900 truncate" dir="ltr">{f.name}</span>
-                    <span className="text-xs text-slate-400 shrink-0" dir="ltr">{(f.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <span className="text-xs text-slate-500 shrink-0" dir="ltr">{(f.size / 1024 / 1024).toFixed(2)} MB</span>
                     <button
                       type="button"
                       onClick={() => setFiles(files.filter((_, x) => x !== i))}
                       aria-label={d.rfq.upload.remove}
-                      className="p-1.5 text-slate-400 hover:text-red-600 cursor-pointer"
+                      className="p-1.5 text-slate-500 hover:text-red-600 cursor-pointer"
                     >
                       <Icon name="close" className="w-4 h-4" />
                     </button>
@@ -576,7 +576,7 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
         </div>
 
         {step === 0 && !refNo && (
-          <p className="mt-4 text-xs text-slate-400 flex items-center gap-1.5">
+          <p className="mt-4 text-xs text-slate-500 flex items-center gap-1.5">
             <Icon name="check" className="w-3.5 h-3.5" />
             {d.rfq.draftSaved}
           </p>
@@ -616,8 +616,8 @@ function ReviewBlock({
   return (
     <div className="bg-slate-50 border border-slate-100 rounded-[10px] p-4">
       <div className="flex items-center justify-between mb-2">
-        <p className="text-[11px] font-black uppercase tracking-wider text-slate-400">{title}</p>
-        <button type="button" onClick={onEdit} className="text-xs font-bold text-brand-700 hover:text-gold-600 cursor-pointer">
+        <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">{title}</p>
+        <button type="button" onClick={onEdit} className="text-xs font-bold text-brand-700 hover:text-gold-700 cursor-pointer">
           {changeLabel}
         </button>
       </div>
@@ -628,7 +628,7 @@ function ReviewBlock({
           ))}
         </ul>
       ) : (
-        <p className="text-sm text-slate-400">{empty}</p>
+        <p className="text-sm text-slate-500">{empty}</p>
       )}
     </div>
   );
