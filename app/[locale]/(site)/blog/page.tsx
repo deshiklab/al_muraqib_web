@@ -6,12 +6,14 @@ import { Reveal } from "@/components/ui/Motion";
 import { getDict, isLocale } from "@/lib/i18n";
 import { articlesByKind } from "@/lib/data/content";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.blog.title, description: d.blog.intro };
+  return { title: d.blog.title, description: d.blog.intro, alternates: alternates(l, "/en/blog") };
 }
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {

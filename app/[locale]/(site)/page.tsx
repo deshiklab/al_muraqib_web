@@ -5,13 +5,22 @@ import { SectionHeading, CtaBand } from "@/components/ui/Sections";
 import ProductCard from "@/components/products/ProductCard";
 import ArticleCard from "@/components/ui/ArticleCard";
 import ProductArt from "@/components/ui/ProductArt";
-import { getDict } from "@/lib/i18n";
+import { getDict, isLocale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 import { productGroups } from "@/lib/data/nav";
 import { products } from "@/lib/data/catalog";
 import { articlesByKind, projects } from "@/lib/data/content";
 import { site, clients, sectors, certifications } from "@/lib/data/site";
 import { t } from "@/lib/utils";
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/types";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const l = locale as Locale;
+  return { alternates: alternates(l, "/en") };
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

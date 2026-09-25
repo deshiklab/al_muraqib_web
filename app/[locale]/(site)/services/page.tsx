@@ -7,12 +7,14 @@ import { CtaBand } from "@/components/ui/Sections";
 import { getDict, isLocale } from "@/lib/i18n";
 import { t } from "@/lib/utils";
 import type { IconName, Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.nav.services, description: d.meta.tagline };
+  return { title: d.nav.services, description: d.meta.tagline, alternates: alternates(l, "/en/services") };
 }
 
 const SERVICES: {

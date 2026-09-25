@@ -9,12 +9,14 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { projects } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.projects.title, description: d.projects.intro };
+  return { title: d.projects.title, description: d.projects.intro, alternates: alternates(l, "/en/projects") };
 }
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {

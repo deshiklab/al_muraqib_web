@@ -9,12 +9,14 @@ import { site, certifications } from "@/lib/data/site";
 import { projects } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.about.title, description: d.about.lead };
+  return { title: d.about.title, description: d.about.lead, alternates: alternates(l, "/en/company/about") };
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

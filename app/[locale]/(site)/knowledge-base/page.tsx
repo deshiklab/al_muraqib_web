@@ -8,12 +8,14 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { articlesByKind } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.kb.title, description: d.kb.intro };
+  return { title: d.kb.title, description: d.kb.intro, alternates: alternates(l, "/en/knowledge-base") };
 }
 
 export default async function KnowledgeBasePage({ params }: { params: Promise<{ locale: string }> }) {

@@ -8,12 +8,14 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { certifications } from "@/lib/data/site";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.certifications.title, description: d.certifications.intro };
+  return { title: d.certifications.title, description: d.certifications.intro, alternates: alternates(l, "/en/company/certifications") };
 }
 
 export default async function CertificationsPage({ params }: { params: Promise<{ locale: string }> }) {

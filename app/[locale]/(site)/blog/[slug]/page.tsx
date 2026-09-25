@@ -11,6 +11,7 @@ import { articles, articlesByKind } from "@/lib/data/content";
 import { getProduct } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export function generateStaticParams() {
   return articles.filter((a) => a.kind === "blog").map((a) => ({ slug: a.slug }));
@@ -19,10 +20,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const post = articles.find((a) => a.slug === slug && a.kind === "blog");
   if (!post) return {};
-  const l = locale as Locale;
-  return { title: t(post.title, l), description: t(post.excerpt, l) };
+  return { title: t(post.title, l), description: t(post.excerpt, l), alternates: alternates(l, `/en/blog/${slug}`) };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

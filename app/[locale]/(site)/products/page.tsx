@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import CatalogClient from "@/components/products/CatalogClient";
 import { getDict, isLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -11,10 +12,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
   return {
     title: d.products.title,
     description: d.products.intro,
+    alternates: alternates(l, "/en/products"),
   };
 }
 

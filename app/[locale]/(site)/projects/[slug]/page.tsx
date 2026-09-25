@@ -11,6 +11,7 @@ import { projects } from "@/lib/data/content";
 import { getProduct } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -19,10 +20,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const proj = projects.find((p) => p.slug === slug);
   if (!proj) return {};
-  const l = locale as Locale;
-  return { title: t(proj.title, l), description: t(proj.scope, l) };
+  return { title: t(proj.title, l), description: t(proj.scope, l), alternates: alternates(l, `/en/projects/${slug}`) };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

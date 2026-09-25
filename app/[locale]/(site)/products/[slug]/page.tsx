@@ -16,6 +16,7 @@ import { articlesByKind, projects } from "@/lib/data/content";
 import { productGroups, applications } from "@/lib/data/nav";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -28,13 +29,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const product = getProduct(slug);
   if (!product) return {};
-  const l = locale as Locale;
   return {
     title: `${t(product.name, l)}`,
     description: t(product.pitch, l),
-    alternates: { canonical: `/en/products/${slug}` },
+    alternates: alternates(l, `/en/products/${slug}`),
   };
 }
 

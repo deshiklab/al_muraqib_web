@@ -35,12 +35,14 @@ export async function generateMetadata({
     },
     description: d.home.heroText,
     metadataBase: new URL("https://almuraqib.ae"),
-    alternates: {
-      languages: { en: "/en", ar: "/ar" },
-    },
     openGraph: {
       siteName: d.meta.siteName,
       type: "website",
+      images: [{ url: "/og-card.png", width: 1200, height: 630, alt: d.meta.siteName }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-card.png"],
     },
   };
 }

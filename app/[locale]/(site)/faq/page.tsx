@@ -7,12 +7,14 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { products } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  const l = locale as Locale;
   const d = getDict(locale as Locale);
-  return { title: d.faq.title, description: d.faq.intro };
+  return { title: d.faq.title, description: d.faq.intro, alternates: alternates(l, "/en/faq") };
 }
 
 /** Product FAQs grouped under "specs" + site-level FAQs */
