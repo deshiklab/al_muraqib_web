@@ -1,0 +1,65 @@
+name: Create Preview Deployment
+
+# Creates an entry on the repository Deployments page
+# (https://github.com/deshiklab/al_muraqib_web/deployments) for the
+# arena branch preview build, with a link to the live preview URL.
+
+on:
+  push:
+    branches:
+      - arena/01a0d89a-al-muraqib-web
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: "Live preview URL to link on the deployment"
+        required: false
+        default: ""
+      environment:
+        description: "Deployment environment name"
+        required: false
+        default: "preview"
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create deployment + success status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PREVIEW_URL: ${{ inputs.preview_url || vars.PREVIEW_URL || format('https://github.com/{0}', github.repository) }}
+          ENV_NAME: ${{ inputs.environment || 'preview' }}
+        run: |
+          set -euo pipefail
+
+          echo "Creating deployment for ${GITHUB_SHA} in environment '${ENV_NAME}'…"
+
+          DEP_JSON=$(curl -fsS -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/deployments" \
+            -d "{\"ref\":\"${GITHUB_SHA}\",\"environment\":\"${ENV_NAME}\",\"auto_merge\":false,\"required_contexts\":[],\"payload\":{\"source\":\"deploy-preview-workflow\",\"run_id\":\"${GITHUB_RUN_ID}\"}}")
+
+          DEP_ID=$(printf '%s' "$DEP_JSON" | jq -r '.id // empty')
+          if [ -z "$DEP_ID" ]; then
+            echo "Failed to create deployment:"
+            printf '%s\n' "$DEP_JSON"
+            exit 1
+          fi
+
+          echo "Deployment #${DEP_ID} created — marking success with environment URL ${PREVIEW_URL}"
+
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/deployments/${DEP_ID}/statuses" \
+            -d "{\"state\":\"success\",\"environment_url\":\"${PREVIEW_URL}\",\"description\":\"Al Muraqib site preview deployed\",\"log_url\":\"${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}\"}"
+
+          echo "Done ✓"
