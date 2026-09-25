@@ -34,7 +34,7 @@ jobs:
       - name: Create deployment + success status
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PREVIEW_URL: ${{ inputs.preview_url || vars.PREVIEW_URL || format('https://github.com/{0}', github.repository) }}
+          PREVIEW_URL: ${{ inputs.preview_url || vars.PREVIEW_URL || 'https://3000-ixiwnkcxkttfaqwvcb15n.e2b.app' }}
           ENV_NAME: ${{ inputs.environment || 'preview' }}
         run: |
           set -euo pipefail
