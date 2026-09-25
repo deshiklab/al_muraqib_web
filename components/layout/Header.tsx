@@ -26,6 +26,7 @@ export default function Header({ locale, d }: HeaderProps) {
   const [drawer, setDrawer] = useState(false);
   const [search, setSearch] = useState(false);
   const [query, setQuery] = useState("");
+  const [selIdx, setSelIdx] = useState(0);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -79,7 +80,7 @@ export default function Header({ locale, d }: HeaderProps) {
   };
   const hoverClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 220);
   };
 
   const switchLocale = (next: Locale) => {
@@ -102,6 +103,37 @@ export default function Header({ locale, d }: HeaderProps) {
           .slice(0, 3),
       }
     : null;
+
+  // Flat list for keyboard navigation ( ↑ ↓ Enter )
+  const flatResults = results
+    ? [
+        ...results.products.map((p) => `${prefix}/products/${p.slug}`),
+        ...results.articles.map(
+          (a) => `${prefix}/${a.kind === "blog" ? "blog" : "knowledge-base"}/${a.slug}`
+        ),
+      ]
+    : [];
+
+  useEffect(() => setSelIdx(0), [query]);
+
+  const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (flatResults.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelIdx((i) => Math.min(i + 1, flatResults.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelIdx((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const target = flatResults[selIdx] ?? flatResults[0];
+      if (target) {
+        router.push(target);
+        setSearch(false);
+        setQuery("");
+      }
+    }
+  };
 
   const navLinkBase =
     "text-[13px] font-bold uppercase tracking-wide transition-colors px-3 py-2 flex items-center gap-1";
@@ -182,7 +214,7 @@ export default function Header({ locale, d }: HeaderProps) {
         {/* Main bar */}
         <div
           className={cn(
-            "transition-colors",
+            "transition-colors relative",
             transparent ? "bg-navy-950/30 backdrop-blur-md border-b border-white/10" : "bg-white"
           )}
         >
@@ -246,7 +278,7 @@ export default function Header({ locale, d }: HeaderProps) {
                 )}
               </div>
 
-              {/* Products mega */}
+              {/* Products trigger (panel lives at bar level, see below) */}
               <div
                 className="relative"
                 onMouseEnter={() => hoverOpen("products")}
@@ -265,65 +297,6 @@ export default function Header({ locale, d }: HeaderProps) {
                   {d.nav.products}
                   <Icon name="chevronDown" className={cn("w-3.5 h-3.5 transition-transform", openMenu === "products" && "rotate-180")} />
                 </button>
-                {openMenu === "products" && (
-                  <div className="absolute top-full start-0 mt-1 w-[min(1000px,92vw)] bg-white rounded-xl shadow-dropdown border border-slate-100 flex p-6 gap-6 z-50">
-                    {/* Promo panel */}
-                    <div className="w-[260px] shrink-0 bg-navy-800 text-white rounded-lg p-6 flex flex-col justify-between">
-                      <div>
-                        <p className="text-gold-500 text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-                          {d.mega.promoEyebrow}
-                        </p>
-                        <h3 className="font-heading font-black text-xl leading-tight mb-3 text-white">
-                          {d.mega.promoTitle}
-                        </h3>
-                        <p className="text-sm text-slate-300 leading-relaxed">{d.mega.promoText}</p>
-                      </div>
-                      <Link
-                        href={`${prefix}/products`}
-                        className="mt-5 inline-flex justify-center bg-gold-500 text-navy-950 font-bold text-sm py-2.5 px-4 rounded-lg hover:bg-gold-600 hover:text-white transition-colors"
-                        onClick={() => track("mega_promo_click")}
-                      >
-                        {d.mega.promoCta}
-                      </Link>
-                    </div>
-                    {/* Columns */}
-                    <div className="flex-1 grid grid-cols-3 gap-6">
-                      {megaColumns.map((col) => (
-                        <div key={col.title.en}>
-                          <p className="text-brand-700 text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5">
-                            {t(col.eyebrow, locale)}
-                          </p>
-                          <h4 className="font-heading font-bold text-base text-navy-900 mb-1">
-                            {t(col.title, locale)}
-                          </h4>
-                          <p className="text-xs text-slate-500 mb-3 leading-relaxed">{t(col.desc, locale)}</p>
-                          <ul className="space-y-2">
-                            {col.links.map((l) => (
-                              <li key={l.href}>
-                                <Link
-                                  href={`${prefix}${l.href}`}
-                                  className="text-[13px] font-semibold text-slate-700 hover:text-brand-700 transition-colors flex items-center gap-1.5"
-                                >
-                                  <Icon name="chevronRight" className="w-3 h-3 text-gold-500 flip-x" />
-                                  {t(l.label, locale)}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                          {col.viewAll && (
-                            <Link
-                              href={`${prefix}${col.viewAll.href}`}
-                              className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:text-gold-600"
-                            >
-                              {d.nav.allProducts}
-                              <Icon name="arrowRight" className="w-3.5 h-3.5 flip-x" />
-                            </Link>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
 
               {[
@@ -374,6 +347,98 @@ export default function Header({ locale, d }: HeaderProps) {
               </button>
             </div>
           </div>
+
+          {/* ============ Products mega panel — full viewport width, container-aligned ============ */}
+          {openMenu === "products" && (
+            <div
+              className="hidden xl:block absolute top-full inset-x-0 z-50 bg-white border-b border-slate-200 shadow-dropdown mega-panel"
+              onMouseEnter={() => {
+                if (closeTimer.current) clearTimeout(closeTimer.current);
+              }}
+              onMouseLeave={hoverClose}
+            >
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7 flex gap-7">
+                {/* Promo panel */}
+                <div className="w-[264px] shrink-0 bg-navy-800 text-white rounded-xl p-6 flex flex-col justify-between">
+                  <div>
+                    <p className="text-gold-500 text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+                      {d.mega.promoEyebrow}
+                    </p>
+                    <h3 className="font-heading font-black text-xl leading-tight mb-3 text-white">
+                      {d.mega.promoTitle}
+                    </h3>
+                    <p className="text-sm text-slate-300 leading-relaxed">{d.mega.promoText}</p>
+                  </div>
+                  <Link
+                    href={`${prefix}/products`}
+                    className="mt-5 inline-flex justify-center bg-gold-500 text-navy-950 font-bold text-sm py-2.5 px-4 rounded-lg hover:bg-gold-600 hover:text-white transition-colors"
+                    onClick={() => track("mega_promo_click")}
+                  >
+                    {d.mega.promoCta}
+                  </Link>
+                </div>
+
+                {/* Link columns */}
+                <div className="flex-1 grid grid-cols-3 gap-x-7 gap-y-6 min-w-0">
+                  {megaColumns.map((col) => (
+                    <div key={col.title.en} className="min-w-0">
+                      <p className="text-brand-700 text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5">
+                        {t(col.eyebrow, locale)}
+                      </p>
+                      <h4 className="font-heading font-bold text-base text-navy-900 mb-1">
+                        {t(col.title, locale)}
+                      </h4>
+                      <p className="text-xs text-slate-500 mb-3 leading-relaxed line-clamp-2">{t(col.desc, locale)}</p>
+                      <ul className="space-y-2">
+                        {col.links.map((l) => (
+                          <li key={l.href}>
+                            <Link
+                              href={`${prefix}${l.href}`}
+                              className="text-[13px] font-semibold text-slate-700 hover:text-brand-700 transition-colors flex items-center gap-1.5"
+                            >
+                              <Icon name="chevronRight" className="w-3 h-3 text-gold-500 flip-x shrink-0" />
+                              <span className="truncate">{t(l.label, locale)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                      {col.viewAll && (
+                        <Link
+                          href={`${prefix}${col.viewAll.href}`}
+                          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:text-gold-600"
+                        >
+                          {d.nav.allProducts}
+                          <Icon name="arrowRight" className="w-3.5 h-3.5 flip-x" />
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Featured / brochure block */}
+                <div className="w-[220px] shrink-0">
+                  <Link
+                    href={`${prefix}/get-quotation?source=brochure`}
+                    onClick={() => track("mega_featured_click")}
+                    className="group block h-full rounded-xl p-5 bg-gradient-to-br from-navy-900 to-brand-700 text-white relative overflow-hidden"
+                  >
+                    <span className="absolute -end-8 -bottom-8 w-32 h-32 rounded-full bg-gold-500/20 group-hover:scale-125 transition-transform" />
+                    <span className="grid place-items-center w-11 h-11 rounded-lg bg-gold-500 text-navy-950">
+                      <Icon name="download" className="w-5 h-5" />
+                    </span>
+                    <p className="mt-4 text-[11px] font-black uppercase tracking-[0.2em] text-gold-400">
+                      {d.mega.featuredTitle}
+                    </p>
+                    <p className="mt-1.5 text-sm font-semibold leading-snug">{d.mega.featuredText}</p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 group-hover:gap-2.5 transition-all">
+                      {d.mega.featuredCta}
+                      <Icon name="arrowRight" className="w-3.5 h-3.5 flip-x" />
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -461,9 +526,13 @@ export default function Header({ locale, d }: HeaderProps) {
                   autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={onSearchKeyDown}
                   placeholder={d.nav.searchPlaceholder}
                   className="flex-1 py-4 text-base outline-none bg-transparent"
                   aria-label={d.nav.search}
+                  role="combobox"
+                  aria-expanded={flatResults.length > 0}
+                  aria-activedescendant={flatResults[selIdx] ? `sr-${selIdx}` : undefined}
                 />
                 <button onClick={() => setSearch(false)} aria-label={d.nav.close} className="p-2 text-slate-400 hover:text-navy-900 cursor-pointer">
                   <Icon name="close" className="w-5 h-5" />
@@ -481,8 +550,15 @@ export default function Header({ locale, d }: HeaderProps) {
                   <>
                     {results.products.length > 0 && (
                       <Group label={locale === "en" ? "Products" : "المنتجات"}>
-                        {results.products.map((p) => (
-                          <ResultLink key={p.slug} href={`${prefix}/products/${p.slug}`} onClick={() => setSearch(false)}>
+                        {results.products.map((p, i) => (
+                          <ResultLink
+                            key={p.slug}
+                            id={`sr-${i}`}
+                            href={`${prefix}/products/${p.slug}`}
+                            selected={selIdx === i}
+                            onHover={() => setSelIdx(i)}
+                            onClick={() => setSearch(false)}
+                          >
                             <span className="grid place-items-center w-9 h-9 rounded-lg bg-navy-900 text-gold-500">
                               <Icon name="tank" className="w-4.5 h-4.5" />
                             </span>
@@ -496,10 +572,13 @@ export default function Header({ locale, d }: HeaderProps) {
                     )}
                     {results.articles.length > 0 && (
                       <Group label={locale === "en" ? "Articles & Guides" : "مقالات وأدلة"}>
-                        {results.articles.map((a) => (
+                        {results.articles.map((a, i) => (
                           <ResultLink
                             key={a.slug}
+                            id={`sr-${results.products.length + i}`}
                             href={`${prefix}/${a.kind === "blog" ? "blog" : "knowledge-base"}/${a.slug}`}
+                            selected={selIdx === results.products.length + i}
+                            onHover={() => setSelIdx(results.products.length + i)}
                             onClick={() => setSearch(false)}
                           >
                             <span className="grid place-items-center w-9 h-9 rounded-lg bg-gold-500 text-navy-950">
@@ -516,6 +595,22 @@ export default function Header({ locale, d }: HeaderProps) {
                   </>
                 )}
               </div>
+              {flatResults.length > 0 && (
+                <div className="flex items-center justify-center gap-4 px-4 py-2 bg-slate-50 border-t border-slate-100 text-[11px] text-slate-400">
+                  <span className="inline-flex items-center gap-1">
+                    <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">↑↓</kbd>
+                    {locale === "en" ? "navigate" : "تنقل"}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">↵</kbd>
+                    {locale === "en" ? "open" : "فتح"}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">Esc</kbd>
+                    {locale === "en" ? "close" : "إغلاق"}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -547,12 +642,26 @@ function NavLink({
   className?: string;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isRoot = /^\/(en|ar)$/.test(href);
+  const active = isRoot ? pathname === href || pathname === `${href}/` : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <Link
       href={href}
+      aria-current={active ? "page" : undefined}
       className={cn(
         className,
-        transparent ? "text-white hover:text-gold-400" : "text-navy-900 hover:text-brand-700"
+        "relative",
+        active
+          ? transparent
+            ? "text-gold-400"
+            : "text-brand-700"
+          : transparent
+            ? "text-white hover:text-gold-400"
+            : "text-navy-900 hover:text-brand-700",
+        active &&
+          "after:absolute after:-bottom-1 after:inset-x-3 after:h-[2.5px] after:rounded-full after:bg-gold-500"
       )}
     >
       {children}
@@ -593,14 +702,19 @@ function MobileLink({
   sub?: boolean;
   bold?: boolean;
 }) {
+  const pathname = usePathname();
+  const isRoot = /^\/(en|ar)$/.test(href);
+  const active = isRoot ? pathname === href || pathname === `${href}/` : pathname === href || pathname.startsWith(`${href}/`);
   return (
     <Link
       href={href}
       onClick={onClick}
+      aria-current={active ? "page" : undefined}
       className={cn(
         "block py-3 border-b border-slate-100 text-navy-900",
         sub ? "ps-6 text-sm text-slate-600" : "font-bold",
-        bold && "text-brand-700"
+        bold && "text-brand-700",
+        active && !sub && !bold && "text-brand-700"
       )}
     >
       {children}
@@ -647,13 +761,28 @@ function ResultLink({
   href,
   onClick,
   children,
+  selected,
+  onHover,
+  id,
 }: {
   href: string;
   onClick: () => void;
   children: React.ReactNode;
+  selected?: boolean;
+  onHover?: () => void;
+  id?: string;
 }) {
   return (
-    <Link href={href} onClick={onClick} className="flex items-center gap-3 rounded-lg p-2 hover:bg-slate-50 transition-colors">
+    <Link
+      id={id}
+      href={href}
+      onClick={onClick}
+      onMouseEnter={onHover}
+      className={cn(
+        "flex items-center gap-3 rounded-lg p-2 transition-colors",
+        selected ? "bg-slate-100 ring-1 ring-slate-200" : "hover:bg-slate-50"
+      )}
+    >
       {children}
     </Link>
   );

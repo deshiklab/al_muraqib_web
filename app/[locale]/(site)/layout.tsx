@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatDock from "@/components/layout/ChatDock";
-import { SideTab, BackToTop } from "@/components/layout/Chrome";
+import { SideTab, BackToTop, ScrollProgress } from "@/components/layout/Chrome";
 import { getDict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 
@@ -25,6 +25,7 @@ export default async function SiteLayout({
         {d.nav.skipToContent}
       </a>
       <Header locale={l} d={d} />
+      <ScrollProgress />
       <main id="main">{children}</main>
       <Footer locale={l} d={d} />
       <SideTab locale={l} d={d} />

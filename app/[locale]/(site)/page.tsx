@@ -88,10 +88,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </div>
           </Reveal>
         </div>
+
+        {/* Scroll cue */}
+        <a
+          href="#stats"
+          aria-label={isAr ? "مرّر للأسفل" : "Scroll to content"}
+          className="hidden md:flex absolute bottom-7 inset-x-0 flex-col items-center gap-1 text-white/45 hover:text-gold-400 transition-colors"
+        >
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em]">{isAr ? "مرّر" : "Scroll"}</span>
+          <Icon name="chevronDown" className="w-5 h-5 scroll-cue" />
+        </a>
       </section>
 
       {/* ============ STATS ============ */}
-      <section className="bg-navy-900 border-t border-white/10">
+      <section id="stats" className="bg-navy-900 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           {[
             { label: d.home.statsEstablished, value: site.stats.established, raw: true },

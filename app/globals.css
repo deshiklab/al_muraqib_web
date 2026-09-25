@@ -103,6 +103,55 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Mega menu entrance */
+  .mega-panel {
+    animation: megaIn 0.18s ease-out;
+    transform-origin: top center;
+  }
+  @keyframes megaIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* RFQ wizard step transition */
+  .step-enter {
+    animation: stepIn 0.28s ease-out;
+  }
+  @keyframes stepIn {
+    from {
+      opacity: 0;
+      transform: translateX(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    background: linear-gradient(90deg, var(--color-gold-600), var(--color-gold-400));
+    transform-origin: left center;
+  }
+  [dir="rtl"] .scroll-progress {
+    transform-origin: right center;
+  }
+
+  /* Hero scroll cue */
+  @keyframes cueBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(7px); opacity: 1; }
+  }
+  .scroll-cue {
+    animation: cueBounce 1.8s ease-in-out infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

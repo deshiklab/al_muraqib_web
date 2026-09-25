@@ -40,3 +40,35 @@ export function BackToTop({ d }: { d: Dict }) {
     </button>
   );
 }
+
+/** Thin gold reading-progress line pinned to the top of the viewport (RTL-aware) */
+export function ScrollProgress() {
+  const [pct, setPct] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      setPct(max > 0 ? Math.min((window.scrollY / max) * 100, 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return (
+    <div
+      className="fixed top-0 inset-x-0 h-[3px] z-[60] pointer-events-none"
+      aria-hidden="true"
+    >
+      <div
+        className="scroll-progress h-full w-full transition-transform duration-150 ease-out"
+        style={{ transform: `scaleX(${pct / 100})` }}
+      />
+    </div>
+  );
+}

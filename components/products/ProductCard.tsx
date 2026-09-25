@@ -20,12 +20,12 @@ export default function ProductCard({
 
   return (
     <article className="group bg-white rounded-[12px] border border-slate-200/80 overflow-hidden hover:shadow-soft hover:border-brand-600/40 transition-all flex flex-col">
-      <Link href={`/${locale}/products/${product.slug}`} className="relative block">
+      <Link href={`/${locale}/products/${product.slug}`} className="relative block overflow-hidden">
         <ProductArt
           seed={product.slug}
           icon={group?.icon ?? "tank"}
           label={t(product.name, locale)}
-          className="aspect-[4/3] w-full"
+          className="aspect-[4/3] w-full transition-transform duration-500 ease-out group-hover:scale-[1.05]"
         />
         {product.featured && (
           <span className="absolute top-3 start-3 bg-gold-500 text-navy-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full">

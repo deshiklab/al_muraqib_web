@@ -258,6 +258,7 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
       </ol>
 
       <div className="p-6 md:p-8">
+        <div key={step} className="step-enter">
         {/* ===== Step 0: Contact ===== */}
         {step === 0 && (
           <div className="space-y-5">
@@ -487,6 +488,8 @@ export default function RfqWizard({ locale, d, initialProducts, source }: Props)
             </label>
           </div>
         )}
+
+        </div>
 
         {error && (
           <p className="mt-5 text-sm font-semibold text-red-600 flex items-center gap-2" role="alert">
