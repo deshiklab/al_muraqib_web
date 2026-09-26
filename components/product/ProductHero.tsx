@@ -84,7 +84,7 @@ export default function ProductHero({
               </button>
             );
           })}
-          <span className="ms-auto text-xs text-slate-500 flex items-center gap-1.5">
+          <span className="ms-auto text-xs text-slate-400 flex items-center gap-1.5">
             <Icon name="image" className="w-4 h-4" />
             {imgIdx + 1} / {activeItems.length}
           </span>
@@ -119,7 +119,7 @@ export default function ProductHero({
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Link
             href={`/${locale}/products?group=${product.group}`}
-            className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-700 bg-brand-700/10 rounded-full px-3 py-1.5 hover:bg-brand-700 hover:text-white transition-colors"
+            className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-500 bg-brand-500/10 rounded-full px-3 py-1.5 hover:bg-brand-700 hover:text-white transition-colors"
           >
             {t(group?.name ?? { en: "", ar: "" }, locale)}
           </Link>
@@ -131,10 +131,10 @@ export default function ProductHero({
           )}
         </div>
 
-        <h1 className="font-heading font-black text-3xl md:text-4xl leading-tight text-navy-900 text-balance">
+        <h1 className="font-heading font-black text-3xl md:text-4xl leading-tight text-white text-balance">
           {t(product.name, locale)}
         </h1>
-        <p className="mt-3 text-slate-600 leading-relaxed text-[17px]">{t(product.pitch, locale)}</p>
+        <p className="mt-3 text-slate-300 leading-relaxed text-[17px]">{t(product.pitch, locale)}</p>
 
         {/* Variants */}
         {product.variantAxes && product.variantAxes.length > 0 && (
@@ -202,7 +202,7 @@ export default function ProductHero({
           <div className="grid grid-cols-2 gap-3">
             <Link
               href={`/${locale}/get-quotation?product=${product.slug}&source=brochure`}
-              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-navy-900 font-bold text-sm py-3 rounded-[10px] hover:border-brand-700 hover:text-brand-700 transition-colors"
+              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors"
             >
               <Icon name="download" className="w-4 h-4" />
               {d.common.downloadBrochure}
@@ -218,8 +218,8 @@ export default function ProductHero({
               {d.common.whatsapp}
             </a>
           </div>
-          <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
-            <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-1.5 hover:text-brand-700 font-semibold">
+          <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+            <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-1.5 hover:text-gold-400 font-semibold">
               <Icon name="phone" className="w-4 h-4" /> {site.phone}
             </a>
             <button
@@ -228,7 +228,7 @@ export default function ProductHero({
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1800);
               }}
-              className="flex items-center gap-1.5 hover:text-brand-700 font-semibold cursor-pointer"
+              className="flex items-center gap-1.5 hover:text-gold-400 font-semibold cursor-pointer"
             >
               <Icon name={copied ? "check" : "share"} className="w-4 h-4" />
               {copied ? (locale === "en" ? "Copied!" : "تم النسخ!") : locale === "en" ? "Share" : "مشاركة"}

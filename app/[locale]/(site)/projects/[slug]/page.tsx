@@ -80,7 +80,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
           <dl className="mt-10 grid sm:grid-cols-3 gap-4">
             {facts.map((f) => (
               <div key={String(f.label)} className="bg-white/5 ring-1 ring-white/10 rounded-[10px] p-4">
-                <dt className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <dt className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   <Icon name={f.icon} className="w-4 h-4 text-gold-500" />
                   {f.label}
                 </dt>
