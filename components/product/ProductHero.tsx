@@ -218,9 +218,13 @@ export default function ProductHero({
               {d.common.whatsapp}
             </a>
           </div>
-          <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
-            <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-1.5 hover:text-gold-400 font-semibold">
-              <Icon name="phone" className="w-4 h-4" /> {site.phone}
+          <div className="grid grid-cols-2 gap-3 pt-1">
+            <a
+              href={`tel:${site.phoneIntl}`}
+              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors whitespace-nowrap"
+            >
+              <Icon name="phone" className="w-4 h-4" />
+              {site.phone}
             </a>
             <button
               onClick={() => {
@@ -228,7 +232,10 @@ export default function ProductHero({
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1800);
               }}
-              className="flex items-center gap-1.5 hover:text-gold-400 font-semibold cursor-pointer"
+              className={cn(
+                "flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors cursor-pointer",
+                copied && "border-gold-500 text-gold-400"
+              )}
             >
               <Icon name={copied ? "check" : "share"} className="w-4 h-4" />
               {copied ? (locale === "en" ? "Copied!" : "تم النسخ!") : locale === "en" ? "Share" : "مشاركة"}
