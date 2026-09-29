@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Development Proposal — Al Muraqib Fiber Glass Industry LLC | BITSCOL</title>
+<style>
+  :root{
+    --navy:#0f172a; --navy2:#07101f; --gold:#f59e0b; --gold-d:#b45309;
+    --ink:#1e293b; --muted:#64748b; --line:#e2e8f0; --bg:#f8fafc; --sky:#0369a1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Tahoma,Geniva,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px}
+  .page{max-width:860px;margin:0 auto;background:#fff;padding:56px 64px}
+  @media (max-width:700px){.page{padding:32px 22px}}
+  @media print{
+    body{background:#fff}
+    .page{max-width:none;padding:0}
+    .page-break{page-break-before:always}
+    .noprint{display:none}
+    a{color:inherit;text-decoration:none}
+  }
+  /* ---------- cover ---------- */
+  .cover{background:linear-gradient(155deg,var(--navy) 0%,var(--navy2) 70%);color:#fff;border-radius:4px;padding:72px 64px;position:relative;overflow:hidden}
+  @media print{.cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  .cover::after{content:"";position:absolute;right:-90px;bottom:-90px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.28),transparent 65%)}
+  .cover .kicker{letter-spacing:.35em;font-size:12px;color:var(--gold);font-weight:800;text-transform:uppercase}
+  .cover h1{font-size:44px;line-height:1.1;margin:18px 0 6px;font-weight:900}
+  .cover h2{font-size:20px;font-weight:600;color:#cbd5e1}
+  .cover .rule{width:74px;height:4px;background:var(--gold);margin:26px 0}
+  .cover .tag{font-size:15px;color:#e2e8f0;font-style:italic}
+  .cover .co{margin-top:44px;font-weight:800;letter-spacing:.12em;font-size:17px}
+  .cover .co small{display:block;font-weight:400;letter-spacing:0;color:#94a3b8;font-size:13px;margin-top:4px;text-transform:none}
+  .cover .contact{margin-top:26px;font-size:13.5px;color:#cbd5e1;line-height:1.9}
+  .cover .contact b{color:#fff}
+  /* ---------- structure ---------- */
+  h1.doc{font-size:30px;color:var(--navy);border-bottom:3px solid var(--gold);padding-bottom:10px;margin:8px 0 22px;font-weight:900}
+  h2{font-size:21px;color:var(--navy);margin:38px 0 14px;font-weight:800}
+  h3{font-size:17px;color:var(--sky);margin:26px 0 10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  h4{font-size:15.5px;margin:18px 0 8px;font-weight:800;color:var(--ink)}
+  p{margin:10px 0}
+  ul{margin:8px 0 8px 4px;list-style:none}
+  ul li{padding:4px 0 4px 22px;position:relative}
+  ul li::before{content:"•";position:absolute;left:4px;color:var(--gold-d);font-weight:900}
+  .meta{display:flex;gap:36px;flex-wrap:wrap;margin:14px 0 4px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .meta div{font-size:14px}
+  .meta .lbl{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;font-weight:700}
+  .subject{background:#fffbeb;border-left:4px solid var(--gold);padding:10px 16px;margin:16px 0;font-weight:700}
+  .sign{margin-top:34px}
+  .sign .name{font-weight:900;font-size:16px;color:var(--navy)}
+  .sign .role{color:var(--muted);font-size:14px}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-size:13px;letter-spacing:.03em}
+  td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafc}
+  .total td{background:#fffbeb!important;font-weight:900;color:var(--navy)}
+  .words{font-weight:800;color:var(--gold-d);margin:6px 0 2px}
+  .note{background:#f1f5f9;border:1px dashed #94a3b8;padding:10px 14px;font-size:13.5px;margin:14px 0;border-radius:4px}
+  .terms{font-size:13.5px}
+  .terms .t{margin:12px 0}
+  .terms .t b{color:var(--navy)}
+  .exec{background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:18px 22px}
+  .badge{display:inline-block;background:var(--navy);color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.18em;padding:5px 12px;border-radius:99px;text-transform:uppercase}
+  .footer-note{margin-top:46px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center}
+  .printbtn{position:fixed;right:18px;bottom:18px;background:var(--gold);color:#0f172a;border:0;font-weight:800;padding:12px 20px;border-radius:99px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:14px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ COVER ============ -->
+  <div class="cover">
+    <div class="kicker">BITSCOL · Bangladesh IT &amp; Software Company Limited</div>
+    <h1>WEBSITE<br>DEVELOPMENT<br>PROPOSAL</h1>
+    <div class="rule"></div>
+    <div class="tag">Innovative Solutions. Reliable Technology. Business Growth.</div>
+    <div class="co">PREPARED FOR
+      <small>Al Muraqib Fiber Glass Industry LLC — Sharjah, United Arab Emirates</small>
+    </div>
+    <div class="contact">
+      <b>Address:</b> House# 33, Road: 15, Sector-11, Uttara, Dhaka, Bangladesh<br>
+      <b>Email:</b> sales@bitscol.com &nbsp;·&nbsp; <b>Mobile:</b> +8801711853769<br>
+      facebook.com/bitscol &nbsp;·&nbsp; linkedin.com/company/bitscol &nbsp;·&nbsp; www.bitscol.com
+    </div>
+  </div>
+
+  <!-- ============ COVER LETTER ============ -->
+  <div class="page-break"></div>
+  <h1 class="doc">Cover Letter</h1>
+  <div class="meta">
+    <div><div class="lbl">Date</div><b>29-09-2026</b></div>
+    <div><div class="lbl">To</div><b>The Managing Director</b><br>Al Muraqib Fiber Glass Industry LLC<br>P.O. Box 2719, Plot 970-972, Al Bataeh Industrial Area, Sharjah, UAE<br>www.almuraqib.ae · +971 6 569 1110</div>
+  </div>
+  <div class="subject">Subject: Website Development Proposal for Al Muraqib Fiber Glass Industry LLC</div>
+
+  <p><b>Dear Sir,</b></p>
+  <p>Thank you for considering <b>Bangladesh IT &amp; Software Company Ltd (BITSCOL)</b> to offer a proposal for your Website Development Needs.</p>
+  <p>We admire how <b>Al Muraqib Fiber Glass Industry LLC</b> has grown into one of the UAE's trusted names in GRP/FRP manufacturing — from hot-press and cold-press GRP panel tanks, septic tanks and plunge pools to GRP linings and gratings — delivering to landmark projects such as <b>Royal M Hotel, FIVE Luxe JBR, Sensoria, Samana ParkView</b> and for leading contractors including <b>ASAK, Fibrex, Progress, Azizi</b> and <b>Penta EMI</b>.</p>
+  <p>To support your global B2B reach and your Arabic-speaking market, our team has already <b>started developing a prototype</b> of a modern, fully responsive website for Al Muraqib. Leveraging agile development strategies and our extensive IT expertise, we will complete this platform into a dynamic bilingual (English / Arabic with full RTL) website that efficiently showcases your product catalogue, technical specifications, certifications and project references — and turns international enquiries into quotations through CRM-connected forms.</p>
+  <p>We are confident in delivering top-tier web design, development and web services tailored specifically for GRP/FRP and construction-materials manufacturers. Let's connect soon to discuss how we can elevate your online presence to match your manufacturing excellence.</p>
+  <p>If you have any questions, please don't hesitate to get in touch.</p>
+  <p>Thank you,</p>
+  <div class="sign">
+    <div class="name">BELAL AHMED</div>
+    <div class="role">CTO, BITSCOL</div>
+    <div class="role"><b>Let's Talk:</b> +88 01711853769 · info.bitscol@gmail.com</div>
+  </div>
+
+  <!-- ============ EXEC SUMMARY ============ -->
+  <div class="page-break"></div>
+  <h1 class="doc">Executive Summary</h1>
+  <div class="exec">
+    <p>This document outlines a streamlined development plan to modify, build, and launch a high-performance <b>bilingual (English/Arabic)</b> web platform for <b>Al Muraqib Fiber Glass Industry LLC</b>. Leveraging the prototype design already initiated by our team, our primary focus is on executing a robust frontend deployment and integrating a powerful backend Content Management System (CMS) with CRM-connected quotation workflows. This targeted approach ensures a scalable, cost-effective rollout that aligns with your operational priorities as a leading GRP/FRP manufacturer serving the UAE and GCC markets.</p>
+  </div>
+
+  <h1 class="doc">Project Understanding &amp; Objectives</h1>
+  <p>Based on our review of your current online presence, your product portfolio and the prototype design already under way, we understand your primary objectives are to:</p>
+  <ul>
+    <li><b>Establish a Global B2B Presence:</b> Deploy the prototype into a fully functional, credible bilingual website (English + Arabic with full RTL) showcasing your GRP panel tanks, septic tanks, plunge pools, linings, gratings and their industrial applications, together with your certifications and landmark project references.</li>
+    <li><b>Enhance Client Communication:</b> Integrate modern communication tools — an RFQ/quotation wizard, WhatsApp click-to-chat and live chat — plus secure inquiry forms connected to your CRM, to facilitate seamless interactions with prospective international and local buyers.</li>
+    <li><b>Streamline Content Management:</b> Implement a robust backend and headless CMS, allowing your team to easily update product catalogue pages, technical specifications &amp; variants, certifications, projects and corporate news without technical bottlenecks.</li>
+    <li><b>Win Search Visibility:</b> Deliver multilingual on-page SEO (hreflang, sitemaps, structured metadata) and fast, Core-Web-Vitals-friendly performance so buyers searching for GRP tanks and related products find you first.</li>
+  </ul>
+
+  <h1 class="doc">Phased Development Plan &amp; Deliverables</h1>
+  <p>We will structure the project into focused phases to ensure a smooth technical transition and robust implementation of your provided design.</p>
+
+  <h2>Phase 1: Frontend Adaptation &amp; CMS Integration</h2>
+  <p><b>Focus:</b> To translate the initiated prototype into a fully responsive, bilingual frontend architecture and integrate a dynamic backend CMS that serves as the digital face of your manufacturing business.</p>
+  <h4>KEY DELIVERABLES:</h4>
+  <p><b>1. Frontend Development (Based on Provided Design):</b></p>
+  <ul>
+    <li>Conversion of the prototype design into responsive, high-performance code (utilizing modern stacks such as <b>Next.js (React) and Tailwind CSS</b>).</li>
+    <li><b>Bilingual EN/AR with full RTL support</b>, language switcher and Arabic typography.</li>
+    <li>Product catalogue with search &amp; filters, product detail pages (gallery, tabs, technical specifications, variants, key features, applications, FAQ, related products), portfolio/projects showcase, certifications, blog and knowledge base.</li>
+    <li>RFQ (quotation) wizard, WhatsApp click-to-chat, tawk.to live chat, and light/dark theme toggle.</li>
+    <li>Optimization of UI elements to ensure cross-device compatibility (mobile, tablet, desktop) and fast loading times for global accessibility.</li>
+  </ul>
+  <p><b>2. Backend &amp; CMS Architecture:</b></p>
+  <ul>
+    <li><b>Content Management:</b> A secure admin panel (headless CMS) to create, edit, and delete content on all public-facing pages — products, specs/variants, projects, certifications, articles and pages.</li>
+    <li><b>Basic User Management:</b> Ability to create and manage admin/editor roles.</li>
+    <li><b>Theme &amp; UI Settings:</b> Controls for basic site settings (contact details, banners, homepage sections).</li>
+    <li><b>Contact / RFQ Message Inbox &amp; CRM Integration:</b> A central place to receive and review all inquiries from the website's contact and quotation forms, with automatic push of quotation requests into your CRM.</li>
+  </ul>
+
+  <h2>Phase 2: Website Service &amp; Maintenance</h2>
+  <p><b>Focus:</b> To integrate essential tools for team coordination, managing client relationships and streamlining the billing process.</p>
+  <h4>KEY DELIVERABLES:</h4>
+  <p><b>1. Regular Maintenance of the Website:</b></p>
+  <ul>
+    <li>System Error &amp; Bug Fixing.</li>
+    <li>Help to manage users and admin panel.</li>
+    <li>Help to update and change the contents.</li>
+  </ul>
+  <p><b>2. Maintaining the Site:</b></p>
+  <ul>
+    <li>Site Deploy</li>
+    <li>Update after Maintenance</li>
+    <li>Restore from backup</li>
+  </ul>
+
+  <h1 class="doc">Recommended Technology Stack</h1>
+  <table>
+    <tr><th style="width:16%">Component</th><th style="width:30%">Recommendation</th><th>Rationale</th></tr>
+    <tr><td><b>Backend</b></td><td>Laravel (PHP) + Headless CMS/API</td><td>A secure, robust, and scalable framework with a rich ecosystem ideal for building the admin CMS, quotation inbox and CRM integrations that power the site.</td></tr>
+    <tr><td><b>Frontend</b></td><td>Next.js (React) &amp; Tailwind CSS</td><td>A powerful combination for modern web development. Next.js delivers server-side rendering/static export for SEO, first-class internationalization (EN/AR + RTL) and top performance, while Tailwind CSS allows rapid, customizable UI development precisely converted from your prototype into a highly responsive interface for all devices.</td></tr>
+    <tr><td><b>Database</b></td><td>MySQL 8.0 / PostgreSQL</td><td>Proven, reliable, and high-performance open-source databases well-suited for relational data (products, specifications, quotations, contacts).</td></tr>
+  </table>
+
+  <h1 class="doc">Estimated Project Timeline</h1>
+  <p>From Phase 1 – Phase 2 the timeline given below is an estimate and will be refined after a detailed discovery and scoping session.</p>
+  <table>
+    <tr><th style="width:52%">Milestone</th><th style="width:8%"></th><th>Target Date</th></tr>
+    <tr><td><b>Phase 1 (Foundation): 4 – 5 Weeks from now till finish</b></td><td>-</td><td></td></tr>
+    <tr><td>&nbsp;&nbsp;○ UI/UX Design &amp; Prototype</td><td>-</td><td>Done (Prototype In Progress)</td></tr>
+    <tr><td>&nbsp;&nbsp;○ Finalizing Static Site</td><td>-</td><td>10th October</td></tr>
+    <tr><td>&nbsp;&nbsp;○ Headless CMS Development</td><td>-</td><td>20th October</td></tr>
+    <tr><td>&nbsp;&nbsp;○ CRM Integration (RFQ Forms)</td><td>-</td><td>27th October</td></tr>
+    <tr><td>&nbsp;&nbsp;○ Full Integration</td><td>-</td><td>31st October</td></tr>
+    <tr><td>&nbsp;&nbsp;○ Live Testing &amp; Bug Fixing</td><td>-</td><td>3rd November</td></tr>
+    <tr><td>&nbsp;&nbsp;○ Go Live</td><td>-</td><td><b>8th November</b></td></tr>
+    <tr><td><b>Phase 2 (Website Service &amp; Maintenance)</b></td><td>-</td><td><b>8th December</b></td></tr>
+  </table>
+
+  <h1 class="doc">Detail Cost Breakdown for the Development</h1>
+  <p>The below cost is only for the development fee of the proposed website System, No Hardware / Server price is included. The user needs to buy all the required equipment / Hardware to operate the software successfully.</p>
+  <table>
+    <tr><th style="width:34%">Solutions</th><th>Modules</th><th style="width:18%">Amount</th></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>UI/UX Design (Bilingual EN/AR)</td><td>15,000/- BDT</td></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>Frontend Development (Next.js + Tailwind, RTL, Responsive)</td><td>40,000/- BDT</td></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>Backend &amp; Headless CMS Development</td><td>30,000/- BDT</td></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>CRM Integration &amp; Quotation Workflow</td><td>25,000/- BDT</td></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>Integration, Testing &amp; SEO Setup</td><td>20,000/- BDT</td></tr>
+    <tr><td>Phase 1 (Dynamic Website Development)</td><td>Deployment, Go Live &amp; Admin Training</td><td>10,000/- BDT</td></tr>
+    <tr class="total"><td>Total</td><td></td><td>140,000/- BDT</td></tr>
+    <tr><td>Discount (Almost 29%)</td><td></td><td>40,000/- BDT</td></tr>
+    <tr class="total"><td>Total</td><td></td><td>100,000/- BDT</td></tr>
+  </table>
+  <p class="words">In Words: One Lakh Taka Only</p>
+
+  <table>
+    <tr><th style="width:24%">Work Type</th><th>Items &amp; Descriptions</th><th style="width:20%">Duration</th><th style="width:22%">Amount in BDT</th></tr>
+    <tr><td>Support &amp; Maintenance</td><td>Website Support &amp; Maintenance Monthly</td><td>Each Month</td><td>5,000/- BDT</td></tr>
+  </table>
+  <div class="note"><b>N: B:</b> One Month Website Support &amp; Maintenance Service is Included. MMC will be applicable from December 2026.</div>
+
+  <h1 class="doc">Payment Terms</h1>
+  <ul>
+    <li>40% of the total amount needs to be paid in advance during work order/confirmation.</li>
+    <li>Next 30% During the live testing.</li>
+    <li>The rest 30% During the Final Delivery.</li>
+  </ul>
+  <p><b>NOTE:</b> Additional development charge (at any time later for this project in future) has not been included into the project development cost.</p>
+  <p>Monthly Support &amp; Maintenance fee needs to be paid within the 1st week of each month.</p>
+  <p>For any additional data entry / modification / customization is required or any additional feature / module is needed to be developed, an Additional Charge will be applicable at the rate of <b>500 BDT PER HOUR.</b></p>
+
+  <div class="sign">
+    <div class="name">BELAL AHMED</div>
+    <div class="role">CTO, BITSCOL</div>
+    <div class="role"><b>Let's Talk:</b> +88 01711853769 · info.bitscol@gmail.com</div>
+  </div>
+
+  <!-- ============ TERMS ============ -->
+  <div class="page-break"></div>
+  <h1 class="doc">Terms Of The Business</h1>
+  <div class="terms">
+    <p class="t"><b>Confidentiality:</b> This offer is "strictly confidential" and should not be disclosed to any individual or a party other than intended. This proposal can't be used to compete with other vendors or software providers for similar services or products.</p>
+    <p class="t"><b>Validity:</b> This offer is only valid for 30 working days from the date of submission.</p>
+    <p class="t"><b>Maintenance:</b> A Monthly Maintenance Contract (MMC) is required for ongoing support, reporting services, and continuation of work.</p>
+    <p class="t"><b>Support Hours:</b> Our Support Team is available for 24 hours, 7 days a week except for situations during and affected by political unrest, natural disasters, the act of God, etc. Bangladesh IT &amp; Software Company Ltd. (BITSCOL) will provide online support to solve the errors that occur. If it is insufficient, our support personnel will visit the client site as soon as possible.</p>
+    <p class="t"><b>Hardware:</b> This Proposal specifically includes after-sales support for the software and service that we are offering. Bangladesh IT &amp; Software Company Ltd. (BITSCOL) does not provide support for any hardware-related issues.</p>
+    <p class="t"><b>Report Customization:</b> Our software comes with built-in MIS Reports which serve most of our clients. However, we entertain the scope of customized Reports for which we usually take 4-7 working days and complex reports may take longer as well. The format of the report is to be shared with us through an email with clear Column Headers with example entries. Additional charges incur based on the time and effort that may be required for us to deliver. We strongly discourage using verbal communication in this regard.</p>
+    <p class="t"><b>Customization:</b> Any additional customization requirements (out of this proposal document) will be discussed with the solution provider (BITSCOL) first and based on the discussion the customization cost will be estimated as per man-hour costing. Estimating the implementation time is based on the scope of work and the resources available. Factors such development time, testing phases, user's system adaptability, training, system environment (hardware setup), and potential delays or unforeseen issues can make changes in implementation time duration. System implementation time may vary due to: (1) Technical Challenges; (2) Resource Constraints; (3) Change Management Issues; (4) Vendor or Third-Party Dependencies; (5) Regulatory Compliance Requirements; (6) User Adoption Challenges; (7) Unforeseen Events (natural disasters, geopolitical events, or global economic crises).</p>
+    <p class="t"><b>Data Migration:</b> If you can provide the master backup file, then our team will import the existing data during the first-time installation of our software and services.</p>
+    <p class="t"><b>Database Backup:</b> As a client, you are solely responsible for maintaining backups of your on-premises database, and Bangladesh IT &amp; Software Company Ltd. (BITSCOL) will not be held responsible for the loss of data due to any system failures. We strongly recommend backing up your data regularly and keeping the backup on the cloud or a device in addition to your original database. We can only help set up your data backup plans.</p>
+    <p class="t"><b>System Failure:</b> In case of a system failure, we can help in restoring your software; for that, you must provide us with the latest backup files.</p>
+    <p class="t"><b>3rd Party Software Support:</b> Bangladesh IT &amp; Software Company Ltd. (BITSCOL) will not be providing support for any 3rd party software that you may be using. For example, Microsoft SQL Server is a product of Microsoft. You must contact Microsoft for any issues or concerns regarding the MS SQL Server database.</p>
+    <p class="t"><b>License Key:</b> Once purchased, the license key is non-refundable and cannot be transferred or used by another party.</p>
+    <p class="t"><b>Source Code:</b> No source code or database access will be provided with the software and service.</p>
+    <p class="t"><b>Security &amp; Password:</b> Our software comes with many security features. However, we recommend that you frequently update your password and do not share it with anyone else.</p>
+    <p class="t"><b>Order Cancellation:</b> If you wish to cancel the agreement or stop using this solution, then you must issue a formal letter to Bangladesh IT &amp; Software Company Ltd. (BITSCOL) at least 1 month in advance.</p>
+    <p class="t"><b>Travel &amp; Accommodation:</b> For any tour outside Bangladesh for software installation, support, and service purposes all expenses will be borne by the client regarding Accommodation and transportation.</p>
+  </div>
+
+  <div class="footer-note">BITSCOL — Bangladesh IT &amp; Software Company Limited · Website Development Proposal for Al Muraqib Fiber Glass Industry LLC · 29-09-2026</div>
+</div>
+
+<button class="printbtn noprint" onclick="window.print()">⬇ Save as PDF</button>
+</body>
+</html>
