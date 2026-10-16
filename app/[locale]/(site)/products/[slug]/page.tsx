@@ -317,7 +317,7 @@ export default async function ProductPage({
                 {usedInProjects.map((proj, i) => (
                   <Reveal key={proj.slug} delay={i * 60}>
                     <Link href={`/${l}/projects/${proj.slug}`} className="group block bg-white border border-slate-200 rounded-[12px] overflow-hidden hover:shadow-soft transition-all h-full">
-                      <ProductArt seed={proj.slug} icon="building" kind="installed" label={t(proj.location, l)} className="aspect-[16/9] w-full" />
+                      <ProductArt seed={proj.slug} icon="building" kind="installed" label={t(proj.location, l)} className="aspect-[16/9] w-full" src={proj.image} />
                       <div className="p-4">
                         <p className="text-[11px] font-bold uppercase tracking-wider text-brand-700">{proj.year} · {t(proj.location, l)}</p>
                         <h3 className="mt-1.5 font-heading font-bold text-navy-900 group-hover:text-brand-700 transition-colors">{t(proj.title, l)}</h3>

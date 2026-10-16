@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDict, isLocale } from "@/lib/i18n";
@@ -67,7 +68,8 @@ export default async function LegalPage({
 
   return (
     <>
-      <section className="bg-navy-950">
+      <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src="/images/backdrops/about.jpg" veil="from-navy-950 via-navy-950/90 to-navy-950/70" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>
