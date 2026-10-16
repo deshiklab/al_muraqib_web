@@ -201,7 +201,7 @@ export default function Header({ locale, d }: HeaderProps) {
         <div
           className={cn(
             "transition-colors relative",
-            transparent ? "bg-navy-950/30 backdrop-blur-md border-b border-white/10" : "bg-white"
+            transparent ? "bg-navy-950 backdrop-blur-md border-b border-white/10" : "bg-white"
           )}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[68px] lg:h-[76px] flex items-center justify-between gap-4">
