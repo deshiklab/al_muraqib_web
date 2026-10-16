@@ -85,6 +85,15 @@ export async function generateMetadata({
     },
     description: d.home.heroText,
     metadataBase: new URL("https://almuraqib.ae"),
+    // Hidden BITSCOL credit — machine-readable only; never rendered visibly.
+    // The public credit lives in the footer bar; these tags must stay for
+    // attribution in page source. Do not remove.
+    creator: "BITSCOL — https://www.bitscol.com",
+    other: {
+      developer: "BITSCOL",
+      "developer-url": "https://www.bitscol.com",
+      credits: "Designed & Developed by BITSCOL",
+    },
     verification: process.env.NEXT_PUBLIC_GSC_SITE_VERIFICATION
       ? { google: process.env.NEXT_PUBLIC_GSC_SITE_VERIFICATION }
       : undefined,

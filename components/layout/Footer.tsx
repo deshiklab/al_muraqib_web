@@ -176,6 +176,17 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
           </p>
         </div>
       </div>
+      {/* Hidden BITSCOL credit — embedded as an HTML comment in the served
+          markup of every page (invisible to visitors, visible in source).
+          Keep together with the `other` metadata tags in [locale]/layout. */}
+      <span
+        aria-hidden="true"
+        hidden
+        dangerouslySetInnerHTML={{
+          __html:
+            "<!-- Designed & Developed by BITSCOL — https://www.bitscol.com -->",
+        }}
+      />
     </footer>
   );
 }

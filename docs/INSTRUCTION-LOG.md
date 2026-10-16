@@ -125,6 +125,21 @@ discipline + open PR `arena/… → default branch` so future clones contain the
 
 ---
 
+## Phase 7 addendum — Hidden developer attribution *(verbatim)*
+> "Put The hidden credit of BITSCOL inside the code of every page (This will not reveal to the public) on the footer credit will be visible to public."
+
+Implemented in the two shared components so **every rendered page** carries it:
+1. `app/[locale]/layout.tsx` → metadata `creator` (`<meta name="creator" content="BITSCOL — https://www.bitscol.com">`)
+   plus `other` tags (`developer`, `developer-url`, `credits`) in every `<head>`.
+2. `components/layout/Footer.tsx` → an HTML comment
+   `<!-- Designed & Developed by BITSCOL — https://www.bitscol.com -->` emitted inside a
+   `<span aria-hidden hidden>` — invisible on screen, permanent in view-source.
+Public, visible credit remains the footer bottom-bar link (Phase 7). The 404/not-found shell uses the
+root layout and intentionally has no footer; all `(site)` routes verified EN + AR.
+**Commits:** (this one).
+
+---
+
 ## Known open items (not yet instructed)
 1. PR → base branch / merge to main.
 2. Custom domain `almuraqib.ae` + real social links, tawk.to IDs, phone/WhatsApp confirmation.
