@@ -1,23 +1,24 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Icon from "@/components/ui/Icon";
 import { track } from "@/lib/utils";
+import { useQuoteModal } from "@/components/rfq/QuoteModalProvider";
 import type { Dict } from "@/lib/i18n";
-import type { Locale } from "@/lib/types";
 
-/** Desktop vertical side tab → RFQ + back-to-top button */
-export function SideTab({ locale, d }: { locale: Locale; d: Dict }) {
+/** Desktop vertical side tab → simple quote modal + back-to-top button */
+export function SideTab({ d }: { d: Dict }) {
+  const quote = useQuoteModal();
   return (
-    <Link
-      href={`/${locale}/get-quotation`}
-      onClick={() => track("cta_side_tab")}
-      className="hidden md:flex fixed top-1/2 -translate-y-1/2 end-0 z-40 items-center gap-2 bg-gold-500 text-navy-950 font-bold text-sm ps-2.5 pe-4 py-4 rounded-s-xl shadow-soft hover:bg-gold-600 hover:text-white transition-colors [writing-mode:vertical-rl] rotate-180"
+    <button
+      type="button"
+      onClick={() => quote.open("side_tab")}
+      aria-label={d.chat.quoteTab}
+      className="hidden md:flex fixed top-1/2 -translate-y-1/2 end-0 z-40 items-center gap-2 bg-gold-500 text-navy-950 font-bold text-sm ps-2.5 pe-4 py-4 rounded-s-xl shadow-soft hover:bg-gold-600 hover:text-white transition-colors [writing-mode:vertical-rl] rotate-180 cursor-pointer"
     >
       <Icon name="file" className="w-4 h-4 rotate-180" />
       {d.chat.quoteTab}
-    </Link>
+    </button>
   );
 }
 

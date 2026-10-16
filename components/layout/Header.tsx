@@ -13,6 +13,7 @@ import { articlesByKind } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import ThemeToggle from "@/components/layout/ThemeToggle";
+import { useQuoteModal } from "@/components/rfq/QuoteModalProvider";
 
 interface HeaderProps {
   locale: Locale;
@@ -22,6 +23,7 @@ interface HeaderProps {
 export default function Header({ locale, d }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const quote = useQuoteModal();
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<"products" | "company" | null>(null);
   const [drawer, setDrawer] = useState(false);
@@ -304,8 +306,6 @@ export default function Header({ locale, d }: HeaderProps) {
               {[
                 { href: `${prefix}/services`, label: d.nav.services },
                 { href: `${prefix}/projects`, label: d.nav.projects },
-                { href: `${prefix}/blog`, label: d.nav.blog },
-                { href: `${prefix}/knowledge-base`, label: d.nav.knowledgeBase },
                 { href: `${prefix}/faq`, label: d.nav.faq },
                 { href: `${prefix}/contact`, label: d.nav.contact },
               ].map((item) => (
@@ -329,14 +329,17 @@ export default function Header({ locale, d }: HeaderProps) {
               >
                 <Icon name="search" className="w-5 h-5" />
               </button>
-              <Link
-                href={`${prefix}/get-quotation`}
-                onClick={() => track("cta_header_quote")}
-                className="hidden sm:inline-flex items-center gap-2 bg-gold-500 text-navy-950 font-bold text-sm px-5 py-3 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors"
+              <button
+                type="button"
+                onClick={() => {
+                  track("cta_header_quote");
+                  quote.open("header");
+                }}
+                className="hidden sm:inline-flex items-center gap-2 bg-gold-500 text-navy-950 font-bold text-sm px-5 py-3 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors cursor-pointer"
               >
                 <Icon name="file" className="w-4 h-4" />
                 {d.nav.getQuote}
-              </Link>
+              </button>
               <button
                 onClick={() => setDrawer(true)}
                 aria-label={d.nav.menu}
@@ -475,20 +478,21 @@ export default function Header({ locale, d }: HeaderProps) {
 
             <MobileLink href={`${prefix}/services`} onClick={() => setDrawer(false)}>{d.nav.services}</MobileLink>
             <MobileLink href={`${prefix}/projects`} onClick={() => setDrawer(false)}>{d.nav.projects}</MobileLink>
-            <MobileLink href={`${prefix}/blog`} onClick={() => setDrawer(false)}>{d.nav.blog}</MobileLink>
-            <MobileLink href={`${prefix}/knowledge-base`} onClick={() => setDrawer(false)}>{d.nav.knowledgeBase}</MobileLink>
             <MobileLink href={`${prefix}/faq`} onClick={() => setDrawer(false)}>{d.nav.faq}</MobileLink>
             <MobileLink href={`${prefix}/contact`} onClick={() => setDrawer(false)}>{d.nav.contact}</MobileLink>
           </div>
           <div className="border-t border-slate-200 p-4 space-y-3 bg-slate-50">
-            <Link
-              href={`${prefix}/get-quotation`}
-              onClick={() => track("cta_mobile_quote")}
-              className="flex items-center justify-center gap-2 w-full bg-gold-500 text-navy-950 font-bold py-3.5 rounded-[10px]"
+            <button
+              type="button"
+              onClick={() => {
+                setDrawer(false);
+                quote.open("mobile_drawer");
+              }}
+              className="flex items-center justify-center gap-2 w-full bg-gold-500 text-navy-950 font-bold py-3.5 rounded-[10px] cursor-pointer"
             >
               <Icon name="file" className="w-5 h-5" />
               {d.nav.getQuote}
-            </Link>
+            </button>
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 rounded-full bg-slate-200 p-1">

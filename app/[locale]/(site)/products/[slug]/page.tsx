@@ -340,7 +340,7 @@ export default async function ProductPage({
         locale={l}
       />
 
-      <MobileCtaBar locale={l} d={d} />
+      <MobileCtaBar d={d} />
     </>
   );
 }

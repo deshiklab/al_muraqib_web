@@ -178,6 +178,16 @@ export const en = {
     title: "Get a Quotation",
     subtitle:
       "Tell us about your requirement — attach drawings, BOQ or specs and our engineering team will respond with pricing.",
+    modal: {
+      text: "Share a few basics and we'll come back with pricing — it takes under a minute.",
+      message: "How can we help?",
+      messagePlaceholder: "Product, quantity, site location — anything that helps us quote accurately.",
+      attach: "Attach drawings / BOQ (optional)",
+      submit: "Send request",
+      done: "Done",
+      note: "Our team replies within one working day (Mon–Sat, 8:00–18:00 GST).",
+      more: "Have detailed specs? Use the full quotation form",
+    },
     steps: ["Contact", "Products", "Project", "Files", "Review"],
     next: "Continue",
     back: "Back",
