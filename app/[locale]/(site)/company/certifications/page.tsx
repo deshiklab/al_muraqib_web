@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Motion";
 import { CtaBand } from "@/components/ui/Sections";
 import { getDict, isLocale } from "@/lib/i18n";
 import { certifications } from "@/lib/data/site";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -63,14 +63,14 @@ export default async function CertificationsPage({ params }: { params: Promise<{
                 <div className="mt-5 flex flex-wrap gap-2">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-green-50 text-green-700 ring-1 ring-green-200 rounded-full px-3 py-1.5">
                     <Icon name="checkCircle" className="w-3.5 h-3.5" />
-                    {l === "en" ? "Valid" : "سارية"}
+                    {tl(l, "Valid", "سارية")}
                   </span>
                   <Link
                     href={`/${l}/get-quotation?source=certificate-${c.code}`}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-700 ring-1 ring-slate-200 rounded-full px-3 py-1.5 hover:ring-brand-600 transition-colors"
                   >
                     <Icon name="download" className="w-3.5 h-3.5" />
-                    {l === "en" ? "Request copy" : "طلب نسخة"}
+                    {tl(l, "Request copy", "طلب نسخة")}
                   </Link>
                 </div>
               </div>
@@ -82,7 +82,7 @@ export default async function CertificationsPage({ params }: { params: Promise<{
           <div className="mx-auto max-w-3xl mt-12 bg-navy-900 rounded-[14px] p-7 text-center">
             <Icon name="shield" className="w-9 h-9 mx-auto text-gold-500" />
             <h2 className="mt-3 font-heading font-black text-white text-xl">
-              {l === "en" ? "Tender & authority submission packs" : "حزم المناقصات والجهات الرسمية"}
+              {tl(l, "Tender & authority submission packs", "حزم المناقصات والجهات الرسمية")}
             </h2>
             <p className="mt-2 text-slate-300 text-sm max-w-xl mx-auto">
               {l === "en"

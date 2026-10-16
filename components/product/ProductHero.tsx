@@ -6,7 +6,7 @@ import Icon from "@/components/ui/Icon";
 import ProductArt from "@/components/ui/ProductArt";
 import { productGroups } from "@/lib/data/nav";
 import { site } from "@/lib/data/site";
-import { t, track, cn, waLink } from "@/lib/utils";
+import { cn, t, tl, track, waLink } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
 import type { GalleryItem, Locale, Product, VariantAxis } from "@/lib/types";
 
@@ -373,7 +373,7 @@ export default function ProductHero({
             className="flex flex-col items-center justify-center gap-1 rounded-[10px] border border-white/25 px-1 py-2.5 text-center text-white transition-colors hover:border-gold-500 hover:text-gold-400"
           >
             <Icon name="download" className="w-4 h-4" />
-            <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">{locale === "en" ? "Brochure" : "الكتالوج"}</span>
+            <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">{tl(locale, "Brochure", "الكتالوج")}</span>
           </Link>
           <a
             href={waLink(site.whatsapp, waMsg)}
@@ -399,7 +399,7 @@ export default function ProductHero({
           >
             <Icon name={copied ? "check" : "share"} className="w-4 h-4" />
             <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">
-              {copied ? (locale === "en" ? "Copied!" : "تم النسخ!") : locale === "en" ? "Share" : "مشاركة"}
+              {copied ? (tl(locale, "Copied!", "تم النسخ!")) : tl(locale, "Share", "مشاركة")}
             </span>
           </button>
         </div>

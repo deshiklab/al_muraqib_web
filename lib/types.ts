@@ -1,8 +1,8 @@
 // Shared domain types — Al Muraqib v2 frontend
-export type Locale = "en" | "ar";
+export type Locale = "en" | "ar" | "bn";
 
-/** Localized string: value per locale */
-export type L = Record<Locale, string>;
+/** Localized string — en required; ar/bn optional and fall back to en in t() */
+export type L = { en: string; ar?: string; bn?: string };
 
 export interface NavItem {
   href: string;
@@ -89,6 +89,14 @@ export interface Project {
   challenge: L;
   solution: L;
   result: L;
+  // — enrichment (optional; detail sections render when present) —
+  client?: L;
+  value?: L;          // contract value band
+  duration?: L;        // program duration
+  services?: string[]; // ids from lib/data/services
+  metrics?: { label: L; value: L }[];
+  phases?: { name: L; desc: L }[];
+  testimonial?: { quote: L; author: L; role: L };
 }
 
 export interface Article {

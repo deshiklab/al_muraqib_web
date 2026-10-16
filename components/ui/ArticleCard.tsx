@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Article, Locale } from "@/lib/types";
 
 export default function ArticleCard({
@@ -27,7 +27,7 @@ export default function ArticleCard({
         </span>
         <span className="relative block text-white/50 text-xs mt-1 flex items-center gap-1.5">
           <Icon name="clock" className="w-3.5 h-3.5" />
-          {article.readingMinutes} {locale === "en" ? "min read" : "دقائق قراءة"}
+          {article.readingMinutes} {tl(locale, "min read", "دقائق قراءة")}
         </span>
       </Link>
       <div className="p-5 flex flex-col flex-1">
@@ -40,7 +40,7 @@ export default function ArticleCard({
         <div className="mt-4 flex items-center justify-between text-xs">
           <time className="text-slate-500">{date}</time>
           <span className="inline-flex items-center gap-1 font-bold text-brand-700 group-hover:gap-2 transition-all">
-            {locale === "en" ? "Read" : "اقرأ"}
+            {tl(locale, "Read", "اقرأ")}
             <Icon name="arrowRight" className="w-3.5 h-3.5 flip-x" />
           </span>
         </div>

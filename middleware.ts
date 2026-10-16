@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const locales = ["en", "ar"];
+const locales = ["en", "ar", "bn"];
 
 function detectLocale(req: NextRequest): string {
   const cookie = req.cookies.get("locale")?.value;
   if (cookie && locales.includes(cookie)) return cookie;
   const accept = req.headers.get("accept-language") || "";
   const first = accept.split(",")[0]?.split(";")[0]?.toLowerCase() ?? "";
-  return first.startsWith("ar") ? "ar" : "en";
+  if (first.startsWith("ar")) return "ar";
+  if (first.startsWith("bn")) return "bn";
+  return "en";
 }
 
 export function middleware(req: NextRequest) {

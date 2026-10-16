@@ -9,11 +9,10 @@ import type { Locale } from "@/lib/types";
  * (EN/AR + x-default → EN), resolved against metadataBase (almuraqib.ae).
  */
 export function alternates(locale: Locale, pathEn: string): Metadata["alternates"] {
-  const en = pathEn.replace(/^\/ar\b/, "/en");
-  const ar = en.replace(/^\/en\b/, "/ar");
-  const current = locale === "ar" ? ar : en;
+  const en = pathEn.replace(/^\/(ar|bn)\b/, "/en");
+  const current = locale === "en" ? en : `/${locale}${en.replace(/^\/en/, "")}`;
   return {
     canonical: current,
-    languages: { en, ar, "x-default": en },
+    languages: { en, ar: en.replace(/^\/en\b/, "/ar"), bn: en.replace(/^\/en\b/, "/bn"), "x-default": en },
   };
 }

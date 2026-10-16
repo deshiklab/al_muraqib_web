@@ -12,6 +12,7 @@ import { productGroups } from "@/lib/data/nav";
 import { products } from "@/lib/data/catalog";
 import { articlesByKind, projects } from "@/lib/data/content";
 import { site, clients, sectors, certifications } from "@/lib/data/site";
+import { brands } from "@/lib/data/brands";
 import { t } from "@/lib/utils";
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/types";
@@ -107,6 +108,39 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     <Icon name="arrowRight" className="w-4 h-4 flip-x" />
                   </span>
                 </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ OUR BRANDS ============ */}
+      <section className="py-20 md:py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] bg-[size:48px_48px] text-white" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow={d.brands.eyebrow}
+            title={d.brands.title}
+            subtitle={d.brands.subtitle}
+            center
+            light
+          />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {brands.map((b, i) => (
+              <Reveal key={b.id} delay={i * 60}>
+                <div className="group h-full rounded-[12px] bg-white/[0.06] ring-1 ring-white/10 p-5 transition-all hover:bg-white/[0.1] hover:ring-gold-500/50">
+                  <div className="flex items-center gap-4">
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gold-500 font-heading text-[13px] font-black tracking-tight text-navy-950 ring-1 ring-white/20 transition-transform group-hover:scale-105">
+                      {b.logoText.length > 3 ? b.logoText.slice(0, 2) : b.logoText}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-gold-400">{t(b.kind, l)}</p>
+                      <h3 className="font-heading font-bold text-lg text-white leading-snug">{t(b.name, l)}</h3>
+                    </div>
+                    <Icon name={b.icon} className="ms-auto h-6 w-6 shrink-0 text-white/25 transition-colors group-hover:text-gold-400" strokeWidth={1.5} />
+                  </div>
+                  <p className="mt-3.5 text-[13px] leading-relaxed text-slate-300">{t(b.info, l)}</p>
+                </div>
               </Reveal>
             ))}
           </div>

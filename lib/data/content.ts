@@ -21,6 +21,21 @@ export const projects: Project[] = [
       en: "All 40 pools handed over on schedule; zero leakage defects in post-handover inspection.",
       ar: "سُلّمت الأربعون بركة في موعدها؛ صفر عيوب تسرب بعد التسليم.",
     },
+    client: { en: "five Hotels & Resorts", ar: "فنادق ومنتجعات فايف" },
+    value: { en: "AED 3.8 M", ar: "3.8 مليون درهم" },
+    duration: { en: "14 weeks", ar: "14 أسبوعًا" },
+    services: ["supply", "install", "fabrication"],
+    metrics: [
+      { label: { en: "Pools delivered", ar: "برك سُلّمت" }, value: { en: "40", ar: "٤٠" } },
+      { label: { en: "Leak defects at handover", ar: "عيوب تسرب عند التسليم" }, value: { en: "0", ar: "٠" } },
+      { label: { en: "Avg. set per pool", ar: "متوسط تركيب البركة" }, value: { en: "6 hours", ar: "٦ ساعات" } },
+    ],
+    phases: [
+      { name: { en: "Mold design", ar: "تصميم القوالب" }, desc: { en: "Suite-specific molds matched to balcony load envelopes and finishes.", ar: "قوالب مخصصة للمحاور تتوافق مع أحمال البلكونة والتشطيبات." } },
+      { name: { en: "Factory build", ar: "التصنيع بالمصنع" }, desc: { en: "GRP shells cured, gel-coated and pre-plumbed with skimmers on the production line.", ar: "أجسام GRP مُعالجة ومطلية وممهدة للسباكة مع مرشحات سطحية على خط الإنتاج." } },
+      { name: { en: "Logistics", ar: "اللوجستيات" }, desc: { en: "Night crane lifts floor-by-floor against a live-handover program.", ar: "رفع ليلي رافعة تلو الأخرى ضمن برنامج تسليم حي." } },
+      { name: { en: "Commissioning", ar: "التشغيل" }, desc: { en: "Flood, leak-test and white-glove release per room, in hours.", ar: "إغراق واختبار تسرب وتسليم فاخر لكل غرفة خلال ساعات." } },
+    ],
   },
   {
     slug: "royal-m-hotel-fujairah-lining",
@@ -42,6 +57,21 @@ export const projects: Project[] = [
       en: "Leak-free storage, DM-compliant water service, completed during low-occupancy window.",
       ar: "تخزين بلا تسرب وخدمة مياه متوافقة مع بلدية دبي، ضمن فترة إشغال منخفضة.",
     },
+    client: { en: "Royal M Hotel", ar: "فندق رويال م" },
+    value: { en: "AED 640 K", ar: "640 ألف درهم" },
+    duration: { en: "3 weeks phased", ar: "3 أسابيع مرحلية" },
+    services: ["lining", "repair"],
+    metrics: [
+      { label: { en: "Re-lined capacity", ar: "سعة أُعيد تبطينها" }, value: { en: "2 × 250 m³", ar: "٢ × ٢٥٠ م³" } },
+      { label: { en: "Laminate thickness", ar: "سماكة الطبقات" }, value: { en: "3 mm", ar: "٣ مم" } },
+      { label: { en: "Full-shutdown days", ar: "أيام إيقاف شامل" }, value: { en: "0", ar: "٠" } },
+    ],
+    phases: [
+      { name: { en: "Survey", ar: "المسح" }, desc: { en: "Moisture mapping and structural survey of both potable RCC tanks.", ar: "رسم خرائط الرطوبة وفحص إنشائي للخزانين." } },
+      { name: { en: "Surface prep", ar: "تحضير السطح" }, desc: { en: "Abrasive blasting to Sa 2.5 with vacuum extraction inside occupied site.", ar: "تفريغ معدني حتى Sa 2.5 مع شفط داخلي أثناء تشغيل الموقع." } },
+      { name: { en: "Lining", ar: "البطانة" }, desc: { en: "Seamless potable-grade GRP laminate, corner detail reinforcement.", ar: "بطانة GRP متصلة معتمدة للشرب مع تقوية الزوايا." } },
+      { name: { en: "Handover", ar: "التسليم" }, desc: { en: "Hydrotest, hygiene clearance and DM documentation pack.", ar: "اختبار مياه وتعقيم وحزمة وثائق بلدية." } },
+    ],
   },
   {
     slug: "five-sensoria-rooftop-pools",
@@ -63,6 +93,19 @@ export const projects: Project[] = [
       en: "Premium pool amenity delivered without structural strengthening works.",
       ar: "خدمة بركة فاخرة دون أي تعزيز إنشائي.",
     },
+    client: { en: "fve Hotels & Resorts", ar: "فنادق ومنتجعات فايف" },
+    value: { en: "AED 1.1 M", ar: "1.1 مليون درهم" },
+    duration: { en: "6 weeks", ar: "٦ أسابيع" },
+    services: ["supply", "install"],
+    metrics: [
+      { label: { en: "Rooftop suites", ar: "أجنحة أسطح" }, value: { en: "12", ar: "١٢" } },
+      { label: { en: "Max. lift height", ar: "أقصى ارتفاع رفع" }, value: { en: "48 m", ar: "٤٨ م" } },
+    ],
+    phases: [
+      { name: { en: "Engineering", ar: "الهندسة" }, desc: { en: "Wind, load and waterproofing coordination with the hotel design consultant.", ar: "تنسيق الأحمال والعزل المائي مع استشاري تصميم الفندق." } },
+      { name: { en: "Build & finish", ar: "التشطيب" }, desc: { en: "Gel-coat interiors matched to the Sensoria palette, integrated LED pre-wiring.", ar: "أسطح داخلية مطابقة لباليتة سِنسوريا مع تمديدات LED." } },
+      { name: { en: "Rooftop install", ar: "تركيب الأسطح" }, desc: { en: "Helical pedestal support frames, zero membrane penetration.", ar: "حوامل لولبية دون أي اختراق لغشاء العزل." } },
+    ],
   },
   {
     slug: "samana-parkview-water-storage",
@@ -84,6 +127,20 @@ export const projects: Project[] = [
       en: "Full capacity installed in under two days; certification pack accepted first submission.",
       ar: "السعة الكاملة خلال أقل من يومين؛ واعتُمدت وثائق الاعتماد من المحاولة الأولى.",
     },
+    client: { en: "Samana Group", ar: "مجموعة سمانا" },
+    value: { en: "AED 2.4 M", ar: "2.4 مليون درهم" },
+    duration: { en: "9 weeks", ar: "٩ أسابيع" },
+    services: ["supply", "install"],
+    metrics: [
+      { label: { en: "Storage delivered", ar: "تخزين مُنجز" }, value: { en: "3,200 m³", ar: "٣٬٢٠٠ م³" } },
+      { label: { en: "Tanks", ar: "خزائن" }, value: { en: "16", ar: "١٦" } },
+      { label: { en: "Install per 100 m³", ar: "تركيب لكل ١٠ م³" }, value: { en: "≈ 1 day", ar: "≈ يوم" } },
+    ],
+    phases: [
+      { name: { en: "Foundation handover", ar: "تسليم الأساسات" }, desc: { en: "Level tolerance checks and plinth grouting prior to panel dispatch.", ar: "فحص استواء وتذويق قواعد قبل شحن الألواح." } },
+      { name: { en: "Panel assembly", ar: "تجميع الألواح" }, desc: { en: "Hot-press panels bolted with EPDM seals on stainless internals.", ar: "ألواح مكبوسة مع عوازل EPDM ومكونات داخلية ستانلس." } },
+      { name: { en: "Testing", ar: "الاختبار" }, desc: { en: "48-hour hydro-test and chlorination before handover.", ar: "اختبار مياه ٤٨ ساعة وكلورة قبل التسليم." } },
+    ],
   },
   {
     slug: "sinyar-nas-3-septic",
@@ -105,6 +162,18 @@ export const projects: Project[] = [
       en: "Passed authority inspection first time; no rework.",
       ar: "اجتاز فحص الجهة من أول مرة؛ دون إعادة عمل.",
     },
+    client: { en: "Sinyar Real Estate", ar: "سينيار العقارية" },
+    value: { en: "AED 850 K", ar: "850 ألف درهم" },
+    duration: { en: "5 weeks", ar: "٥ أسابيع" },
+    services: ["supply", "install"],
+    metrics: [
+      { label: { en: "Treatment units", ar: "وحدات معالجة" }, value: { en: "9", ar: "٩" } },
+      { label: { en: "Groundwater-safe design", ar: "آمن على المياه الجوفية" }, value: { en: "100%", ar: "٪١٠٠" } },
+    ],
+    phases: [
+      { name: { en: "Excavation sync", ar: "تنسيق الحفر" }, desc: { en: "Trench plans aligned with the contractor's dewatering program.", ar: "مخططات حفر منسقة مع برنامج نزح المياه." } },
+      { name: { en: "Tank setting", ar: "زراعة الخزانات" }, desc: { en: "Buried GRP units ballasted and connected to collection mains.", ar: "وحدات GRP مدفوعة مثبتة وموصلة بشبكات التجميع." } },
+    ],
   },
   {
     slug: "fujairah-port-sand-trap",
@@ -126,6 +195,18 @@ export const projects: Project[] = [
       en: "Zero corrosion after a full summer season; replacement cycle extended beyond 10 years.",
       ar: "صفر تآكل بعد موسم صيف كامل؛ وطُوّرت دورة الاستبدال لأكثر من 10 سنوات.",
     },
+    client: { en: "Fujairah Port operations", ar: "عمليات ميناء الفجيرة" },
+    value: { en: "AED 1.3 M", ar: "1.3 مليون درهم" },
+    duration: { en: "7 weeks", ar: "٧ أسابيع" },
+    services: ["fabrication", "install", "repair"],
+    metrics: [
+      { label: { en: "Trap volume", ar: "حجم المصائد" }, value: { en: "180 m³", ar: "١٨٠ م³" } },
+      { label: { en: "Marine-grade laminate", ar: "طبقات بحرية" }, value: { en: "NLGL 12 mm", ar: "١٢ مم" } },
+    ],
+    phases: [
+      { name: { en: "Fabrication", ar: "التصنيع" }, desc: { en: "Large GRP sections built in-shop with marine laminate schedule.", ar: "أقسام GRP كبيرة مصنّعة بالمصنع وفق جدول طبقات بحري." } },
+      { name: { en: "Marine install", ar: "تركيب بحري" }, desc: { en: "Barge-set elements sealed to the existing catchment structure.", ar: "عناصر مثبتة بالبارج ومؤسسة على شبكة التجميع القائمة." } },
+    ],
   },
   {
     slug: "azizi-towers-cladding",
@@ -147,6 +228,18 @@ export const projects: Project[] = [
       en: "Facade installed on schedule; elements still crack-free after two years.",
       ar: "الواجهة رُكّبت في موعدها؛ والعناصر سليمة بعد سنتين.",
     },
+    client: { en: "Azizi", ar: "عزيزي" },
+    value: { en: "AED 2.1 M", ar: "2.1 مليون درهم" },
+    duration: { en: "12 weeks", ar: "١٢ أسبوعًا" },
+    services: ["supply", "fabrication"],
+    metrics: [
+      { label: { en: "Clad facade area", ar: "مساحة الكسوة" }, value: { en: "4,800 m²", ar: "٤٬٨٠٠ م²" } },
+      { label: { en: "Panel SKUs", ar: "أنواع الألواح" }, value: { en: "38", ar: "٣٨" } },
+    ],
+    phases: [
+      { name: { en: "Shop drawings", ar: "رسومات تنفيذية" }, desc: { en: "BIM-matched panel layout with tolerance take-offs per floor.", ar: "تخطيط ألواح متوافق مع الـBIM مع قياس تفاوت لكل دور." } },
+      { name: { en: "Production", ar: "الإنتاج" }, desc: { en: "Kits labelled by tower and floor for just-in-time lifts.", ar: "أطقم موسومة لكل برج ودور للرفع حسب الطلب." } },
+    ],
   },
   {
     slug: "progress-construction-tanks",
@@ -168,6 +261,18 @@ export const projects: Project[] = [
       en: "Zero unplanned downtime; leak reports closed permanently.",
       ar: "صفر توقف غير مخطط؛ وأُغلقت بلاغات التسرّب نهائياً.",
     },
+    client: { en: "Progress Construction", ar: "بروغرس للإنشاءات" },
+    value: { en: "AED 1.6 M", ar: "1.6 مليون درهم" },
+    duration: { en: "8 weeks", ar: "٨ أسابيع" },
+    services: ["supply", "install", "lining"],
+    metrics: [
+      { label: { en: "Tank farm capacity", ar: "سعة مزرعة الخزانات" }, value: { en: "1,500 m³", ar: "١٬٥٠٠ م³" } },
+      { label: { en: "Commissioned ahead of", ar: "شُغلت قبل الموعد بـ" }, value: { en: "9 days", ar: "٩ أيام" } },
+    ],
+    phases: [
+      { name: { en: "Civil interface", ar: "واجهة الأعمال المدنية" }, desc: { en: "Plinth and valve-pit coordination with the civil main contractor.", ar: "تنسيق القواعد وحفر المحابس مع المقاول المدني." } },
+      { name: { en: "Install & tie-in", ar: "تركيب وربط" }, desc: { en: "Panel assembly, internal SS ladder and pipework tie-ins.", ar: "تجميع الألواح وسلالم وكهرباء داخلية وربط المواسير." } },
+    ],
   },
 ];
 

@@ -17,8 +17,8 @@
   --color-gold-400: #fbbf24;
   --color-gold-700: #b45309;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-montserrat), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-inter), "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), var(--font-inter), ui-sans-serif, sans-serif, "Noto Sans Bengali";
   --font-arabic: var(--font-arabic-family), var(--font-inter), ui-sans-serif, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 

@@ -7,7 +7,7 @@ import { SectionHeading, CtaBand } from "@/components/ui/Sections";
 import { getDict, isLocale } from "@/lib/i18n";
 import { site, certifications } from "@/lib/data/site";
 import { projects } from "@/lib/data/content";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             { label: d.home.statsEstablished, value: site.stats.established as string | number },
             { label: d.home.statsClients, counter: site.stats.clients },
             { label: d.home.statsProjects, counter: site.stats.projects },
-            { label: l === "en" ? "In-house disciplines" : "تخصصات داخلية", value: l === "en" ? "4" : "٤" },
+            { label: tl(l, "In-house disciplines", "تخصصات داخلية"), value: tl(l, "4", "٤") },
           ].map((s, i) => (
             <Reveal key={s.label} delay={i * 70}>
               <div>
@@ -110,8 +110,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
           <div>
             <SectionHeading
-              eyebrow={l === "en" ? "Our facility" : "منشأتنا"}
-              title={l === "en" ? "Everything under one roof in Sharjah" : "كل شيء تحت سقف واحد في الشارقة"}
+              eyebrow={tl(l, "Our facility", "منشأتنا")}
+              title={tl(l, "Everything under one roof in Sharjah", "كل شيء تحت سقف واحد في الشارقة")}
               subtitle={t(site.address, l)}
             />
             <ul className="mt-6 space-y-2.5">

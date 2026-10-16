@@ -2,7 +2,7 @@ import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import ProductArt from "@/components/ui/ProductArt";
 import { productGroups } from "@/lib/data/nav";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale, Product } from "@/lib/types";
 
 export default function ProductCard({
@@ -29,7 +29,7 @@ export default function ProductCard({
         />
         {product.featured && (
           <span className="absolute top-3 start-3 bg-gold-500 text-navy-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full">
-            ★ {locale === "en" ? "Featured" : "مميز"}
+            ★ {tl(locale, "Featured", "مميز")}
           </span>
         )}
         <span className="absolute bottom-3 start-3 bg-navy-950/70 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">

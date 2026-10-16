@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import { site } from "@/lib/data/site";
-import { makeRfqRef, track, waLink } from "@/lib/utils";
+import { makeRfqRef, tl, track, waLink } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 
@@ -186,7 +186,7 @@ export default function QuickQuoteDrawer({
             <div {...staged(0)}>
               <p className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-gold-400">
                 <Icon name="file" className="w-3.5 h-3.5" />
-                {locale === "en" ? "Fast quote" : "عرض سعر سريع"}
+                {tl(locale, "Fast quote", "عرض سعر سريع")}
               </p>
               <h2 className="mt-1.5 font-heading font-black text-2xl leading-tight">{d.rfq.title}</h2>
               <p className="mt-1 text-[13px] leading-snug text-slate-300">{d.rfq.modal.text}</p>

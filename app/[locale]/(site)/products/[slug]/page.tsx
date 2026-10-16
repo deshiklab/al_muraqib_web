@@ -14,7 +14,7 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { getProduct, products, relatedInGroup } from "@/lib/data/catalog";
 import { articlesByKind, projects } from "@/lib/data/content";
 import { productGroups, applications } from "@/lib/data/nav";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -251,8 +251,8 @@ export default async function ProductPage({
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeading
               eyebrow={t(group?.name ?? { en: "", ar: "" }, l)}
-              title={l === "en" ? "More in this product group" : "المزيد في هذه المجموعة"}
-              subtitle={l === "en" ? "Similar products you can compare and quote together" : "منتجات مشابهة يمكنك مقارنتها وطلب سعرها معاً"}
+              title={tl(l, "More in this product group", "المزيد في هذه المجموعة")}
+              subtitle={tl(l, "Similar products you can compare and quote together", "منتجات مشابهة يمكنك مقارنتها وطلب سعرها معاً")}
             />
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {siblings.map((sib, i) => (
@@ -270,7 +270,7 @@ export default async function ProductPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {boughtWith.length > 0 && (
             <>
-              <SectionHeading title={d.common.specifiedTogether} subtitle={l === "en" ? "Frequently quoted alongside this product" : "يُطلب عادةً مع هذا المنتج"} />
+              <SectionHeading title={d.common.specifiedTogether} subtitle={tl(l, "Frequently quoted alongside this product", "يُطلب عادةً مع هذا المنتج")} />
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {boughtWith.map((bp, i) => bp && (
                   <Reveal key={bp.slug} delay={i * 60}>

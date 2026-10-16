@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { cn, track } from "@/lib/utils";
+import { cn, tl, track } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 
 export type HeroSlide = {
@@ -66,7 +66,7 @@ export default function HeroSlider({
     <section
       className="relative min-h-[86vh] lg:min-h-[92vh] flex items-center overflow-hidden bg-navy-950"
       aria-roledescription="carousel"
-      aria-label={locale === "en" ? "Highlights" : "أبرز الحلول"}
+      aria-label={tl(locale, "Highlights", "أبرز الحلول")}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -138,14 +138,14 @@ export default function HeroSlider({
         <div className="mt-10 flex items-center gap-5">
           {count > 1 && (
             <>
-              <div className="flex items-center gap-2" role="tablist" aria-label={locale === "en" ? "Slides" : "الشرائح"}>
+              <div className="flex items-center gap-2" role="tablist" aria-label={tl(locale, "Slides", "الشرائح")}>
                 {slides.map((s, i) => (
                   <button
                     key={s.img}
                     type="button"
                     role="tab"
                     aria-selected={i === idx}
-                    aria-label={`${locale === "en" ? "Slide" : "شريحة"} ${i + 1}`}
+                    aria-label={`${tl(locale, "Slide", "شريحة")} ${i + 1}`}
                     onClick={() => {
                       go(i);
                       track("hero_slide_dot", { i });
@@ -164,7 +164,7 @@ export default function HeroSlider({
                     go(idx - 1);
                     track("hero_slide_prev");
                   }}
-                  aria-label={d.home.heroPrev ?? (locale === "en" ? "Previous slide" : "الشريحة السابقة")}
+                  aria-label={d.home.heroPrev ?? (tl(locale, "Previous slide", "الشريحة السابقة"))}
                   className="grid place-items-center w-10 h-10 rounded-full bg-white/10 text-white ring-1 ring-white/25 hover:bg-gold-500 hover:text-navy-950 transition-colors cursor-pointer"
                 >
                   <Icon name="arrowRight" className="w-4 h-4 rotate-180 flip-x" />
@@ -175,7 +175,7 @@ export default function HeroSlider({
                     go(idx + 1);
                     track("hero_slide_next");
                   }}
-                  aria-label={d.home.heroNext ?? (locale === "en" ? "Next slide" : "الشريحة التالية")}
+                  aria-label={d.home.heroNext ?? (tl(locale, "Next slide", "الشريحة التالية"))}
                   className="grid place-items-center w-10 h-10 rounded-full bg-white/10 text-white ring-1 ring-white/25 hover:bg-gold-500 hover:text-navy-950 transition-colors cursor-pointer"
                 >
                   <Icon name="arrowRight" className="w-4 h-4 flip-x" />
@@ -189,10 +189,10 @@ export default function HeroSlider({
       {/* Scroll cue */}
       <a
         href="#stats"
-        aria-label={locale === "en" ? "Scroll to content" : "مرّر للأسفل"}
+        aria-label={tl(locale, "Scroll to content", "مرّر للأسفل")}
         className="hidden md:flex absolute bottom-7 inset-x-0 flex-col items-center gap-1 text-white/45 hover:text-gold-400 transition-colors"
       >
-        <span className="text-[9px] font-bold uppercase tracking-[0.3em]">{locale === "en" ? "Scroll" : "مرّر"}</span>
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em]">{tl(locale, "Scroll", "مرّر")}</span>
         <Icon name="chevronDown" className="w-5 h-5 scroll-cue" />
       </a>
     </section>

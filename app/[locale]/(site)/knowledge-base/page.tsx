@@ -6,7 +6,7 @@ import ArticleCard from "@/components/ui/ArticleCard";
 import { Reveal } from "@/components/ui/Motion";
 import { getDict, isLocale } from "@/lib/i18n";
 import { articlesByKind } from "@/lib/data/content";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -66,7 +66,7 @@ export default async function KnowledgeBasePage({ params }: { params: Promise<{ 
                       if (c.id === "standards") return catEn.includes("standards");
                       return false;
                     }).length || "—"}{" "}
-                    {l === "en" ? "articles" : "مقالات"}
+                    {tl(l, "articles", "مقالات")}
                   </p>
                 </div>
               </Reveal>
@@ -91,7 +91,7 @@ export default async function KnowledgeBasePage({ params }: { params: Promise<{ 
                 href={`/${l}/faq`}
                 className="inline-flex items-center gap-2 bg-gold-500 text-navy-950 font-bold px-6 py-3 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors shrink-0"
               >
-                {l === "en" ? "Browse FAQ" : "تصفح الأسئلة"}
+                {tl(l, "Browse FAQ", "تصفح الأسئلة")}
                 <Icon name="arrowRight" className="w-4 h-4 flip-x" />
               </Link>
             </div>

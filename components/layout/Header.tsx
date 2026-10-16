@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { cn, track } from "@/lib/utils";
-import { locales, type Dict } from "@/lib/i18n";
+import { cn, tl, track } from "@/lib/utils";
+import { type Dict } from "@/lib/i18n";
 import { megaColumns } from "@/lib/data/nav";
 import { site } from "@/lib/data/site";
 import { products } from "@/lib/data/catalog";
@@ -13,6 +13,7 @@ import { articlesByKind } from "@/lib/data/content";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import ThemeToggle from "@/components/layout/ThemeToggle";
+import LangSwitcher from "@/components/layout/LangSwitcher";
 import { useQuoteModal } from "@/components/rfq/QuoteModalProvider";
 
 interface HeaderProps {
@@ -84,13 +85,6 @@ export default function Header({ locale, d }: HeaderProps) {
   const hoverClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setOpenMenu(null), 220);
-  };
-
-  const switchLocale = (next: Locale) => {
-    document.cookie = `locale=${next};path=/;max-age=31536000;samesite=lax`;
-    const rest = pathname.replace(new RegExp(`^/${locale}`), "") || "";
-    track("language_switch", { to: next });
-    router.push(`/${next}${rest}`);
   };
 
   // Search results (live, grouped)
@@ -182,21 +176,7 @@ export default function Header({ locale, d }: HeaderProps) {
             <div className="flex items-center gap-5">
               <span className="hidden xl:inline text-slate-400">{d.topbar.quoteFast}</span>
               <ThemeToggle d={d} />
-              <div className="flex items-center gap-1 rounded-full bg-white/10 p-0.5" aria-label={d.common.language}>
-                {locales.map((loc) => (
-                  <button
-                    key={loc}
-                    onClick={() => switchLocale(loc)}
-                    aria-current={loc === locale}
-                    className={cn(
-                      "px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-colors cursor-pointer",
-                      loc === locale ? "bg-gold-500 text-navy-950" : "hover:text-white text-slate-300"
-                    )}
-                  >
-                    {loc === "en" ? "EN" : "AR"}
-                  </button>
-                ))}
-              </div>
+              <LangSwitcher locale={locale} />
               <div className="flex items-center gap-3">
                 {site.socials.map((s) => (
                   <a
@@ -275,9 +255,9 @@ export default function Header({ locale, d }: HeaderProps) {
                 </button>
                 {openMenu === "company" && (
                   <Dropdown>
-                    <DropdownLink href={`${prefix}/company/about`} label={d.nav.about} desc={locale === "en" ? "Story, mission, facility" : "القصة والرسالة والمنشأة"} />
-                    <DropdownLink href={`${prefix}/company/certifications`} label={d.nav.certifications} desc={locale === "en" ? "ISO, DM, ESMA & test reports" : "ISO وبلدية دبي وESMA وتقارير الاختبار"} />
-                    <DropdownLink href={`${prefix}/contact`} label={d.nav.contact} desc={locale === "en" ? "Factory address & map" : "عنوان المصنع والخريطة"} />
+                    <DropdownLink href={`${prefix}/company/about`} label={d.nav.about} desc={tl(locale, "Story, mission, facility", "القصة والرسالة والمنشأة")} />
+                    <DropdownLink href={`${prefix}/company/certifications`} label={d.nav.certifications} desc={tl(locale, "ISO, DM, ESMA & test reports", "ISO وبلدية دبي وESMA وتقارير الاختبار")} />
+                    <DropdownLink href={`${prefix}/contact`} label={d.nav.contact} desc={tl(locale, "Factory address & map", "عنوان المصنع والخريطة")} />
                   </Dropdown>
                 )}
               </div>
@@ -495,20 +475,7 @@ export default function Header({ locale, d }: HeaderProps) {
             </button>
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 rounded-full bg-slate-200 p-1">
-                  {locales.map((loc) => (
-                    <button
-                      key={loc}
-                      onClick={() => switchLocale(loc)}
-                      className={cn(
-                        "px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer",
-                        loc === locale ? "bg-navy-900 text-white" : "text-slate-600"
-                      )}
-                    >
-                      {loc === "en" ? "EN" : "AR"}
-                    </button>
-                  ))}
-                </div>
+                <LangSwitcher locale={locale} variant="solid" />
                 <span className="text-slate-600">
                   <ThemeToggle d={d} />
                 </span>
@@ -560,7 +527,7 @@ export default function Header({ locale, d }: HeaderProps) {
                 {q && results && (
                   <>
                     {results.products.length > 0 && (
-                      <Group label={locale === "en" ? "Products" : "المنتجات"}>
+                      <Group label={tl(locale, "Products", "المنتجات")}>
                         {results.products.map((p, i) => (
                           <ResultLink
                             key={p.slug}
@@ -582,7 +549,7 @@ export default function Header({ locale, d }: HeaderProps) {
                       </Group>
                     )}
                     {results.articles.length > 0 && (
-                      <Group label={locale === "en" ? "Articles & Guides" : "مقالات وأدلة"}>
+                      <Group label={tl(locale, "Articles & Guides", "مقالات وأدلة")}>
                         {results.articles.map((a, i) => (
                           <ResultLink
                             key={a.slug}
@@ -610,15 +577,15 @@ export default function Header({ locale, d }: HeaderProps) {
                 <div className="flex items-center justify-center gap-4 px-4 py-2 bg-slate-50 border-t border-slate-100 text-[11px] text-slate-500">
                   <span className="inline-flex items-center gap-1">
                     <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">↑↓</kbd>
-                    {locale === "en" ? "navigate" : "تنقل"}
+                    {tl(locale, "navigate", "تنقل")}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">↵</kbd>
-                    {locale === "en" ? "open" : "فتح"}
+                    {tl(locale, "open", "فتح")}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-mono">Esc</kbd>
-                    {locale === "en" ? "close" : "إغلاق"}
+                    {tl(locale, "close", "إغلاق")}
                   </span>
                 </div>
               )}

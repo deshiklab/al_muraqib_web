@@ -5,7 +5,7 @@ import Icon from "@/components/ui/Icon";
 import ContactForm from "@/components/rfq/ContactForm";
 import { getDict, isLocale } from "@/lib/i18n";
 import { site } from "@/lib/data/site";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -47,7 +47,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <div className="bg-white border border-slate-200 rounded-[12px] p-6">
               <h2 className="font-heading font-black text-xl mb-4 flex items-center gap-2.5">
                 <span className="w-1.5 h-6 rounded-full bg-gold-500" />
-                {l === "en" ? "Reach us" : "تواصل معنا"}
+                {tl(l, "Reach us", "تواصل معنا")}
               </h2>
               <div className="space-y-4">
                 <a href={`mailto:${site.emails.sales}`} className="flex items-start gap-3.5 group">
@@ -102,7 +102,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           <div className="bg-white border border-slate-200 rounded-[14px] p-6 md:p-8 shadow-soft">
             <h2 className="font-heading font-black text-2xl mb-1">{d.contact.formTitle}</h2>
             <p className="text-sm text-slate-500 mb-6">
-              {l === "en" ? "For quotations use our dedicated RFQ page for faster turnaround." : "لعروض الأسعار استخدم صفحة طلب عرض السعر للحصول على رد أسرع."}
+              {tl(l, "For quotations use our dedicated RFQ page for faster turnaround.", "لعروض الأسعار استخدم صفحة طلب عرض السعر للحصول على رد أسرع.")}
             </p>
             <ContactForm locale={l} d={d} />
             <Link

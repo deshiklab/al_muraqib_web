@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Icon from "@/components/ui/Icon";
-import ProductArt from "@/components/ui/ProductArt";
-import { Reveal } from "@/components/ui/Motion";
-import { CtaBand } from "@/components/ui/Sections";
 import { getDict, isLocale } from "@/lib/i18n";
 import { projects } from "@/lib/data/content";
+import { serviceList } from "@/lib/data/services";
+import { getProduct } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
+import { CtaBand } from "@/components/ui/Sections";
+import ProjectsClient from "@/components/projects/ProjectsClient";
+import type { ProjectRow } from "@/components/projects/ProjectsClient";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const l = locale as Locale;
-  const d = getDict(locale as Locale);
+  const d = getDict(l);
   return { title: d.projects.title, description: d.projects.intro, alternates: alternates(l, "/en/projects") };
 }
 
@@ -25,14 +26,46 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
   const l = locale as Locale;
   const d = getDict(l);
 
-  const sectorFilters = [...new Set(projects.map((p) => p.sector))];
+  const sectorKeys = [...new Set(projects.map((p) => p.sector))];
+  const sectors = sectorKeys.map((k) => ({
+    id: k,
+    label: d.projects.sectors[k as keyof typeof d.projects.sectors] ?? k,
+  }));
+
+  const usedProductSlugs = [...new Set(projects.flatMap((p) => p.products))];
+  const productOptions = usedProductSlugs
+    .map((slug) => getProduct(slug))
+    .filter(Boolean)
+    .map((p) => ({ id: p!.slug, label: t(p!.name, l) }));
+
+  const serviceOptions = serviceList.map((sv) => ({ id: sv.id, label: t(sv.title, l) }));
+
+  const rows: ProjectRow[] = projects.map((p) => ({
+    slug: p.slug,
+    title: t(p.title, l),
+    sector: p.sector,
+    sectorLabel: d.projects.sectors[p.sector as keyof typeof d.projects.sectors] ?? p.sector,
+    location: t(p.location, l),
+    year: p.year,
+    scope: t(p.scope, l),
+    client: p.client ? t(p.client, l) : undefined,
+    products: p.products,
+    productNames: p.products.map((slug) => {
+      const prod = getProduct(slug);
+      return prod ? t(prod.name, l) : slug;
+    }),
+    services: p.services ?? [],
+    serviceNames: (p.services ?? []).map(
+      (id) => t(serviceList.find((sv) => sv.id === id)?.title ?? { en: id }, l)
+    ),
+  }));
 
   return (
     <>
       <section className="bg-navy-950 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_85%_25%,#0369a1_0,transparent_50%),radial-gradient(circle_at_10%_85%,#f59e0b_0,transparent_40%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
-          <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2">
+          <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2" aria-label="Breadcrumb">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>
             <span>/</span>
             <span className="text-white font-semibold">{d.nav.projects}</span>
@@ -42,49 +75,16 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="py-10 md:py-14">
+      <section className="pb-14 md:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* sector chips (static overview — P1: URL-synced filter) */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider bg-navy-900 text-white rounded-full px-4 py-2">
-              {d.projects.filterAll}
-            </span>
-            {sectorFilters.map((s) => (
-              <span key={s} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white border border-slate-200 text-slate-500 rounded-full px-4 py-2">
-                {d.projects.sectors[s as keyof typeof d.projects.sectors] ?? s}
-              </span>
-            ))}
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((proj, i) => (
-              <Reveal key={proj.slug} delay={(i % 6) * 60}>
-                <Link
-                  href={`/${l}/projects/${proj.slug}`}
-                  className="group block h-full bg-white rounded-[12px] border border-slate-200 overflow-hidden hover:shadow-soft transition-all"
-                >
-                  <ProductArt seed={proj.slug} icon="building" kind="installed" label={t(proj.location, l)} className="aspect-[16/10] w-full" />
-                  <div className="p-5">
-                    <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
-                      <span className="text-brand-700 flex items-center gap-1.5">
-                        <Icon name="pin" className="w-3.5 h-3.5" />
-                        {t(proj.location, l)}
-                      </span>
-                      <span className="text-slate-500">{proj.year}</span>
-                    </div>
-                    <h2 className="mt-2 font-heading font-bold text-navy-900 group-hover:text-brand-700 transition-colors leading-snug">
-                      {t(proj.title, l)}
-                    </h2>
-                    <p className="mt-2 text-sm text-slate-500 line-clamp-2">{t(proj.scope, l)}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 group-hover:gap-2.5 transition-all">
-                      {l === "en" ? "View case study" : "عرض دراسة الحالة"}
-                      <Icon name="arrowRight" className="w-4 h-4 flip-x" />
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+          <ProjectsClient
+            locale={l}
+            rows={rows}
+            sectors={sectors}
+            productOptions={productOptions}
+            serviceOptions={serviceOptions}
+            d={d}
+          />
         </div>
       </section>
 

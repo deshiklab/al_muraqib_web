@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import { site } from "@/lib/data/site";
-import { track, waLink } from "@/lib/utils";
+import { tl, track, waLink } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 
@@ -36,7 +36,7 @@ export default function ChatDock({ locale, d }: { locale: Locale; d: Dict }) {
   const waUrl = waLink(site.whatsapp, d.chat.whatsappMsg);
   const label = d.chat.dockLabel;
   const chatLabel =
-    locale === "en" ? "Chatbot" : "شات بوت";
+    tl(locale, "Chatbot", "شات بوت");
 
   const chatOptions = (
     <>

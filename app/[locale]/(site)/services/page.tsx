@@ -5,7 +5,7 @@ import Icon from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Motion";
 import { CtaBand } from "@/components/ui/Sections";
 import { getDict, isLocale } from "@/lib/i18n";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { IconName, Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
 
@@ -22,7 +22,7 @@ const SERVICES: {
   icon: IconName;
   title: { en: string; ar: string };
   desc: { en: string; ar: string };
-  bullets: { en: string[]; ar: string[] };
+  bullets: Partial<Record<Locale, string[]>> & { en: string[] };
 }[] = [
   {
     id: "lining",
@@ -82,7 +82,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             <span className="text-white font-semibold">{d.nav.services}</span>
           </nav>
           <h1 className="font-heading font-black text-white text-4xl md:text-5xl">
-            {l === "en" ? "Contracting & Services" : "المقاولات والخدمات"}
+            {tl(l, "Contracting & Services", "المقاولات والخدمات")}
           </h1>
           <p className="mt-3 max-w-2xl text-slate-300 text-lg">
             {l === "en"
@@ -107,7 +107,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   <h2 className="font-heading font-black text-2xl md:text-3xl">{t(svc.title, l)}</h2>
                   <p className="mt-2 text-slate-600 leading-relaxed text-[17px] max-w-3xl">{t(svc.desc, l)}</p>
                   <ul className="mt-4 grid sm:grid-cols-2 gap-2.5">
-                    {svc.bullets[l].map((b: string) => (
+                    {(svc.bullets[l] ?? svc.bullets.en).map((b: string) => (
                       <li key={b} className="flex items-start gap-2 text-sm font-semibold text-navy-900">
                         <Icon name="checkCircle" className="w-4.5 h-4.5 text-brand-700 mt-0.5 shrink-0" />
                         {b}

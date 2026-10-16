@@ -5,6 +5,14 @@ export function t(value: L, locale: Locale): string {
   return value[locale] || value.en;
 }
 
+/**
+ * Inline two-way EN/AR label used across JSX (locale === "en" ? … : …).
+ * With Bengali the site falls back to the English copy for these one-offs.
+ */
+export function tl(locale: Locale, en: string, ar: string): string {
+  return locale === "ar" ? ar : en;
+}
+
 export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }

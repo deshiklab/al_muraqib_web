@@ -1,9 +1,17 @@
 import type { Dict } from "./en";
 import { en } from "./en";
 import { ar } from "./ar";
+import { bn } from "./bn";
 import type { Locale } from "../types";
 
-export const locales = ["en", "ar"] as const;
+export const locales = ["en", "ar", "bn"] as const;
+
+/** Native-language names for the switcher */
+export const localeLabels: Record<Locale, string> = {
+  en: "English",
+  ar: "العربية",
+  bn: "বাংলা",
+};
 export const defaultLocale: Locale = "en";
 
 export function isLocale(value: string): value is Locale {
@@ -11,7 +19,9 @@ export function isLocale(value: string): value is Locale {
 }
 
 export function getDict(locale: Locale): Dict {
-  return locale === "ar" ? ar : en;
+  if (locale === "ar") return ar;
+  if (locale === "bn") return bn;
+  return en;
 }
 
 export function dir(locale: Locale): "ltr" | "rtl" {
@@ -19,4 +29,4 @@ export function dir(locale: Locale): "ltr" | "rtl" {
 }
 
 export type { Dict };
-export { en, ar };
+export { en, ar, bn };

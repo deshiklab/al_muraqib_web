@@ -22,7 +22,7 @@ export async function generateMetadata({
   return { title: legal === "privacy-policy" ? d.footer.privacy : d.footer.terms };
 }
 
-const copy: Record<LegalSlug, { en: string[]; ar: string[] }> = {
+const copy: Record<LegalSlug, { en: string[]; ar?: string[]; bn?: string[] }> = {
   "privacy-policy": {
     en: [
       "Al Muraqib Fiber Glass Industry L.L.C respects your privacy. Information submitted through this website — including quotation requests, contact forms and uploaded project files — is used solely to respond to your inquiry and prepare pricing.",
@@ -79,7 +79,7 @@ export default async function LegalPage({
       </section>
       <section className="py-12 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 text-[17px] leading-relaxed text-slate-700">
-          {copy[legal as LegalSlug][l].map((para, i) => (
+          {(copy[legal as LegalSlug][l] ?? copy[legal as LegalSlug].en).map((para, i) => (
             <p key={i}>{para}</p>
           ))}
           <p className="text-sm text-slate-500">© {new Date().getFullYear()} {d.meta.siteName}</p>

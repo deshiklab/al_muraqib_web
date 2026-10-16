@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Icon from "@/components/ui/Icon";
 import RfqWizard from "@/components/rfq/RfqWizard";
 import { products } from "@/lib/data/catalog";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 
@@ -46,7 +46,7 @@ export default function RfqPageClient({ locale, d }: { locale: Locale; d: Dict }
       {q.initialProducts.length > 0 && (
         <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
           <span className="text-slate-500 font-semibold">
-            {locale === "en" ? "Requesting quote for:" : "طلب سعر لـ:"}
+            {tl(locale, "Requesting quote for:", "طلب سعر لـ:")}
           </span>
           {q.initialProducts.map((slug) => (
             <span key={slug} className="inline-flex items-center gap-1.5 bg-brand-700 text-white font-bold rounded-full px-3.5 py-1.5 text-xs">
