@@ -3,7 +3,8 @@
 > Purpose: anyone (human or AI agent) resuming work in a **new session or branch** should
 > reach the same standards as the session that built the site. Read this first, work, then
 > close out per the Definition of Done.
-> Snapshot taken 2026‑10‑16 at commit `c281e61` (36 commits ahead of the repo default branch).
+> Snapshot taken **2026-10-17** at the tip of `arena/01a0d89a-al-muraqib-web` (`f2798f1`+1 docs, 48 commits ahead
+> of the repo default branch — that branch is STILL the pre-Next static-HTML base, never fork from it directly).
 
 ---
 
