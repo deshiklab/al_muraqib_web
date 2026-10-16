@@ -45,13 +45,13 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
     day: "numeric",
   });
   const others = articlesByKind("kb").filter((a) => a.slug !== doc.slug).slice(0, 3);
-  const linkedProducts = doc.relatedProducts.map(getProduct).filter(Boolean).slice(0, 2);
+  const linkedProducts = doc.relatedProducts.map(getProduct).filter(Boolean).slice(0, 4);
 
   return (
     <>
       <section className="bg-navy-950 relative overflow-hidden">
         <TitleBackdrop src={doc.image ?? "/images/backdrops/insights.jpg"} />
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <nav className="text-sm text-slate-400 mb-5 flex flex-wrap items-center gap-2">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>
             <span>/</span>

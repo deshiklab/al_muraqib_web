@@ -146,13 +146,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
           <div className="grid grid-cols-2 gap-4">
             {projects.slice(0, 2).map((proj) => (
-              <div key={proj.slug} className="bg-slate-100 rounded-[12px] aspect-[4/5] grid place-items-center text-center p-4">
-                <div>
-                  <Icon name="building" className="w-8 h-8 mx-auto text-brand-700" />
-                  <p className="mt-2 text-xs font-bold text-navy-900">{t(proj.location, l)}</p>
-                  <p className="text-[11px] text-slate-500">{proj.year}</p>
-                </div>
-              </div>
+              <Link
+                key={proj.slug}
+                href={`/${l}/projects/${proj.slug}`}
+                className="group relative block rounded-[12px] overflow-hidden aspect-[4/5] bg-navy-900"
+                aria-label={t(proj.title, l)}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.06]"
+                  style={{
+                    backgroundImage: `url("${(process.env.NEXT_PUBLIC_BASE ?? "") + "/images/projects/" + proj.slug + ".jpg"}")`,
+                  }}
+                />
+                <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/35 to-navy-950/10" />
+                <span className="relative h-full flex flex-col items-center justify-end text-center p-4">
+                  <Icon name="building" className="w-7 h-7 text-gold-400" />
+                  <p className="mt-2 text-sm font-bold text-white">{t(proj.location, l)}</p>
+                  <p className="text-[11px] text-slate-300">{t(proj.title, l)} · {proj.year}</p>
+                </span>
+              </Link>
             ))}
           </div>
         </div>
