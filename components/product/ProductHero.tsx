@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import ProductArt from "@/components/ui/ProductArt";
@@ -8,13 +8,108 @@ import { productGroups } from "@/lib/data/nav";
 import { site } from "@/lib/data/site";
 import { t, track, cn, waLink } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
-import type { GalleryItem, Locale, Product } from "@/lib/types";
+import type { GalleryItem, Locale, Product, VariantAxis } from "@/lib/types";
 
 const TABS: { kind: GalleryItem["kind"]; key: keyof Dict["product"] }[] = [
   { kind: "product", key: "tabsProduct" },
   { kind: "installed", key: "tabsInstalled" },
   { kind: "drawing", key: "tabsDrawing" },
 ];
+
+/** Compact multi-select dropdown for one variant axis (Sizes, Finish, …). */
+function AxisDropdown({
+  axis,
+  selected,
+  onToggle,
+  locale,
+  d,
+}: {
+  axis: VariantAxis;
+  selected: string[];
+  onToggle: (optId: string) => void;
+  locale: Locale;
+  d: Dict;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrap.current && !wrap.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const chosen = axis.options.filter((o) => selected.includes(o.id));
+
+  return (
+    <div ref={wrap} className="relative min-w-0">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className={cn(
+          "flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg border bg-white px-2.5 py-1.5 text-start transition-colors",
+          open ? "border-brand-700 ring-1 ring-brand-700/20" : "border-slate-200 hover:border-brand-600"
+        )}
+      >
+        <span className="min-w-0">
+          <span className="block text-[9px] font-black uppercase tracking-[0.14em] text-slate-400">
+            {t(axis.label, locale)}
+          </span>
+          <span className="block truncate text-[11.5px] font-bold text-navy-900">
+            {chosen.length
+              ? chosen.map((o) => t(o.label, locale)).join(" · ")
+              : d.product.notSelected}
+          </span>
+        </span>
+        <Icon
+          name="chevronDown"
+          className={cn("w-3.5 h-3.5 shrink-0 text-slate-400 transition-transform", open && "rotate-180")}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute top-full start-0 z-30 mt-1 max-h-56 w-full min-w-[190px] overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-dropdown">
+          {axis.options.map((opt) => {
+            const on = selected.includes(opt.id);
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => onToggle(opt.id)}
+                aria-pressed={on}
+                className="flex w-full cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 text-start transition-colors hover:bg-slate-50"
+              >
+                <span
+                  className={cn(
+                    "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded border-2 transition-colors",
+                    on ? "border-brand-700 bg-brand-700 text-white" : "border-slate-300 bg-white"
+                  )}
+                >
+                  {on && <Icon name="check" className="h-2.5 w-2.5" strokeWidth={4} />}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[12px] font-bold leading-snug text-navy-900">{t(opt.label, locale)}</span>
+                  {opt.note && (
+                    <span className="block text-[10px] leading-snug text-slate-400">{t(opt.note, locale)}</span>
+                  )}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ProductHero({
   product,
@@ -27,9 +122,11 @@ export default function ProductHero({
 }) {
   const group = productGroups.find((g) => g.slug === product.group);
   const [kind, setKind] = useState<GalleryItem["kind"]>("product");
-  const [variants, setVariants] = useState<Record<string, string>>(() =>
-    Object.fromEntries((product.variantAxes ?? []).map((a) => [a.id, a.options[0]?.id ?? ""]))
+  const [variants, setVariants] = useState<Record<string, string[]>>(() =>
+    Object.fromEntries((product.variantAxes ?? []).map((a) => [a.id, a.options[0]?.id ? [a.options[0].id] : []]))
   );
+  const [mode, setMode] = useState<"config" | "area">("config");
+  const [dims, setDims] = useState({ l: "", w: "", h: "" });
   const [copied, setCopied] = useState(false);
 
   const galleryItems = product.gallery.filter((g) => g.kind === kind);
@@ -37,18 +134,31 @@ export default function ProductHero({
   const [imgIdx, setImgIdx] = useState(0);
   const current = activeItems[Math.min(imgIdx, activeItems.length - 1)];
 
-  const variantQuery = useMemo(
-    () =>
-      Object.entries(variants)
-        .map(([k, v]) => `${k}:${v}`)
-        .join(","),
-    [variants]
-  );
-  const quoteHref = `/${locale}/get-quotation?product=${product.slug}${variantQuery ? `&variant=${variantQuery}` : ""}`;
-  const waMsg = `${d.chat.whatsappMsg} — ${t(product.name, locale)} (${site.url}/${locale}/products/${product.slug})`;
+  /* Surface-area query: open-top box — floor + side walls */
+  const area = useMemo(() => {
+    const l = parseFloat(dims.l);
+    const w = parseFloat(dims.w);
+    const h = parseFloat(dims.h);
+    if (!(l > 0) || !(w > 0) || !(h > 0)) return null;
+    return { v: l * w + 2 * (l + w) * h, dims: `${l}×${w}×${h}m` };
+  }, [dims]);
+
+  const variantQuery = useMemo(() => {
+    if (mode === "area") {
+      return area ? `area:${area.v.toFixed(1)}m2 (${area.dims})` : "";
+    }
+    return Object.entries(variants)
+      .flatMap(([axisId, opts]) => opts.map((o) => `${axisId}:${o}`))
+      .join(",");
+  }, [mode, variants, area]);
+
+  const quoteHref = `/${locale}/get-quotation?product=${product.slug}${variantQuery ? `&variant=${encodeURIComponent(variantQuery)}` : ""}`;
+  const waMsg = `${d.chat.whatsappMsg} — ${t(product.name, locale)} (${site.url}/${locale}/products/${product.slug})${variantQuery ? ` [${variantQuery}]` : ""}`;
+
+  const hasAxes = (product.variantAxes?.length ?? 0) > 0;
 
   return (
-    <div className="grid lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)] gap-6 lg:gap-10">
+    <div className="grid items-center lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)] gap-6 lg:gap-10">
       {/* ---------- Gallery ---------- */}
       <div>
         <div className="bg-white border border-slate-200 rounded-[12px] overflow-hidden">
@@ -61,7 +171,7 @@ export default function ProductHero({
           />
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           {TABS.map((tab) => {
             const has = product.gallery.some((g) => g.kind === tab.kind);
             if (!has) return null;
@@ -74,7 +184,7 @@ export default function ProductHero({
                   track("product_gallery_tab", { kind: tab.kind, slug: product.slug });
                 }}
                 className={cn(
-                  "text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border transition-colors cursor-pointer",
+                  "text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border transition-colors cursor-pointer",
                   kind === tab.kind
                     ? "bg-navy-900 border-navy-900 text-white"
                     : "bg-white border-slate-200 text-slate-500 hover:border-brand-600 hover:text-brand-700"
@@ -106,7 +216,7 @@ export default function ProductHero({
                   seed={`${product.slug}-${item.kind}-${i}`}
                   icon={group?.icon ?? "tank"}
                   kind={item.kind}
-                  className="aspect-square w-full"
+                  className="aspect-[4/3] w-full"
                 />
               </button>
             ))}
@@ -114,7 +224,7 @@ export default function ProductHero({
         )}
       </div>
 
-      {/* ---------- Buy box ---------- */}
+      {/* ---------- Buy box (compact, aligned with the image) ---------- */}
       <div>
         <div className="flex flex-wrap items-center gap-2 mb-2.5">
           <Link
@@ -134,113 +244,164 @@ export default function ProductHero({
         <h1 className="font-heading font-black text-2xl md:text-[1.75rem] leading-tight text-white text-balance">
           {t(product.name, locale)}
         </h1>
-        <p className="mt-2.5 text-slate-300 leading-relaxed text-[15px]">{t(product.pitch, locale)}</p>
+        <p className="mt-2 text-slate-300 leading-snug text-[14.5px] line-clamp-2">{t(product.pitch, locale)}</p>
 
-        {/* Variants */}
-        {product.variantAxes && product.variantAxes.length > 0 && (
-          <div className="mt-5 space-y-3.5 bg-slate-50 border border-slate-100 rounded-[12px] p-3.5">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 flex items-center gap-2">
-              <Icon name="ruler" className="w-4 h-4 text-gold-600" />
-              {d.product.variantSelect}
-            </p>
-            {product.variantAxes.map((axis) => (
-              <div key={axis.id}>
-                <p className="text-[13px] font-bold text-navy-900 mb-1.5">{t(axis.label, locale)}</p>
-                <div className="flex flex-wrap gap-2">
-                  {axis.options.map((opt) => {
-                    const active = variants[axis.id] === opt.id;
-                    return (
-                      <button
-                        key={opt.id}
-                        onClick={() => {
-                          setVariants((v) => ({ ...v, [axis.id]: opt.id }));
-                          track("product_variant_select", { slug: product.slug, axis: axis.id, opt: opt.id });
-                        }}
-                        className={cn(
-                          "px-3.5 py-1.5 rounded-[10px] text-[13px] font-bold border-2 transition-all cursor-pointer",
-                          active
-                            ? "border-brand-700 bg-brand-700 text-white"
-                            : "border-slate-200 bg-white text-slate-600 hover:border-brand-600"
-                        )}
-                        aria-pressed={active}
-                      >
-                        {t(opt.label, locale)}
-                        {opt.note && (
-                          <span className={cn("block text-[10px] font-medium", active ? "text-white/70" : "text-slate-500")}>
-                            {t(opt.note, locale)}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
+        {/* Configure: variant pickers + surface-area query, one compact card */}
+        {hasAxes && (
+          <div className="mt-4 rounded-[12px] border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+            <div className="flex items-center justify-between gap-2">
+              <p className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-gold-400">
+                <Icon name="ruler" className="w-3.5 h-3.5" />
+                {d.product.variantSelect}
+              </p>
+              <div className="flex rounded-full bg-navy-950/60 p-0.5 ring-1 ring-white/10" role="tablist" aria-label={d.product.areaQuery.title}>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "config"}
+                  onClick={() => setMode("config")}
+                  className={cn(
+                    "rounded-full px-2.5 py-1 text-[10px] font-bold transition-colors cursor-pointer",
+                    mode === "config" ? "bg-gold-500 text-navy-950" : "text-slate-300 hover:text-white"
+                  )}
+                >
+                  {d.product.areaQuery.byOptions}
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "area"}
+                  onClick={() => setMode("area")}
+                  className={cn(
+                    "rounded-full px-2.5 py-1 text-[10px] font-bold transition-colors cursor-pointer",
+                    mode === "area" ? "bg-gold-500 text-navy-950" : "text-slate-300 hover:text-white"
+                  )}
+                >
+                  {d.product.areaQuery.title}
+                </button>
               </div>
-            ))}
+            </div>
+
+            {mode === "config" ? (
+              <div className="mt-2.5 grid grid-cols-2 gap-2">
+                {product.variantAxes!.map((axis) => (
+                  <AxisDropdown
+                    key={axis.id}
+                    axis={axis}
+                    locale={locale}
+                    d={d}
+                    selected={variants[axis.id] ?? []}
+                    onToggle={(optId) => {
+                      setVariants((v) => {
+                        const cur = v[axis.id] ?? [];
+                        const next = cur.includes(optId) ? cur.filter((x) => x !== optId) : [...cur, optId];
+                        return { ...v, [axis.id]: next };
+                      });
+                      track("product_variant_select", { slug: product.slug, axis: axis.id, opt: optId });
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-2.5">
+                <div className="flex items-end gap-1.5">
+                  {(["l", "w", "h"] as const).map((k, i) => (
+                    <div key={k} className="flex min-w-0 flex-1 items-end gap-1.5">
+                      {i > 0 && <span className="pb-2.5 text-[11px] font-bold text-slate-400">×</span>}
+                      <label className="block min-w-0 flex-1">
+                        <span className="block text-[9px] font-black uppercase tracking-[0.14em] text-slate-400 mb-1">
+                          {d.product.areaQuery.dims[k]}
+                        </span>
+                        <input
+                          type="number"
+                          min="0.1"
+                          step="0.1"
+                          inputMode="decimal"
+                          dir="ltr"
+                          value={dims[k]}
+                          onChange={(e) => setDims({ ...dims, [k]: e.target.value })}
+                          placeholder={d.product.areaQuery.ph[k]}
+                          className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-[12px] font-semibold text-navy-900 outline-none focus:border-brand-700 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                        />
+                      </label>
+                    </div>
+                  ))}
+                  <span className="pb-2 text-[10px] font-bold text-slate-400">m</span>
+                </div>
+                <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-snug">
+                  {area ? (
+                    <>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500 text-navy-950 px-2.5 py-1 font-black" dir="ltr">
+                        ≈ {area.v.toFixed(1)} m²
+                      </span>
+                      <span className="text-slate-300">{d.product.areaQuery.result}</span>
+                    </>
+                  ) : (
+                    <span className="text-slate-400">{d.product.areaQuery.hint}</span>
+                  )}
+                </p>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Key facts */}
-        <div className="mt-5 grid grid-cols-2 gap-2.5">
+        {/* Key facts — one tight row under the card */}
+        <div className="mt-3.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {product.keyFacts.map((f) => (
-            <div key={f.label.en} className="bg-white border border-slate-200 rounded-[10px] p-3">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">{t(f.label, locale)}</p>
-              <p className="mt-1 font-heading font-bold text-navy-900 text-sm">{t(f.value, locale)}</p>
+            <div key={f.label.en} className="min-w-0 rounded-lg border border-white/10 bg-white/95 px-2.5 py-1.5">
+              <p className="truncate text-[9px] font-black uppercase tracking-wider text-slate-500">{t(f.label, locale)}</p>
+              <p className="truncate font-heading font-bold text-navy-900 text-[12px] leading-snug" title={t(f.value, locale)}>
+                {t(f.value, locale)}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* CTAs */}
-        <div className="mt-5 space-y-2.5">
+        {/* CTAs — single row: quote · brochure · whatsapp · share */}
+        <div className="mt-3.5 grid grid-cols-4 gap-2">
           <Link
             href={quoteHref}
             onClick={() => track("cta_product_quote", { slug: product.slug, variant: variantQuery })}
-            className="flex items-center justify-center gap-2 w-full bg-gold-500 text-navy-950 font-bold text-sm py-3.5 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors shadow-[0_10px_25px_-12px_rgba(245,158,11,0.8)]"
+            title={hasAxes ? d.product.quoteThisVariant : d.common.requestQuote}
+            className="flex flex-col items-center justify-center gap-1 rounded-[10px] bg-gold-500 px-1 py-2.5 text-center text-navy-950 shadow-[0_10px_25px_-12px_rgba(245,158,11,0.8)] transition-colors hover:bg-gold-600 hover:text-white"
           >
-            <Icon name="file" className="w-4.5 h-4.5" />
-            {product.variantAxes?.length ? d.product.quoteThisVariant : d.common.requestQuote}
+            <Icon name="file" className="w-4 h-4" />
+            <span className="text-[10px] font-black uppercase tracking-wide leading-none">{d.common.getQuote}</span>
           </Link>
-          <div className="grid grid-cols-2 gap-3">
-            <Link
-              href={`/${locale}/get-quotation?product=${product.slug}&source=brochure`}
-              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors"
-            >
-              <Icon name="download" className="w-4 h-4" />
-              {d.common.downloadBrochure}
-            </Link>
-            <a
-              href={waLink(site.whatsapp, waMsg)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => track("whatsapp_click", { where: "product", slug: product.slug })}
-              className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:bg-[#1ebe5b] transition-colors"
-            >
-              <Icon name="whatsapp" className="w-4 h-4" />
-              {d.common.whatsapp}
-            </a>
-          </div>
-          <div className="grid grid-cols-2 gap-3 pt-1">
-            <a
-              href={`tel:${site.phoneIntl}`}
-              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors whitespace-nowrap"
-            >
-              <Icon name="phone" className="w-4 h-4" />
-              {site.phone}
-            </a>
-            <button
-              onClick={() => {
-                navigator.clipboard?.writeText(`${site.url}/${locale}/products/${product.slug}`);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 1800);
-              }}
-              className={cn(
-                "flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors cursor-pointer",
-                copied && "border-gold-500 text-gold-400"
-              )}
-            >
-              <Icon name={copied ? "check" : "share"} className="w-4 h-4" />
+          <Link
+            href={`/${locale}/get-quotation?product=${product.slug}&source=brochure`}
+            className="flex flex-col items-center justify-center gap-1 rounded-[10px] border border-white/25 px-1 py-2.5 text-center text-white transition-colors hover:border-gold-500 hover:text-gold-400"
+          >
+            <Icon name="download" className="w-4 h-4" />
+            <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">{locale === "en" ? "Brochure" : "الكتالوج"}</span>
+          </Link>
+          <a
+            href={waLink(site.whatsapp, waMsg)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("whatsapp_click", { where: "product", slug: product.slug })}
+            className="flex flex-col items-center justify-center gap-1 rounded-[10px] bg-[#25D366] px-1 py-2.5 text-center text-white transition-colors hover:bg-[#1ebe5b]"
+          >
+            <Icon name="whatsapp" className="w-4 h-4" />
+            <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">{d.common.whatsapp}</span>
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              navigator.clipboard?.writeText(`${site.url}/${locale}/products/${product.slug}`);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1800);
+            }}
+            className={cn(
+              "flex cursor-pointer flex-col items-center justify-center gap-1 rounded-[10px] border px-1 py-2.5 text-center transition-colors",
+              copied ? "border-gold-500 text-gold-400" : "border-white/25 text-white hover:border-gold-500 hover:text-gold-400"
+            )}
+          >
+            <Icon name={copied ? "check" : "share"} className="w-4 h-4" />
+            <span className="truncate px-0.5 text-[10px] font-black uppercase leading-none">
               {copied ? (locale === "en" ? "Copied!" : "تم النسخ!") : locale === "en" ? "Share" : "مشاركة"}
-            </button>
-          </div>
+            </span>
+          </button>
         </div>
       </div>
     </div>
