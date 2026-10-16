@@ -164,6 +164,13 @@ Shipped: (1) **Service JSON-LD** ×3 on the services page (from the SERVICES blo
 
 ---
 
+## Phase 9 — CMS & lead platform plan *(verbatim)*
+> "Make a plan if we want to develop a CMS to manage/update the contents and information of this website, also include lead capture and basic lead management, chat & messaging linked with lead management, blog and knowledge base management."
+
+Delivered as **`docs/CMS-PLATFORM-PLAN.md`** (draft v1): hybrid architecture — **Payload CMS 3 + Postgres on a small VPS embedded in this repo, public site stays the GitHub Pages static export** (publish → repository_dispatch → content:pull → rebuild). Covers: full collection model mirroring `lib/types.ts` (articles/products/projects/site-settings/media with the localized `L` pattern + upload-hook image pipeline), lead pipeline reviving the existing validated `/api/rfq` contract with dedupe/status/timeline/CSV + Turnstile, tawk→lead webhook bridge + WhatsApp deep-link (Phase 4 Cloud API with ToS guard, Chatwoot swap option), editorial workflow with preview tokens and git content ledger, security/backup/monitoring runbook, 4 phases with acceptance gates and BDT estimates (P1 leads ৳1.0–1.25L → P3 content ৳0.8–1.1L; ops ৳10.5–16k/mo), risks, and 7 open questions gating Phase 0. No code changes this turn.
+
+---
+
 ## Known open items (not yet instructed)
 1. PR → base branch / merge to main.
 2. Custom domain `almuraqib.ae` + real social links, tawk.to IDs, phone/WhatsApp confirmation.
