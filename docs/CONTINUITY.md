@@ -3,8 +3,9 @@
 > Purpose: anyone (human or AI agent) resuming work in a **new session or branch** should
 > reach the same standards as the session that built the site. Read this first, work, then
 > close out per the Definition of Done.
-> Snapshot taken **2026-10-17** at the tip of `arena/01a0d89a-al-muraqib-web` (`f2798f1`+1 docs, 48 commits ahead
-> of the repo default branch — that branch is STILL the pre-Next static-HTML base, never fork from it directly).
+> Snapshot taken **2026-10-17** after PR #3 (48-commit arena line) was **squash-merged into the default branch** —
+> the default branch is now the source of truth. `arena/01a0d89a-al-muraqib-web` remains this session's push target
+> and holds the per-turn history that the squash collapsed (INSTRUCTION-LOG.md is the narrative either way).
 
 ---
 
@@ -12,9 +13,8 @@
 
 ```
 Repo: deshiklab/al_muraqib_web (Next.js 15.5 + Tailwind v4 bilingual EN/AR site, static export → GitHub Pages).
-Work happens on branch arena/01a0d89a-al-muraqib-web. A NEW session/branch MUST start from its tip:
-    git fetch origin arena/01a0d89a-al-muraqib-web && git merge FETCH_HEAD
-(or from the default branch ONLY after PR #3 — the arena line — is merged).
+The 48-commit build line is merged to the default branch (squash of PR #3). A NEW session/branch starts from it:
+    git fetch origin && git checkout <new-branch> origin/almuraqib-frontend-site-10384899349809002369
 THEN read docs/CONTINUITY.md (this file) + docs/INSTRUCTION-LOG.md end-to-end; for CMS work also
 docs/CMS-PLATFORM-PLAN.md. Keep every standing constraint and the §6 Verification Checklist; finish by
 committing + pushing to your working branch and appending to docs/INSTRUCTION-LOG.md.
@@ -116,7 +116,7 @@ python3 scripts/build-company-profile.py     # bilingual Company Profile PDF (fo
 
 Done at snapshot: PR #3 pending-owner-merge (see below) · npm audit → **0 vulnerabilities** (next 15.5.28 + `overrides.postcss=8.5.28` — do not remove the override unless Next vendors patched postcss); RSS feed + Service/org/dateModified schema shipped.
 Remaining, ordered by leverage:
-1. **Merge PR #3** into the default branch (pending owner decision) — until then this file's §1 branch rule is the only safety net.
+1. ✅ PR #3 squash-merged 2026-10-17 — trunk is the base for all new branches.
 2. **Custom domain `almuraqib.ae`** + HTTPS + GA4/GSC secrets (`NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_GSC_SITE_VERIFICATION` read by the layout at build); submit `/sitemap.xml` (120 URLs) + `/feed.xml` to GSC/Bing. Canonical/hreflang/sitemap all already point at this domain.
 3. **CMS & lead platform** — `docs/CMS-PLATFORM-PLAN.md` v1 awaiting client answers (§10 open questions gate Phase 0).
 4. Real social URLs in `lib/data/site.ts` (footer placeholders also gate Organization `sameAs` — the filter auto-publishes once real), tawk property id, phone confirmations.

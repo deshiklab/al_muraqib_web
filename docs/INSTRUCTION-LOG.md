@@ -174,7 +174,7 @@ Delivered as **`docs/CMS-PLATFORM-PLAN.md`** (draft v1): hybrid architecture —
 ## Phase 10 — Next-session preparation *(verbatim)*
 > "We will start next update work in another session with another branch. Prepare for that, so that goes as planned smoothly."
 
-Actions: dependency debt cleared — `npm audit fix` bumped next 15.5.26→**15.5.28**, plus `overrides.postcss=8.5.28` (Next-vendored 8.4.31 was the remaining XSS/file-read pair) → **0 vulnerabilities**, CSS pipeline diff-checked (14 woff2, export gate green). Deploy automation de-forked: both `pages.yml` and `deploy-preview.yml` now also trigger on the default branch (post-merge), other branches via `workflow_dispatch` (comment in file documents it). CONTINUITY.md snapshot/quickstart/roadmap rewritten for a new-session/new-branch start (base-tip rule, deploy command, updated open list incl. CMS plan pointer); PR #3 title/body refreshed with 47-commit scope + handover notes.
+Actions: dependency debt cleared — `npm audit fix` bumped next 15.5.26→**15.5.28**, plus `overrides.postcss=8.5.28` (Next-vendored 8.4.31 was the remaining XSS/file-read pair) → **0 vulnerabilities**, CSS pipeline diff-checked (14 woff2, export gate green). Deploy automation de-forked: both `pages.yml` and `deploy-preview.yml` now also trigger on the default branch (post-merge), other branches via `workflow_dispatch` (comment in file documents it). CONTINUITY.md snapshot/quickstart/roadmap rewritten for a new-session/new-branch start (base-tip rule, deploy command, updated open list incl. CMS plan pointer); PR #3 title/body refreshed with 48-commit scope + handover notes; **squash-merged into the default branch** per owner decision — trunk is now the start point for new sessions.
 
 ---
 
