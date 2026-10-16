@@ -22,8 +22,7 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
                 src={`${process.env.NEXT_PUBLIC_BASE ?? ""}/images/brand/logo-mark-white.png`}
                 alt=""
                 aria-hidden="true"
-                className="w-9 h-9 object-contain"
-                style={{ transform: "scale(1.28)" }}
+                className="w-8 h-8 object-contain"
               />
             </span>
             <div className="leading-none">
