@@ -6,19 +6,37 @@ import { track } from "@/lib/utils";
 import { useQuoteModal } from "@/components/rfq/QuoteModalProvider";
 import type { Dict } from "@/lib/i18n";
 
-/** Desktop vertical side tab → simple quote modal + back-to-top button */
+/**
+ * Desktop vertical quote tab — pinned to the physical right edge, gold
+ * gradient pill with idle nudge + ping dot; hover widens it with a shine
+ * sweep. Opens the right-side quote app-drawer via useQuoteModal().
+ */
 export function SideTab({ d }: { d: Dict }) {
   const quote = useQuoteModal();
   return (
-    <button
-      type="button"
-      onClick={() => quote.open("side_tab")}
-      aria-label={d.chat.quoteTab}
-      className="hidden md:flex fixed top-1/2 -translate-y-1/2 end-0 z-40 items-center gap-2 bg-gold-500 text-navy-950 font-bold text-sm ps-2.5 pe-4 py-4 rounded-s-xl shadow-soft hover:bg-gold-600 hover:text-white transition-colors [writing-mode:vertical-rl] rotate-180 cursor-pointer"
-    >
-      <Icon name="file" className="w-4 h-4 rotate-180" />
-      {d.chat.quoteTab}
-    </button>
+    <div className="hidden md:flex fixed top-1/2 right-0 z-40 -translate-y-1/2 print:hidden">
+      <button
+        type="button"
+        onClick={() => quote.open("side_tab")}
+        aria-label={d.chat.quoteTab}
+        className="group relative flex cursor-pointer items-center gap-3 overflow-hidden rounded-l-full bg-gradient-to-b from-gold-400 via-gold-500 to-gold-600 py-6 ps-3 pe-2.5 text-navy-950 shadow-[0_10px_30px_-8px_rgba(245,158,11,0.55)] ring-1 ring-gold-600/40 transition-[translate,scale,box-shadow] duration-300 ease-out motion-safe:animate-[tabNudge_5.5s_ease-in-out_infinite] hover:-translate-x-1.5 hover:scale-[1.04] hover:shadow-[0_12px_38px_-6px_rgba(245,158,11,0.75)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
+      >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:animate-[shineSweep_0.8s_ease-out]"
+        />
+        <span className="relative grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy-950 text-gold-400 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+          <Icon name="file" className="h-3.5 w-3.5" />
+        </span>
+        <span className="relative rotate-180 text-[11px] font-black uppercase leading-none tracking-[0.22em] [writing-mode:vertical-rl]">
+          {d.chat.quoteTab}
+        </span>
+        <span aria-hidden="true" className="absolute -top-0.5 left-3.5 grid place-items-center">
+          <span className="absolute h-3 w-3 rounded-full bg-white/70 motion-safe:animate-ping" />
+          <span className="relative h-2 w-2 rounded-full bg-navy-950 ring-2 ring-white" />
+        </span>
+      </button>
+    </div>
   );
 }
 

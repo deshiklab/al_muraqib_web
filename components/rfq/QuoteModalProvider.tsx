@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
-import QuickQuoteModal from "./QuickQuoteModal";
+import QuickQuoteDrawer from "./QuickQuoteDrawer";
 import { track } from "@/lib/utils";
 import type { Dict } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
@@ -10,14 +10,15 @@ type Ctx = { open: (source?: string) => void; close: () => void };
 
 const QuoteModalCtx = createContext<Ctx | null>(null);
 
-/** Opens the simple “Get a Quotation” modal from any client component. */
+/** Opens the “Get a Quotation” app drawer from any client component. */
 export function useQuoteModal(): Ctx {
   return useContext(QuoteModalCtx) ?? { open: () => {}, close: () => {} };
 }
 
 /**
- * App-level host for the quick-quote modal so every “Get Quote” trigger
- * (header, mobile drawer, side tab, sticky bar) opens the same simple form.
+ * App-level host for the quick-quote app drawer so every “Get Quote”
+ * trigger (header, mobile drawer, side tab, sticky bar) opens the same
+ * simple form, sliding in from the right edge.
  */
 export default function QuoteModalProvider({
   locale,
@@ -41,7 +42,7 @@ export default function QuoteModalProvider({
     <QuoteModalCtx.Provider value={value}>
       {children}
       {state.open && (
-        <QuickQuoteModal locale={locale} d={d} source={state.source} onClose={close} />
+        <QuickQuoteDrawer key="qqd" locale={locale} d={d} source={state.source} onClose={close} />
       )}
     </QuoteModalCtx.Provider>
   );
