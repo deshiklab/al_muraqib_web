@@ -440,7 +440,8 @@ export const ar: Dict = {
     productGroups: "مجموعات المنتجات",
     capabilities: "قدراتنا الأساسية",
     accreditation: "الاعتمادات",
-    rights: "جميع الحقوق محفوظة.",
+    rights: "جميع الحقوق محفوظة.",    designedBy: "تصميم وتطوير:",
+
     privacy: "سياسة الخصوصية",
     terms: "شروط الخدمة",
     capabilitiesList: [

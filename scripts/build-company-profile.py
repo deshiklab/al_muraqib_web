@@ -263,6 +263,8 @@ def main():
             cv.setFillColor(C(NAVY950)); cv.rect(0, 0, A4[0], 9.2 * mm, stroke=0, fill=1)
             cv.setFont("MoB", 6.8); cv.setFillColor(C(GOLD400))
             cv.drawString(15 * mm, 3.2 * mm, "ALMURAQIB.AE")
+            cv.setFont("MoB", 5.8); cv.setFillColor(HexColor("#64748b"))
+            cv.drawString(38 * mm, 3.2 * mm, "·  DESIGNED & DEVELOPED BY BITSCOL")
             cv.setFillColor(HexColor("#94a3b8"))
             label = f"{st['name']}  ·  {ar('ملف الشركة ٢٠٢٦')}  ·  {pg - 1}"
             cv.setFont("Ku", 7)
@@ -307,6 +309,10 @@ def main():
                                   textColor=HexColor("#7dd3fc"), alignment=1, leading=18)),
          Spacer(1, 52 * mm),
          Paragraph("almuraqib.ae", ParagraphStyle("cv5", fontName="MoB", fontSize=10, textColor=C(GOLD400), alignment=1)),
+         Spacer(1, 2.2 * mm),
+         Paragraph('Website designed &amp; developed by <font color="#fbbf24">BITSCOL</font> · bitscol.com',
+                   ParagraphStyle("cvc", fontName="MoB", fontSize=7.4, leading=11,
+                                  textColor=HexColor("#94a3b8"), alignment=1)),
          PageBreak()]
 
     # -- 1. About
@@ -454,7 +460,7 @@ def main():
                                  ("LINEBEFORE", (1, 0), (1, 0), 0.8, C(NAVY700)),
                                  ("BACKGROUND", (0, 0), (0, 0), C(NAVY900))]))
     E += [contact, Spacer(1, 4 * mm),
-          Paragraph("Generated from the live website data · أُنشئ من بيانات الموقع الحي — scripts/build-company-profile.py",
+          Paragraph("Generated from the live website data · designed & developed by BITSCOL — bitscol.com · أُنشئ من بيانات الموقع الحي — scripts/build-company-profile.py",
                     S["small"].clone("fin", alignment=1, fontSize=6.8))]
 
     doc.build(E)

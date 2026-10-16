@@ -441,7 +441,8 @@ export const en = {
     productGroups: "Product Groups",
     capabilities: "Core Capabilities",
     accreditation: "Accreditation",
-    rights: "All rights reserved.",
+    rights: "All rights reserved.",    designedBy: "Designed & Developed By:",
+
     privacy: "Privacy Policy",
     terms: "Terms of Service",
     capabilitiesList: [

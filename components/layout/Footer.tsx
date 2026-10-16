@@ -162,6 +162,17 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
             <Link href={`${p}/terms`} className="hover:text-gold-400 mx-1">
               {d.footer.terms}
             </Link>
+            <span className="block sm:inline sm:ms-3 border-white/10 sm:border-s sm:ps-3 text-slate-400">
+              {d.footer.designedBy}{" "}
+              <a
+                href="https://www.bitscol.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-slate-300 hover:text-gold-400 transition-colors"
+              >
+                BITSCOL
+              </a>
+            </span>
           </p>
         </div>
       </div>

@@ -443,7 +443,8 @@ export const bn: Dict = {
     productGroups: "পণ্যের গ্রুপ",
     capabilities: "মূল সক্ষমতা",
     accreditation: "প্রত্যয়ন",
-    rights: "সর্বস্বত্ব সংরক্ষিত।",
+    rights: "সর্বস্বত্ব সংরক্ষিত।",    designedBy: "ডিজাইন ও ডেভেলপ করেছেন:",
+
     privacy: "প্রাইভেসি পলিসি",
     terms: "সেবার শর্ত",
     capabilitiesList: [
