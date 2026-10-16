@@ -13,6 +13,8 @@ const isStatic = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Lets client code prefix /public asset URLs with the Pages basePath when exported
+  env: { NEXT_PUBLIC_BASE: isStatic ? "/al_muraqib_web" : "" },
   images: {
     formats: ["image/avif", "image/webp"],
     ...(isStatic ? { unoptimized: true } : {}),

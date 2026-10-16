@@ -5,6 +5,7 @@ import { SectionHeading, CtaBand } from "@/components/ui/Sections";
 import ProductCard from "@/components/products/ProductCard";
 import ArticleCard from "@/components/ui/ArticleCard";
 import ProductArt from "@/components/ui/ProductArt";
+import HeroSlider from "@/components/home/HeroSlider";
 import { getDict, isLocale } from "@/lib/i18n";
 import { alternates } from "@/lib/seo";
 import { productGroups } from "@/lib/data/nav";
@@ -37,77 +38,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      {/* ============ HERO ============ */}
-      <section className="relative min-h-[86vh] lg:min-h-[92vh] flex items-center overflow-hidden bg-navy-950">
-        {/* layered gradient art */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-[#072a45]" />
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_75%_30%,#0284c7_0,transparent_50%),radial-gradient(circle_at_20%_85%,#f59e0b_0,transparent_35%)]" />
-        <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] bg-[size:48px_48px] text-white" />
-        {/* decorative tank outline */}
-        <svg viewBox="0 0 400 300" className="absolute end-[-60px] bottom-10 w-[520px] text-gold-500/15 hidden lg:block" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-          <rect x="40" y="60" width="320" height="200" rx="16" />
-          <path d="M40 110h320M40 160h320M40 210h320M140 60v200M240 60v200" />
-          <circle cx="340" cy="80" r="14" />
-        </svg>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 lg:py-28 w-full">
-          <Reveal>
-            <p className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-500 bg-gold-500/10 ring-1 ring-gold-500/30 rounded-full px-4 py-2">
-              <Icon name="shield" className="w-4 h-4" />
-              {d.home.heroEyebrow}
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="mt-6 font-heading font-black text-white text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-7xl max-w-4xl text-balance">
-              {d.home.heroTitle1}{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
-                {d.home.heroTitle2}
-              </span>
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed">{d.home.heroText}</p>
-          </Reveal>
-          <Reveal delay={240}>
-            <div className="mt-9 flex flex-col sm:flex-row gap-4">
-              <Link
-                href={`${p}/get-quotation`}
-                className="inline-flex items-center justify-center gap-2.5 bg-gold-500 text-navy-950 font-bold text-base px-8 py-4 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors"
-              >
-                <Icon name="file" className="w-5 h-5" />
-                {d.home.heroCta1}
-              </Link>
-              <Link
-                href={`${p}/products`}
-                className="inline-flex items-center justify-center gap-2.5 bg-white/10 backdrop-blur-sm text-white font-bold text-base px-8 py-4 rounded-[10px] ring-1 ring-white/20 hover:bg-white hover:text-navy-900 transition-colors"
-              >
-                {d.home.heroCta2}
-                <Icon name="arrowRight" className="w-5 h-5 flip-x" />
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={320}>
-            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-400">
-              {["ISO 9001:2015", isAr ? "معتمد من بلدية دبي" : "DM Approved", isAr ? "ESMA / ECAS" : "ESMA Compliant", isAr ? "صُنع في الإمارات" : "Made in UAE"].map((b) => (
-                <span key={b} className="inline-flex items-center gap-1.5">
-                  <Icon name="checkCircle" className="w-4 h-4 text-gold-500" />
-                  {b}
-                </span>
-              ))}
-            </div>
-          </Reveal>
+      {/* ============ HERO SLIDER ============ */}
+      <HeroSlider
+        locale={l}
+        d={d}
+        slides={d.home.heroSlides.map((sl, i) => ({
+          ...sl,
+          img: ["/hero/slide-tanks.jpg", "/hero/slide-pools.jpg", "/hero/slide-factory.jpg"][i],
+          object: ["object-[66%_60%]", "object-[60%_center]", "object-[58%_55%]"][i],
+        }))}
+      >
+        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300 [text-shadow:0_1px_10px_rgba(2,6,23,0.8)]">
+          {["ISO 9001:2015", isAr ? "معتمد من بلدية دبي" : "DM Approved", isAr ? "ESMA / ECAS" : "ESMA Compliant", isAr ? "صُنع في الإمارات" : "Made in UAE"].map((b) => (
+            <span key={b} className="inline-flex items-center gap-1.5">
+              <Icon name="checkCircle" className="w-4 h-4 text-gold-500" />
+              {b}
+            </span>
+          ))}
         </div>
-
-        {/* Scroll cue */}
-        <a
-          href="#stats"
-          aria-label={isAr ? "مرّر للأسفل" : "Scroll to content"}
-          className="hidden md:flex absolute bottom-7 inset-x-0 flex-col items-center gap-1 text-white/45 hover:text-gold-400 transition-colors"
-        >
-          <span className="text-[9px] font-bold uppercase tracking-[0.3em]">{isAr ? "مرّر" : "Scroll"}</span>
-          <Icon name="chevronDown" className="w-5 h-5 scroll-cue" />
-        </a>
-      </section>
+      </HeroSlider>
 
       {/* ============ STATS ============ */}
       <section id="stats" className="bg-navy-900 border-t border-white/10">

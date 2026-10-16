@@ -48,7 +48,7 @@ export default function ProductHero({
   const waMsg = `${d.chat.whatsappMsg} — ${t(product.name, locale)} (${site.url}/${locale}/products/${product.slug})`;
 
   return (
-    <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
+    <div className="grid lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)] gap-6 lg:gap-10">
       {/* ---------- Gallery ---------- */}
       <div>
         <div className="bg-white border border-slate-200 rounded-[12px] overflow-hidden">
@@ -57,7 +57,7 @@ export default function ProductHero({
             icon={group?.icon ?? "tank"}
             label={t(current.caption, locale)}
             kind={current.kind}
-            className="aspect-square w-full"
+            className="aspect-[4/3] w-full"
           />
         </div>
 
@@ -74,7 +74,7 @@ export default function ProductHero({
                   track("product_gallery_tab", { kind: tab.kind, slug: product.slug });
                 }}
                 className={cn(
-                  "text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full border transition-colors cursor-pointer",
+                  "text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border transition-colors cursor-pointer",
                   kind === tab.kind
                     ? "bg-navy-900 border-navy-900 text-white"
                     : "bg-white border-slate-200 text-slate-500 hover:border-brand-600 hover:text-brand-700"
@@ -91,7 +91,7 @@ export default function ProductHero({
         </div>
 
         {activeItems.length > 1 && (
-          <div className="mt-3 grid grid-cols-4 gap-3">
+          <div className="mt-2.5 grid grid-cols-4 gap-2">
             {activeItems.map((item, i) => (
               <button
                 key={i}
@@ -116,7 +116,7 @@ export default function ProductHero({
 
       {/* ---------- Buy box ---------- */}
       <div>
-        <div className="flex flex-wrap items-center gap-2 mb-3">
+        <div className="flex flex-wrap items-center gap-2 mb-2.5">
           <Link
             href={`/${locale}/products?group=${product.group}`}
             className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-500 bg-brand-500/10 rounded-full px-3 py-1.5 hover:bg-brand-700 hover:text-white transition-colors"
@@ -131,21 +131,21 @@ export default function ProductHero({
           )}
         </div>
 
-        <h1 className="font-heading font-black text-3xl md:text-4xl leading-tight text-white text-balance">
+        <h1 className="font-heading font-black text-2xl md:text-[1.75rem] leading-tight text-white text-balance">
           {t(product.name, locale)}
         </h1>
-        <p className="mt-3 text-slate-300 leading-relaxed text-[17px]">{t(product.pitch, locale)}</p>
+        <p className="mt-2.5 text-slate-300 leading-relaxed text-[15px]">{t(product.pitch, locale)}</p>
 
         {/* Variants */}
         {product.variantAxes && product.variantAxes.length > 0 && (
-          <div className="mt-6 space-y-4 bg-slate-50 border border-slate-100 rounded-[12px] p-4">
+          <div className="mt-5 space-y-3.5 bg-slate-50 border border-slate-100 rounded-[12px] p-3.5">
             <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 flex items-center gap-2">
               <Icon name="ruler" className="w-4 h-4 text-gold-600" />
               {d.product.variantSelect}
             </p>
             {product.variantAxes.map((axis) => (
               <div key={axis.id}>
-                <p className="text-sm font-bold text-navy-900 mb-2">{t(axis.label, locale)}</p>
+                <p className="text-[13px] font-bold text-navy-900 mb-1.5">{t(axis.label, locale)}</p>
                 <div className="flex flex-wrap gap-2">
                   {axis.options.map((opt) => {
                     const active = variants[axis.id] === opt.id;
@@ -157,7 +157,7 @@ export default function ProductHero({
                           track("product_variant_select", { slug: product.slug, axis: axis.id, opt: opt.id });
                         }}
                         className={cn(
-                          "px-4 py-2 rounded-[10px] text-sm font-bold border-2 transition-all cursor-pointer",
+                          "px-3.5 py-1.5 rounded-[10px] text-[13px] font-bold border-2 transition-all cursor-pointer",
                           active
                             ? "border-brand-700 bg-brand-700 text-white"
                             : "border-slate-200 bg-white text-slate-600 hover:border-brand-600"
@@ -180,29 +180,29 @@ export default function ProductHero({
         )}
 
         {/* Key facts */}
-        <div className="mt-6 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid grid-cols-2 gap-2.5">
           {product.keyFacts.map((f) => (
-            <div key={f.label.en} className="bg-white border border-slate-200 rounded-[10px] p-3.5">
+            <div key={f.label.en} className="bg-white border border-slate-200 rounded-[10px] p-3">
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">{t(f.label, locale)}</p>
-              <p className="mt-1 font-heading font-bold text-navy-900 text-[15px]">{t(f.value, locale)}</p>
+              <p className="mt-1 font-heading font-bold text-navy-900 text-sm">{t(f.value, locale)}</p>
             </div>
           ))}
         </div>
 
         {/* CTAs */}
-        <div className="mt-6 space-y-3">
+        <div className="mt-5 space-y-2.5">
           <Link
             href={quoteHref}
             onClick={() => track("cta_product_quote", { slug: product.slug, variant: variantQuery })}
-            className="flex items-center justify-center gap-2.5 w-full bg-gold-500 text-navy-950 font-bold text-[15px] py-4 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors shadow-[0_10px_25px_-12px_rgba(245,158,11,0.8)]"
+            className="flex items-center justify-center gap-2 w-full bg-gold-500 text-navy-950 font-bold text-sm py-3.5 rounded-[10px] hover:bg-gold-600 hover:text-white transition-colors shadow-[0_10px_25px_-12px_rgba(245,158,11,0.8)]"
           >
-            <Icon name="file" className="w-5 h-5" />
+            <Icon name="file" className="w-4.5 h-4.5" />
             {product.variantAxes?.length ? d.product.quoteThisVariant : d.common.requestQuote}
           </Link>
           <div className="grid grid-cols-2 gap-3">
             <Link
               href={`/${locale}/get-quotation?product=${product.slug}&source=brochure`}
-              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors"
+              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors"
             >
               <Icon name="download" className="w-4 h-4" />
               {d.common.downloadBrochure}
@@ -212,7 +212,7 @@ export default function ProductHero({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("whatsapp_click", { where: "product", slug: product.slug })}
-              className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold text-sm py-3 rounded-[10px] hover:bg-[#1ebe5b] transition-colors"
+              className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:bg-[#1ebe5b] transition-colors"
             >
               <Icon name="whatsapp" className="w-4 h-4" />
               {d.common.whatsapp}
@@ -221,7 +221,7 @@ export default function ProductHero({
           <div className="grid grid-cols-2 gap-3 pt-1">
             <a
               href={`tel:${site.phoneIntl}`}
-              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors whitespace-nowrap"
+              className="flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors whitespace-nowrap"
             >
               <Icon name="phone" className="w-4 h-4" />
               {site.phone}
@@ -233,7 +233,7 @@ export default function ProductHero({
                 setTimeout(() => setCopied(false), 1800);
               }}
               className={cn(
-                "flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-sm py-3 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors cursor-pointer",
+                "flex items-center justify-center gap-2 border-2 border-slate-200 text-white font-bold text-[13px] py-2.5 rounded-[10px] hover:border-gold-500 hover:text-gold-400 transition-colors cursor-pointer",
                 copied && "border-gold-500 text-gold-400"
               )}
             >

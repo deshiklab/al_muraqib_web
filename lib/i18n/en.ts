@@ -87,6 +87,28 @@ export const en = {
       "Design, molding, finishing and installation — executed in-house under ISO-grade procedures for water storage, pools, lining systems and custom composite work.",
     heroCta1: "Get a Quotation",
     heroCta2: "Browse Products",
+    heroPrev: "Previous slide",
+    heroNext: "Next slide",
+    heroSlides: [
+      {
+        eyebrow: "ISO 9001 Certified · Since 2016 · Sharjah, UAE",
+        title1: "Leading GRP & FRP",
+        title2: "Manufacturers in the UAE",
+        text: "Design, molding, finishing and installation — executed in-house under ISO-grade procedures for water storage, pools, lining systems and custom composite work.",
+      },
+      {
+        eyebrow: "Plunge Pools & Luxury Water Features",
+        title1: "Pools factory-built,",
+        title2: "installed to perfection",
+        text: "Moulded GRP and acrylic pools for hotels, villas and rooftops across the GCC — engineered in Sharjah, delivered ready to install.",
+      },
+      {
+        eyebrow: "Lining, Ducts & Custom Fabrication",
+        title1: "Corrosion-proof systems",
+        title2: "backed for 25+ years",
+        text: "RCC tank lining, chemical flooring, scrubbers and GRP ducts — hand-laid, cured and inspected under ISO-grade procedures.",
+      },
+    ],
     statsEstablished: "Established",
     statsClients: "Clients served",
     statsProjects: "Projects completed",

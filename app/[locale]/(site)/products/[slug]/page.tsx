@@ -75,8 +75,8 @@ export default async function ProductPage({
     <>
       {/* Breadcrumb header */}
       <section className="bg-navy-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-          <nav className="text-sm text-slate-400 mb-5 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+          <nav className="text-[13px] text-slate-400 mb-4 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>
             <span>/</span>
             <Link href={`/${l}/products`} className="hover:text-gold-400">{d.nav.products}</Link>
@@ -97,14 +97,15 @@ export default async function ProductPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
           <AnchorNav items={anchors} />
 
-          <div className="max-w-4xl pt-10 space-y-14">
+          <div className="pt-8 grid lg:grid-cols-[minmax(0,1fr)_380px] gap-x-14 gap-y-12 items-start">
+          <div className="max-w-3xl space-y-12 min-w-0">
             {/* Description */}
             <article id="description" className="scroll-mt-40">
-              <h2 className="font-heading font-black text-2xl md:text-3xl mb-5 flex items-center gap-3">
-                <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+              <h2 className="font-heading font-black text-xl md:text-2xl mb-4 flex items-center gap-3">
+                <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                 {d.product.description}
               </h2>
-              <div className="prose-alma space-y-4 text-slate-600 leading-relaxed text-[17px]">
+              <div className="prose-alma space-y-4 text-slate-600 leading-relaxed text-[15px]">
                 {product.description.map((para, i) => (
                   <p key={i} className={i === 0 && l === "ar" && para === product.description[0] ? "" : ""}>
                     {t(para, l)}
@@ -120,18 +121,18 @@ export default async function ProductPage({
 
             {/* Key features */}
             <section id="features" className="scroll-mt-40">
-              <h2 className="font-heading font-black text-2xl md:text-3xl mb-5 flex items-center gap-3">
-                <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+              <h2 className="font-heading font-black text-xl md:text-2xl mb-4 flex items-center gap-3">
+                <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                 {d.product.keyFeatures}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {product.keyFeatures.map((f, i) => (
                   <Reveal key={i} delay={i * 50}>
-                    <div className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-[10px] p-4 h-full">
+                    <div className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-[10px] p-3.5 h-full">
                       <span className="grid place-items-center w-6 h-6 rounded-full bg-brand-700 text-white shrink-0 mt-0.5">
                         <Icon name="check" className="w-3.5 h-3.5" strokeWidth={3} />
                       </span>
-                      <span className="text-sm font-semibold text-navy-900 leading-relaxed">{t(f, l)}</span>
+                      <span className="text-[13px] font-semibold text-navy-900 leading-relaxed">{t(f, l)}</span>
                     </div>
                   </Reveal>
                 ))}
@@ -140,9 +141,9 @@ export default async function ProductPage({
 
             {/* Specifications */}
             <section id="specifications" className="scroll-mt-40">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-                <h2 className="font-heading font-black text-2xl md:text-3xl flex items-center gap-3">
-                  <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <h2 className="font-heading font-black text-xl md:text-2xl flex items-center gap-3">
+                  <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                   {d.product.specifications}
                 </h2>
                 <Link
@@ -156,17 +157,17 @@ export default async function ProductPage({
               <div className="space-y-5">
                 {product.specGroups.map((sg) => (
                   <div key={sg.name.en} className="border border-slate-200 rounded-[12px] overflow-hidden">
-                    <p className="bg-navy-900 text-white text-sm font-bold uppercase tracking-wider px-5 py-3">
+                    <p className="bg-navy-900 text-white text-[13px] font-bold uppercase tracking-wider px-4 py-2.5">
                       {t(sg.name, l)}
                     </p>
                     <table className="w-full text-sm">
                       <tbody>
                         {sg.rows.map((row, i) => (
                           <tr key={i} className={i % 2 ? "bg-slate-50" : "bg-white"}>
-                            <th scope="row" className="text-start font-semibold text-slate-500 px-5 py-3 w-2/5 align-top">
+                            <th scope="row" className="text-start font-semibold text-slate-500 px-4 py-2.5 w-2/5 align-top">
                               {t(row.key, l)}
                             </th>
-                            <td className="text-navy-900 font-medium px-5 py-3">{t(row.value, l)}</td>
+                            <td className="text-navy-900 font-medium px-4 py-2.5">{t(row.value, l)}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -176,23 +177,26 @@ export default async function ProductPage({
               </div>
             </section>
 
-            {/* Applications */}
-            <section id="applications" className="scroll-mt-40">
-              <h2 className="font-heading font-black text-2xl md:text-3xl mb-5 flex items-center gap-3">
-                <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+          </div>
+
+          {/* Right rail: applications · attributes · FAQ */}
+          <aside className="min-w-0 space-y-6">
+            <section id="applications" className="scroll-mt-40 bg-slate-50/70 border border-slate-100 rounded-[12px] p-5">
+              <h2 className="font-heading font-black text-xl md:text-2xl mb-4 flex items-center gap-3">
+                <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                 {d.product.applications}
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 gap-2.5">
                 {product.applications.map((slug, i) => {
                   const app = applications.find((a) => a.slug === slug);
                   if (!app) return null;
                   return (
                     <Reveal key={slug} delay={i * 50}>
-                      <div className="flex flex-col items-center gap-2.5 bg-white border border-slate-200 rounded-[12px] p-4 text-center h-full hover:border-gold-500 transition-colors">
-                        <span className="grid place-items-center w-11 h-11 rounded-xl bg-navy-900 text-gold-500">
-                          <Icon name={app.icon} className="w-5.5 h-5.5" />
+                      <div className="flex flex-col items-center gap-2.5 bg-white border border-slate-200 rounded-[10px] p-3 text-center h-full hover:border-gold-500 transition-colors">
+                        <span className="grid place-items-center w-9 h-9 rounded-lg bg-navy-900 text-gold-500">
+                          <Icon name={app.icon} className="w-4.5 h-4.5" />
                         </span>
-                        <span className="text-xs font-bold text-navy-900 leading-snug">{t(app.name, l)}</span>
+                        <span className="text-[11px] font-bold text-navy-900 leading-snug">{t(app.name, l)}</span>
                       </div>
                     </Reveal>
                   );
@@ -201,16 +205,16 @@ export default async function ProductPage({
             </section>
 
             {/* Attributes */}
-            <section id="attributes" className="scroll-mt-40">
-              <h2 className="font-heading font-black text-2xl md:text-3xl mb-5 flex items-center gap-3">
-                <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+            <section id="attributes" className="scroll-mt-40 bg-slate-50/70 border border-slate-100 rounded-[12px] p-5">
+              <h2 className="font-heading font-black text-xl md:text-2xl mb-4 flex items-center gap-3">
+                <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                 {d.product.attributes}
               </h2>
-              <dl className="border border-slate-200 rounded-[12px] divide-y divide-slate-100">
+              <dl className="bg-white border border-slate-200 rounded-[10px] divide-y divide-slate-100 overflow-hidden">
                 {product.attributes.map((attr, i) => (
-                  <div key={i} className="flex text-sm">
-                    <dt className="w-2/5 bg-slate-50 font-semibold text-slate-500 px-5 py-3.5">{t(attr.key, l)}</dt>
-                    <dd className="text-navy-900 font-medium px-5 py-3.5">{t(attr.value, l)}</dd>
+                  <div key={i} className="flex text-[13px]">
+                    <dt className="w-2/5 bg-slate-50 font-semibold text-slate-500 px-4 py-2.5">{t(attr.key, l)}</dt>
+                    <dd className="text-navy-900 font-medium px-4 py-2.5.5">{t(attr.value, l)}</dd>
                   </div>
                 ))}
               </dl>
@@ -218,24 +222,25 @@ export default async function ProductPage({
 
             {/* FAQ */}
             {product.faqs.length > 0 && (
-              <section id="faq" className="scroll-mt-40">
-                <h2 className="font-heading font-black text-2xl md:text-3xl mb-5 flex items-center gap-3">
-                  <span className="w-1.5 h-7 rounded-full bg-gold-500" />
+              <section id="faq" className="scroll-mt-40 bg-slate-50/70 border border-slate-100 rounded-[12px] p-5">
+                <h2 className="font-heading font-black text-xl md:text-2xl mb-4 flex items-center gap-3">
+                  <span className="w-1.5 h-6 rounded-full bg-gold-500" />
                   {d.product.faq}
                 </h2>
                 <div className="space-y-3">
                   {product.faqs.map((f, i) => (
                     <details key={i} className="group bg-slate-50 border border-slate-100 rounded-[10px] open:bg-white open:border-brand-600/30">
-                      <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4 font-bold text-navy-900 text-[15px]">
+                      <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-4 py-3 font-bold text-navy-900 text-[13.5px]">
                         {t(f.q, l)}
                         <Icon name="plus" className="w-4.5 h-4.5 text-gold-600 shrink-0 transition-transform group-open:rotate-45" />
                       </summary>
-                      <p className="px-5 pb-4 text-slate-600 leading-relaxed text-[15px]">{t(f.a, l)}</p>
+                      <p className="px-4 pb-3 text-slate-600 leading-relaxed text-[13.5px]">{t(f.a, l)}</p>
                     </details>
                   ))}
                 </div>
               </section>
             )}
+          </aside>
           </div>
         </div>
       </section>
