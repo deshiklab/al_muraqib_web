@@ -7,7 +7,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
+      # Production deploy lines. `arena/...` is pre-merge history; the default
+      # branch takes over once PR #3 is merged. Any OTHER branch/session
+      # (e.g. a new CMS branch) does NOT auto-deploy — trigger manually with:
+      #   gh workflow run pages.yml --ref <branch>
       - arena/01a0d89a-al-muraqib-web
+      - almuraqib-frontend-site-10384899349809002369
   workflow_dispatch:
 
 permissions:

@@ -10,16 +10,19 @@
 ## 1. New-session quickstart (copy-paste this into the agent)
 
 ```
-Repo: deshiklab/al_muraqib_web (Next.js 15 + Tailwind v4 bilingual EN/AR site).
-FIRST run:  git fetch origin arena/01a0d89a-al-muraqib-web
-            git merge origin/arena/01a0d89a-al-muraqib-web   (or wait for it to be merged to the default branch)
-THEN read docs/CONTINUITY.md (this file) and docs/INSTRUCTION-LOG.md end-to-end.
-Keep every standing constraint and the Verification Checklist; finish by committing and pushing
-to the working branch, and append to docs/INSTRUCTION-LOG.md.
+Repo: deshiklab/al_muraqib_web (Next.js 15.5 + Tailwind v4 bilingual EN/AR site, static export → GitHub Pages).
+Work happens on branch arena/01a0d89a-al-muraqib-web. A NEW session/branch MUST start from its tip:
+    git fetch origin arena/01a0d89a-al-muraqib-web && git merge FETCH_HEAD
+(or from the default branch ONLY after PR #3 — the arena line — is merged).
+THEN read docs/CONTINUITY.md (this file) + docs/INSTRUCTION-LOG.md end-to-end; for CMS work also
+docs/CMS-PLATFORM-PLAN.md. Keep every standing constraint and the §6 Verification Checklist; finish by
+committing + pushing to your working branch and appending to docs/INSTRUCTION-LOG.md.
+Deploy: pushes to arena/default auto-deploy Pages; other branches deploy manually —
+    gh workflow run pages.yml --ref <your-branch>
 ```
 
-If the arena branch has already been merged into the default branch, `git fetch` alone suffices —
-never re-clone from an older commit.
+If the arena branch has already been merged into the default branch, `git fetch origin main-branch && git reset --hard`
+there suffices — never re-clone from the old static-HTML base commit.
 
 ## 2. Why continuity is fragile here (learned the hard way)
 
@@ -110,11 +113,13 @@ python3 scripts/build-company-profile.py     # bilingual Company Profile PDF (fo
 
 ## 8. Open roadmap (as of snapshot)
 
-1. Merge the 36-commit arena branch PR into the default branch (see §7) — pending owner decision.
-2. `npm audit`: 3 vulnerabilities — bump when convenient.
-3. Lead capture for static hosting (Formspree/Apps Script vs Node host) → re-enables `/api/rfq`.
-4. Custom domain `almuraqib.ae` + HTTPS + GA4/GSC secrets; real social/tawk/phone confirmations.
-5. Replace AI imagery with client photography (drop files into `public/images/...` per §3 naming).
-6. Optional: fully localized article bodies (currently EN bodies with AR notes).
+Done at snapshot: PR #3 pending-owner-merge (see below) · npm audit → **0 vulnerabilities** (next 15.5.28 + `overrides.postcss=8.5.28` — do not remove the override unless Next vendors patched postcss); RSS feed + Service/org/dateModified schema shipped.
+Remaining, ordered by leverage:
+1. **Merge PR #3** into the default branch (pending owner decision) — until then this file's §1 branch rule is the only safety net.
+2. **Custom domain `almuraqib.ae`** + HTTPS + GA4/GSC secrets (`NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_GSC_SITE_VERIFICATION` read by the layout at build); submit `/sitemap.xml` (120 URLs) + `/feed.xml` to GSC/Bing. Canonical/hreflang/sitemap all already point at this domain.
+3. **CMS & lead platform** — `docs/CMS-PLATFORM-PLAN.md` v1 awaiting client answers (§10 open questions gate Phase 0).
+4. Real social URLs in `lib/data/site.ts` (footer placeholders also gate Organization `sameAs` — the filter auto-publishes once real), tawk property id, phone confirmations.
+5. Client photography swap (filenames are the contract, §3) + brand-logo approvals.
+6. Optional: fully localized AR/BN article bodies; per-locale OG cards (Arabic shaping blocker — see INSTRUCTION-LOG phase 9).
 
 *If this guide and reality disagree, reality wins — then fix this file in the same PR.*
