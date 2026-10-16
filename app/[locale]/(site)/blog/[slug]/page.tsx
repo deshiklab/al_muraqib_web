@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import ArticleCard from "@/components/ui/ArticleCard";
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import ProductCard from "@/components/products/ProductCard";
 import { Reveal } from "@/components/ui/Motion";
 import { CtaBand } from "@/components/ui/Sections";
@@ -44,7 +45,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="bg-navy-950">
+      <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src={post.image ?? "/images/backdrops/insights.jpg"} />
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <nav className="text-sm text-slate-400 mb-5 flex flex-wrap items-center gap-2">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>

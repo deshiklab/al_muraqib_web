@@ -21,6 +21,14 @@ export default function ArticleCard({
   return (
     <article className="group bg-white rounded-[12px] border border-slate-200/80 overflow-hidden hover:shadow-soft transition-all flex flex-col">
       <Link href={href} className="p-5 border-b border-slate-100 bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden">
+        {article.image ? (
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url("${(process.env.NEXT_PUBLIC_BASE ?? "") + article.image}")` }}
+          />
+        ) : null}
+        <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-900/75 to-navy-800/45" />
         <span className="absolute -end-6 -bottom-6 w-28 h-28 rounded-full bg-gold-500/10" />
         <span className="relative text-gold-400 text-[10px] font-black uppercase tracking-[0.18em]">
           {t(article.category, locale)}

@@ -109,6 +109,7 @@ export interface Article {
   excerpt: L;
   date: string;
   readingMinutes: number;
+  image?: string;
   relatedProducts: string[];
   body: string[]; // paragraphs (EN; AR falls back)
 }

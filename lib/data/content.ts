@@ -287,6 +287,7 @@ export const projects: Project[] = [
 export const articles: Article[] = [
   {
     slug: "hot-press-vs-cold-press-panel-tanks",
+    image: "/images/articles/hot-press-vs-cold-press-panel-tanks.jpg",
     kind: "blog",
     category: { en: "Comparisons", ar: "مقارنات" },
     title: { en: "Hot Press vs Cold Press GRP Panel Tanks", ar: "مقارنة الخزانات الألواحية: الضغط الساخن والبارد" },
@@ -306,6 +307,7 @@ export const articles: Article[] = [
   },
   {
     slug: "how-to-size-grp-panel-tank",
+    image: "/images/articles/how-to-size-grp-panel-tank.jpg",
     kind: "blog",
     category: { en: "Selection Guides", ar: "أدلة الاختيار" },
     title: { en: "How to Size a GRP Panel Water Tank", ar: "كيف تحسب حجم خزان GRP الألواحي" },
@@ -325,6 +327,7 @@ export const articles: Article[] = [
   },
   {
     slug: "grp-lining-vs-epoxy-rcc-tanks",
+    image: "/images/articles/grp-lining-vs-epoxy-rcc-tanks.jpg",
     kind: "blog",
     category: { en: "Comparisons", ar: "مقارنات" },
     title: { en: "GRP Lining vs Epoxy Coating for RCC Tanks", ar: "بطانة GRP مقابل طلاء الإيبوكسي لخزانات RCC" },
@@ -344,6 +347,7 @@ export const articles: Article[] = [
   },
   {
     slug: "panel-tank-installation-guide",
+    image: "/images/articles/panel-tank-installation-guide.jpg",
     kind: "kb",
     category: { en: "Installation & Maintenance", ar: "التركيب والصيانة" },
     title: { en: "Panel Tank Installation: 7 Steps to a Leak-Free Build", ar: "تركيب الخزان الألواحي: 7 خطوات لتركيب محكم" },
@@ -366,6 +370,7 @@ export const articles: Article[] = [
   },
   {
     slug: "water-tank-maintenance-checklist",
+    image: "/images/articles/water-tank-maintenance-checklist.jpg",
     kind: "kb",
     category: { en: "Installation & Maintenance", ar: "التركيب والصيانة" },
     title: { en: "GRP Water Tank Maintenance Checklist", ar: "قائمة صيانة خزان مياه GRP" },
@@ -385,6 +390,7 @@ export const articles: Article[] = [
   },
   {
     slug: "dm-potable-water-approval-guide",
+    image: "/images/articles/dm-potable-water-approval-guide.jpg",
     kind: "kb",
     category: { en: "Standards & Compliance", ar: "المعايير والاعتمادات" },
     title: { en: "Dubai Municipality Potable Water Approvals: What Specifiers Ask For", ar: "اعتمادات بلدية دبي لمياه الشرب: ما يطلبه المستشارون" },
