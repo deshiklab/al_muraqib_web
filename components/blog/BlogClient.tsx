@@ -25,9 +25,13 @@ export default function BlogClient({
   rows,
   locale,
   f,
+  hrefBase = "blog",
+  showFeatured = true,
 }: {
   rows: BlogRow[];
   locale: Locale;
+  hrefBase?: string;
+  showFeatured?: boolean;
   f: {
     search: string;
     category: string;
@@ -40,7 +44,8 @@ export default function BlogClient({
     filterAll: string;
     clear: string;
     noResults: string;
-    results: (n: number) => string;
+    articleOne: string;
+    articleMany: string;
     featured: string;
     readGuide: string;
   };
@@ -113,7 +118,7 @@ export default function BlogClient({
   ];
 
   const base = process.env.NEXT_PUBLIC_BASE ?? "";
-  const featured = activeCount === 0 && sort === "newest" ? filtered[0] : null;
+  const featured = showFeatured && activeCount === 0 && sort === "newest" ? filtered[0] : null;
   const grid = featured ? filtered.slice(1) : filtered;
 
   return (
@@ -225,7 +230,7 @@ export default function BlogClient({
         {/* chips + count */}
         {(chips.length > 0 || activeCount > 0) && (
           <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold text-slate-500">{f.results(filtered.length)}</span>
+            <span className="text-xs font-bold text-slate-500">{filtered.length} {filtered.length === 1 ? f.articleOne : f.articleMany}</span>
             {chips.map((c) => (
               <button
                 key={c.key}
@@ -250,7 +255,7 @@ export default function BlogClient({
       {featured && (
         <Reveal>
           <Link
-            href={`/${locale}/blog/${featured.slug}`}
+            href={`/${locale}/${hrefBase}/${featured.slug}`}
             className="group grid md:grid-cols-2 bg-navy-950 rounded-[16px] overflow-hidden border border-navy-800 hover:shadow-dropdown transition-all mb-10"
           >
             <div className="relative min-h-[220px] md:min-h-[300px] overflow-hidden">
@@ -300,7 +305,7 @@ export default function BlogClient({
           {grid.map((r, i) => {
             const articleLike = {
               slug: r.slug,
-              kind: "blog" as const,
+              kind: (hrefBase === "blog" ? "blog" : "kb") as "blog" | "kb",
               category: { en: r.category },
               title: { en: r.title },
               excerpt: { en: r.excerpt },
@@ -312,7 +317,7 @@ export default function BlogClient({
             };
             return (
               <Reveal key={r.slug} delay={(i % 6) * 60}>
-                <ArticleCard article={articleLike as never} locale={locale} href={`/${locale}/blog/${r.slug}`} />
+                <ArticleCard article={articleLike as never} locale={locale} href={`/${locale}/${hrefBase}/${r.slug}`} />
               </Reveal>
             );
           })}

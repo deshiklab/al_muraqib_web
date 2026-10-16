@@ -1,9 +1,10 @@
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
+import BlogClient from "@/components/blog/BlogClient";
+import { getProduct } from "@/lib/data/catalog";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
-import ArticleCard from "@/components/ui/ArticleCard";
 import { Reveal } from "@/components/ui/Motion";
 import { getDict, isLocale } from "@/lib/i18n";
 import { articlesByKind } from "@/lib/data/content";
@@ -26,12 +27,25 @@ export default async function KnowledgeBasePage({ params }: { params: Promise<{ 
   const d = getDict(l);
   const items = articlesByKind("kb");
 
-  const cats = [
-    { id: "selection", icon: "ruler" as const },
-    { id: "installation", icon: "tool" as const },
-    { id: "standards", icon: "shield" as const },
-    { id: "troubleshooting", icon: "search" as const },
-  ] as const;
+  const rows = items.map((a) => ({
+    slug: a.slug,
+    title: t(a.title, l),
+    excerpt: t(a.excerpt, l),
+    category: t(a.category, l),
+    date: a.date,
+    readingMinutes: a.readingMinutes,
+    image: a.image,
+    products: a.relatedProducts
+      .map(getProduct)
+      .filter((p): p is NonNullable<typeof p> => Boolean(p))
+      .map((p) => ({ id: p.slug, label: t(p.name, l) })),
+  }));
+
+  const f = {
+    ...d.kb.filters,
+    filterAll: d.kb.filterAll,
+  };
+
 
   return (
     <>
@@ -49,40 +63,9 @@ export default async function KnowledgeBasePage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
+      <section className="pb-16 md:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Category tiles */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            {cats.map((c, i) => (
-              <Reveal key={c.id} delay={i * 60}>
-                <div className="bg-white border border-slate-200 rounded-[12px] p-5 hover:border-gold-500 hover:shadow-soft transition-all h-full">
-                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-navy-900 text-gold-500">
-                    <Icon name={c.icon} className="w-5.5 h-5.5" />
-                  </span>
-                  <p className="mt-3 font-bold text-navy-900 text-sm">{d.kb.categories[c.id]}</p>
-                  <p className="mt-1 text-xs text-slate-400">
-                    {items.filter((a) => {
-                      const catEn = a.category.en.toLowerCase();
-                      if (c.id === "selection") return catEn.includes("selection");
-                      if (c.id === "installation") return catEn.includes("installation");
-                      if (c.id === "standards") return catEn.includes("standards");
-                      return false;
-                    }).length || "—"}{" "}
-                    {tl(l, "articles", "مقالات")}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {items.map((a, i) => (
-              <Reveal key={a.slug} delay={(i % 6) * 60}>
-                <ArticleCard article={a} locale={l} href={`/${l}/knowledge-base/${a.slug}`} />
-              </Reveal>
-            ))}
-          </div>
-
+          <BlogClient rows={rows} locale={l} hrefBase="knowledge-base" f={f} />
           <Reveal>
             <div className="mt-12 bg-navy-900 rounded-[14px] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-start">
               <div>

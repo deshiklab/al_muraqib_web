@@ -2,7 +2,7 @@ import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import { site, clients } from "@/lib/data/site";
 import { productGroups } from "@/lib/data/nav";
-import { t } from "@/lib/utils";
+import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import type { Dict } from "@/lib/i18n";
 import NewsletterForm from "./NewsletterForm";
@@ -70,6 +70,16 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
                 </Link>
               </li>
             ))}
+            <li className="pt-1">
+              <a
+                href={`${process.env.NEXT_PUBLIC_BASE ?? ""}/company-profile.pdf`}
+                download
+                className="inline-flex items-center gap-2 text-gold-400 hover:text-gold-500 font-bold transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>
+                {tl(locale, "Company Profile (PDF)", "ملف الشركة (PDF)")}
+              </a>
+            </li>
           </ul>
         </div>
 

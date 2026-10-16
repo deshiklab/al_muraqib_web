@@ -183,6 +183,55 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      {/* Company profile download */}
+      <section className="py-14 md:py-16 bg-white border-t border-slate-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-[16px] bg-navy-950 text-white p-7 md:p-10 grid lg:grid-cols-[minmax(0,1fr)_auto] gap-8 lg:gap-14 items-center">
+              <span aria-hidden className="absolute -end-16 -top-16 w-64 h-64 rounded-full bg-gold-500/10" />
+              <span aria-hidden className="absolute -end-24 top-10 w-64 h-64 rounded-full border border-white/5" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-gold-500 bg-gold-500/10 ring-1 ring-gold-500/30 rounded-full px-3.5 py-1.5">
+                  <Icon name="download" className="w-3.5 h-3.5" />
+                  {tl(l, "Official downloads", "تحميلات رسمية")}
+                </span>
+                <h2 className="mt-4 font-heading font-black text-3xl md:text-4xl leading-tight">
+                  {tl(l, "Company Profile 2026", "الملف التعريفي للشركة ٢٠٢٦")}
+                </h2>
+                <p className="mt-3 max-w-xl text-slate-300 leading-relaxed">
+                  {tl(l,
+                    "Everything in one bilingual PDF — who we are, the nine product families, services, selected projects, certifications, brand partners and contact details. English and Arabic side by side.",
+                    "كل شيء في ملف PDF ثنائي اللغة — من نحن، عائلات المنتجات التسع، الخدمات، أبرز المشاريع، الشهادات، شركاء العلامات ومعلومات التواصل. الإنجليزية والعربية جنبًا إلى جنب.")}
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold">
+                  {[
+                    tl(l, "9 product families", "٩ عائلات منتجات"),
+                    tl(l, "Selected projects", "مشاريع مختارة"),
+                    tl(l, "Quality & compliance", "الجودة والامتثال"),
+                    tl(l, "EN + AR", "إنجليزي + عربي"),
+                  ].map((b) => (
+                    <span key={b} className="rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-slate-300">{b}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="relative flex flex-col items-stretch gap-3 min-w-[220px]">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_BASE ?? ""}/company-profile.pdf`}
+                  download
+                  className="inline-flex items-center justify-center gap-2.5 bg-gold-500 hover:bg-gold-400 text-navy-950 font-black text-sm rounded-[12px] px-7 py-3.5 transition-colors"
+                >
+                  <Icon name="download" className="w-4.5 h-4.5" />
+                  {tl(l, "Download the PDF", "تحميل ملف الشركة")}
+                </a>
+                <p className="text-center text-xs text-slate-400">
+                  {tl(l, "5 pages · A4 · updated 2026", "٥ صفحات · A4 · محدّث ٢٠٦")}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <CtaBand title={d.home.ctaTitle} text={d.home.ctaText} button={d.home.ctaButton} href={`/${l}/get-quotation`} locale={l} />
     </>
   );
