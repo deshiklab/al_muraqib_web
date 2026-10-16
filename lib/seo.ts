@@ -1,0 +1,26 @@
+import type { Metadata } from "next";
+import type { Locale } from "@/lib/types";
+
+/**
+ * Per-locale alternates for a path written in its English form
+ * (e.g. "/en/products/hot-press-grp-panel-tank").
+ *
+ * Returns the canonical URL for the CURRENT locale plus an hreflang pair
+ * (EN/AR + x-default → EN), resolved against metadataBase (almuraqib.ae).
+ */
+export function alternates(locale: Locale, pathEn: string): Metadata["alternates"] {
+  const en = pathEn.replace(/^\/(ar|bn)\b/, "/en");
+  const current = locale === "en" ? en : `/${locale}${en.replace(/^\/en/, "")}`;
+  return {
+    canonical: current,
+    languages: { en, ar: en.replace(/^\/en\b/, "/ar"), bn: en.replace(/^\/en\b/, "/bn"), "x-default": en },
+  };
+}
+
+/** Per-section Open Graph picture (resolved against metadataBase → absolute). */
+export function ogImages(url: string): Pick<import("next").Metadata, "openGraph" | "twitter"> {
+  return {
+    openGraph: { images: [{ url, width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", images: [url] },
+  };
+}

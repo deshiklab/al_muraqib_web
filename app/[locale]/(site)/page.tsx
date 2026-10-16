@@ -1,0 +1,355 @@
+import Link from "next/link";
+import Icon from "@/components/ui/Icon";
+import { Reveal, Counter } from "@/components/ui/Motion";
+import { SectionHeading, CtaBand } from "@/components/ui/Sections";
+import ProductCard from "@/components/products/ProductCard";
+import ArticleCard from "@/components/ui/ArticleCard";
+import ProductArt from "@/components/ui/ProductArt";
+import HeroSlider from "@/components/home/HeroSlider";
+import { getDict, isLocale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
+import { productGroups } from "@/lib/data/nav";
+import { products } from "@/lib/data/catalog";
+import { articlesByKind, projects } from "@/lib/data/content";
+import { site, clients, sectors, certifications } from "@/lib/data/site";
+import { brands } from "@/lib/data/brands";
+import { t } from "@/lib/utils";
+import type { Metadata } from "next";
+import type { Locale } from "@/lib/types";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const l = locale as Locale;
+  return { alternates: alternates(l, "/en") };
+}
+
+const base = process.env.NEXT_PUBLIC_BASE ?? "";
+
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const l = locale as Locale;
+  const d = getDict(l);
+  const p = `/${l}`;
+  const isAr = l === "ar";
+
+  const featured = products.filter((x) => x.featured);
+  const latest = articlesByKind("blog").slice(0, 3);
+  const featuredProjects = projects.slice(0, 3);
+
+  const whyIcons = ["award", "tool", "truck", "clock", "shield", "users"] as const;
+
+  return (
+    <>
+      {/* LCP boost: start the first hero frame with the earliest possible fetch */}
+      <link
+        rel="preload"
+        as="image"
+        fetchPriority="high"
+        href={`${base}/hero/slide-tanks.avif`}
+      />
+
+      {/* ============ HERO SLIDER ============ */}
+      <HeroSlider
+        locale={l}
+        d={d}
+        slides={d.home.heroSlides.map((sl, i) => ({
+          ...sl,
+          img: ["/hero/slide-tanks.jpg", "/hero/slide-pools.jpg", "/hero/slide-factory.jpg"][i],
+          object: ["object-[66%_60%]", "object-[60%_center]", "object-[58%_55%]"][i],
+        }))}
+      >
+        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300 [text-shadow:0_1px_10px_rgba(2,6,23,0.8)]">
+          {["ISO 9001:2015", isAr ? "معتمد من بلدية دبي" : "DM Approved", isAr ? "ESMA / ECAS" : "ESMA Compliant", isAr ? "صُنع في الإمارات" : "Made in UAE"].map((b) => (
+            <span key={b} className="inline-flex items-center gap-1.5">
+              <Icon name="checkCircle" className="w-4 h-4 text-gold-500" />
+              {b}
+            </span>
+          ))}
+        </div>
+      </HeroSlider>
+
+      {/* ============ STATS ============ */}
+      <section id="stats" className="bg-navy-900 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          {[
+            { label: d.home.statsEstablished, value: site.stats.established, raw: true },
+            { label: d.home.statsClients, value: null, counter: site.stats.clients, suffix: "+" },
+            { label: d.home.statsProjects, value: null, counter: site.stats.projects, suffix: "+" },
+            { label: isAr ? "دول نصدّر إليها" : "GCC export markets", value: isAr ? "٥+" : "5+", raw: true },
+          ].map((s, i) => (
+            <Reveal key={s.label} delay={i * 80}>
+              <div>
+                <p className="font-heading font-black text-4xl md:text-5xl text-gold-500">
+                  {s.raw ? s.value : <Counter to={s.counter!} suffix={s.suffix} />}
+                </p>
+                <p className="mt-1.5 text-xs md:text-sm uppercase tracking-wider text-slate-400 font-semibold">{s.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ PRODUCT GROUPS ============ */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow={isAr ? "حلولنا" : "Our Solutions"}
+            title={d.home.groupsTitle}
+            subtitle={d.home.groupsSubtitle}
+            center
+          />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {productGroups.map((g, i) => (
+              <Reveal key={g.slug} delay={i * 70}>
+                <Link
+                  href={`${p}/products?group=${g.slug}`}
+                  className="group block h-full bg-white border border-slate-200 rounded-[12px] p-6 hover:shadow-soft hover:border-brand-600/40 transition-all"
+                >
+                  <span className="grid place-items-center w-14 h-14 rounded-xl bg-navy-900 text-gold-500 group-hover:bg-brand-700 group-hover:text-white transition-colors">
+                    <Icon name={g.icon} className="w-7 h-7" strokeWidth={1.6} />
+                  </span>
+                  <h3 className="mt-4 font-heading font-bold text-lg text-navy-900 group-hover:text-brand-700 transition-colors">
+                    {t(g.name, l)}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-500 leading-relaxed">{t(g.description, l)}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 group-hover:gap-2.5 transition-all">
+                    {d.common.viewAll}
+                    <Icon name="arrowRight" className="w-4 h-4 flip-x" />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ OUR BRANDS ============ */}
+      <section className="py-20 md:py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] bg-[size:48px_48px] text-white" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow={d.brands.eyebrow}
+            title={d.brands.title}
+            subtitle={d.brands.subtitle}
+            center
+            light
+          />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {brands.map((b, i) => (
+              <Reveal key={b.id} delay={i * 60}>
+                <div className="group h-full rounded-[12px] bg-white/[0.06] ring-1 ring-white/10 p-5 transition-all hover:bg-white/[0.1] hover:ring-gold-500/50">
+                  <div className="flex items-center gap-4">
+                    {b.logo ? (
+                      <span className="grid h-14 w-28 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-1.5 ring-1 ring-white/20 transition-transform group-hover:scale-105">
+                        <img
+                          src={`${base}/images/brands/${b.logo}.png`}
+                          alt={t(b.name, l)}
+                          loading="lazy"
+                          className="h-full w-full object-contain"
+                        />
+                      </span>
+                    ) : (
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gold-500 font-heading text-[13px] font-black tracking-tight text-navy-950 ring-1 ring-white/20 transition-transform group-hover:scale-105">
+                        {b.logoText.length > 3 ? b.logoText.slice(0, 2) : b.logoText}
+                      </span>
+                    )}
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-gold-400">{t(b.kind, l)}</p>
+                      <h3 className="font-heading font-bold text-lg text-white leading-snug">{t(b.name, l)}</h3>
+                    </div>
+                    <Icon name={b.icon} className="ms-auto h-6 w-6 shrink-0 text-white/25 transition-colors group-hover:text-gold-400" strokeWidth={1.5} />
+                  </div>
+                  <p className="mt-3.5 text-[13px] leading-relaxed text-slate-300">{t(b.info, l)}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FEATURED PRODUCTS ============ */}
+      <section className="pb-20 md:pb-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading eyebrow={isAr ? "مختارات" : "Spotlight"} title={d.home.featuredTitle} subtitle={d.home.featuredSubtitle} />
+            <Reveal>
+              <Link
+                href={`${p}/products`}
+                className="inline-flex items-center gap-2 text-sm font-bold text-navy-900 hover:text-brand-700 border-b-2 border-gold-500 pb-1"
+              >
+                {d.common.viewAll}
+                <Icon name="arrowRight" className="w-4 h-4 flip-x" />
+              </Link>
+            </Reveal>
+          </div>
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featured.concat(products.filter((x) => !x.featured)).slice(0, 4).map((prod, i) => (
+              <Reveal key={prod.slug} delay={i * 70}>
+                <ProductCard product={prod} locale={l} quoteLabel={d.common.getQuote} detailsLabel={d.common.details} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ WHY US + CERTS ============ */}
+      <section className="bg-white py-20 md:py-24 border-y border-slate-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading eyebrow={isAr ? "لماذا نحن" : "Our edge"} title={d.home.whyTitle} subtitle={d.home.whySubtitle} />
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {d.home.whyItems.map((item, i) => (
+              <Reveal key={item.title} delay={i * 60}>
+                <div className="flex gap-4 h-full bg-slate-50 rounded-[12px] p-5 border border-slate-100">
+                  <span className="shrink-0 grid place-items-center w-11 h-11 rounded-lg bg-gold-500 text-navy-950">
+                    <Icon name={whyIcons[i]} className="w-5.5 h-5.5" />
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-navy-900 text-[15px]">{item.title}</h3>
+                    <p className="mt-1 text-sm text-slate-500 leading-relaxed">{item.text}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              {certifications.map((c) => (
+                <span
+                  key={c.code}
+                  className="inline-flex items-center gap-2 bg-navy-900 text-white text-xs font-bold px-4 py-2.5 rounded-full"
+                >
+                  <Icon name="award" className="w-4 h-4 text-gold-500" />
+                  {t(c.title, l)}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ FEATURED PROJECTS ============ */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading eyebrow={isAr ? "أعمالنا" : "Track record"} title={d.home.projectsTitle} subtitle={d.home.projectsSubtitle} />
+            <Reveal>
+              <Link
+                href={`${p}/projects`}
+                className="inline-flex items-center gap-2 text-sm font-bold text-navy-900 hover:text-brand-700 border-b-2 border-gold-500 pb-1"
+              >
+                {d.home.projectsCta}
+                <Icon name="arrowRight" className="w-4 h-4 flip-x" />
+              </Link>
+            </Reveal>
+          </div>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredProjects.map((proj, i) => (
+              <Reveal key={proj.slug} delay={i * 80}>
+                <Link
+                  href={`${p}/projects/${proj.slug}`}
+                  className="group block h-full bg-white rounded-[12px] border border-slate-200 overflow-hidden hover:shadow-soft transition-all"
+                >
+                  <ProductArt
+                    seed={proj.slug}
+                    icon="building"
+                    label={t(proj.location, l)}
+                    kind="installed"
+                    className="aspect-[16/10] w-full"
+                   src={proj.image}
+                  />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-700">
+                      <Icon name="pin" className="w-3.5 h-3.5" />
+                      {t(proj.location, l)} · {proj.year}
+                    </div>
+                    <h3 className="mt-2 font-heading font-bold text-navy-900 group-hover:text-brand-700 transition-colors leading-snug">
+                      {t(proj.title, l)}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-500 line-clamp-2">{t(proj.scope, l)}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ SECTORS ============ */}
+      <section className="bg-navy-900 py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <p className="text-center text-gold-500 text-[11px] font-black uppercase tracking-[0.22em] mb-7">
+              {d.home.sectorsTitle}
+            </p>
+          </Reveal>
+          <div className="flex flex-wrap justify-center gap-3">
+            {sectors.map((s, i) => (
+              <Reveal key={s.slug} delay={i * 50}>
+                <span className="inline-flex items-center gap-2 text-white/90 bg-white/5 ring-1 ring-white/10 rounded-full px-5 py-2.5 text-sm font-semibold hover:ring-gold-500/50 transition-colors">
+                  <Icon name={["building", "star", "droplet", "truck", "leaf"][i] as "building"} className="w-4 h-4 text-gold-500" />
+                  {t(s.name, l)}
+                </span>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ CLIENTS ============ */}
+      <section className="py-16 md:py-20 bg-white border-b border-slate-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <SectionHeading title={d.home.clientsTitle} subtitle={d.home.clientsText} center />
+          <div className="mt-10 flex flex-wrap justify-center items-center gap-5 md:gap-10">
+            {clients.map((c, i) => (
+              <Reveal key={c.name} delay={i * 60}>
+                <span className="grid h-16 min-w-[8.5rem] place-items-center rounded-lg bg-white px-5 ring-1 ring-slate-200/80 transition-all hover:ring-brand-600/40">
+                  <img
+                    src={`${base}/images/brands/${c.logo}.png`}
+                    alt={c.name}
+                    loading="lazy"
+                    className="h-10 w-auto max-w-[7.5rem] object-contain"
+                  />
+                </span>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ LATEST ARTICLES ============ */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading eyebrow={isAr ? "مدونتنا" : "From the factory floor"} title={d.home.articlesTitle} subtitle={d.home.articlesSubtitle} />
+            <Reveal>
+              <Link
+                href={`${p}/blog`}
+                className="inline-flex items-center gap-2 text-sm font-bold text-navy-900 hover:text-brand-700 border-b-2 border-gold-500 pb-1"
+              >
+                {d.home.articlesCta}
+                <Icon name="arrowRight" className="w-4 h-4 flip-x" />
+              </Link>
+            </Reveal>
+          </div>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {latest.map((a, i) => (
+              <Reveal key={a.slug} delay={i * 70}>
+                <ArticleCard article={a} locale={l} href={`${p}/blog/${a.slug}`} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ CTA ============ */}
+      <CtaBand
+        title={d.home.ctaTitle}
+        text={d.home.ctaText}
+        button={d.home.ctaButton}
+        href={`${p}/get-quotation`}
+        locale={l}
+      />
+    </>
+  );
+}

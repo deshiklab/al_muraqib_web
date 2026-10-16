@@ -1,0 +1,373 @@
+@import "tailwindcss";
+
+/* Self-hosted brand fonts (@fontsource, subsetted woff2 in the build) —
+   no render-blocking third-party CSS. Families match the @theme vars below.
+   Inter 400/600/700 · Montserrat 700/800/900 · Plex Mono 400 ·
+   Noto Kufi Arabic 400/500/700 · Noto Sans Bengali 400/700 */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-ext-400.css";
+@import "@fontsource/montserrat/latin-700.css";
+@import "@fontsource/montserrat/latin-800.css";
+@import "@fontsource/montserrat/latin-900.css";
+@import "@fontsource/montserrat/latin-ext-700.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/noto-kufi-arabic/arabic-400.css";
+@import "@fontsource/noto-kufi-arabic/arabic-500.css";
+@import "@fontsource/noto-kufi-arabic/arabic-700.css";
+@import "@fontsource/noto-sans-bengali/bengali-400.css";
+@import "@fontsource/noto-sans-bengali/bengali-700.css";
+
+/* Class-driven dark mode: <html class="dark"> (set by inline script + toggle) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand palette (from approved draft design) */
+  --color-navy-950: #07101f;
+  --color-navy-900: #0f172a;
+  --color-navy-800: #0a2540;
+  --color-navy-700: #12314f;
+  --color-brand-700: #0369a1;
+  --color-brand-600: #0284c7;
+  --color-brand-500: #0ea5e9;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-400: #fbbf24;
+  --color-gold-700: #b45309;
+
+  --font-sans: var(--font-inter), "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), var(--font-inter), ui-sans-serif, sans-serif, "Noto Sans Bengali";
+  --font-arabic: var(--font-arabic-family), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+
+  --radius-card: 12px;
+}
+
+/* Font family variables (families loaded via Google Fonts <link> at runtime) */
+:root {
+  --font-inter: "Inter";
+  --font-montserrat: "Montserrat";
+  --font-arabic-family: "Noto Kufi Arabic";
+  --font-plex-mono: "IBM Plex Mono";
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-700 font-sans antialiased;
+  }
+
+  html[dir="rtl"] body {
+    font-family: var(--font-arabic);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-navy-900;
+    letter-spacing: -0.01em;
+  }
+
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5,
+  html[dir="rtl"] h6 {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background: var(--color-brand-700);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Scroll reveal (motion-safe) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RTL icon mirroring */
+  [dir="rtl"] .flip-x {
+    transform: scaleX(-1);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-scrim {
+    background: linear-gradient(180deg, rgba(7, 16, 31, 0.55) 0%, rgba(7, 16, 31, 0.82) 100%);
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mega menu entrance */
+  .mega-panel {
+    animation: megaIn 0.18s ease-out;
+    transform-origin: top center;
+  }
+  @keyframes megaIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* RFQ wizard step transition */
+  .step-enter {
+    animation: stepIn 0.28s ease-out;
+  }
+  @keyframes stepIn {
+    from {
+      opacity: 0;
+      transform: translateX(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    background: linear-gradient(90deg, var(--color-gold-600), var(--color-gold-400));
+    transform-origin: left center;
+  }
+  [dir="rtl"] .scroll-progress {
+    transform-origin: right center;
+  }
+
+  /* Hero scroll cue */
+  @keyframes cueBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(7px); opacity: 1; }
+  }
+  .scroll-cue {
+    animation: cueBounce 1.8s ease-in-out infinite;
+  }
+
+  /* Right-edge quote tab — idle attention nudge + hover shine sweep */
+  @keyframes tabNudge {
+    0%, 86%, 100% { transform: translateX(0); }
+    91% { transform: translateX(-8px); }
+    95% { transform: translateX(-2px); }
+  }
+  @keyframes shineSweep {
+    from { transform: translateX(-60%) skewX(-18deg); opacity: 0.9; }
+    to { transform: translateX(360%) skewX(-18deg); opacity: 0; }
+  }
+
+  /* Quote app-drawer — staged content entrance + success pop */
+  @keyframes drawerItem {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes popCheck {
+    0% { opacity: 0; transform: scale(0.4); }
+    70% { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   DARK THEME — toggled via <html class="dark">
+   Brand bands (navy/gold/white-on-dark) keep their colors;
+   only light surfaces, ink and borders are remapped for contrast.
+   ============================================================ */
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0b1222;
+  color: #9fb0cc;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #f1f5f9;
+}
+
+/* ---------- surfaces ---------- */
+.dark .bg-white {
+  background-color: #141c30;
+}
+.dark .bg-slate-50 {
+  background-color: #0e1626;
+}
+.dark .bg-slate-100 {
+  background-color: #1a2338;
+}
+.dark .bg-slate-200 {
+  background-color: #263149;
+}
+.dark .bg-green-50 {
+  background-color: #0d2b1e;
+}
+.dark .bg-gold-50 {
+  background-color: #33280f;
+}
+
+/* ---------- ink ---------- */
+.dark .text-navy-900,
+.dark .text-navy-950 {
+  color: #f1f5f9;
+}
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #b6c2d6;
+}
+.dark .text-slate-600 {
+  color: #a3b0c7;
+}
+.dark .text-slate-500 {
+  color: #93a1ba;
+}
+.dark .text-slate-400 {
+  color: #8494ad;
+}
+.dark .text-brand-700 {
+  color: #4fb0ec;
+}
+.dark .text-red-600 {
+  color: #f87171;
+}
+.dark .text-green-600,
+.dark .text-green-700 {
+  color: #4ade80;
+}
+
+/* Keep dark ink on bright brand accents (gold CTAs etc.) */
+.dark .bg-gold-500.text-navy-950,
+.dark .bg-gold-500.text-navy-900,
+.dark .bg-gold-600.text-navy-950,
+.dark .bg-gold-600.text-navy-900,
+.dark .bg-gold-500 .text-navy-950,
+.dark .bg-gold-500 .text-navy-900,
+.dark .bg-gold-600 .text-navy-950,
+.dark .bg-gold-600 .text-navy-900 {
+  color: #0f172a;
+}
+
+/* ---------- borders & rings ---------- */
+.dark .border-slate-100,
+.dark .border-slate-200 {
+  border-color: #263149;
+}
+.dark .border-slate-300 {
+  border-color: #33415c;
+}
+.dark .border-gold-200 {
+  border-color: #57430f;
+}
+.dark .border-red-200 {
+  border-color: #5b2a2a;
+}
+.dark .ring-slate-200 {
+  --tw-ring-color: #263149;
+}
+.dark .ring-green-200 {
+  --tw-ring-color: #14532d;
+}
+
+/* ---------- interactive variants ---------- */
+.dark .hover\:bg-white:hover {
+  background-color: #1a2338;
+}
+.dark .hover\:bg-slate-50:hover {
+  background-color: #1a2338;
+}
+.dark .hover\:bg-slate-100:hover {
+  background-color: #202b44;
+}
+.dark .focus\:bg-white:focus {
+  background-color: #141c30;
+}
+.dark .hover\:text-navy-900:hover,
+.dark .hover\:text-navy-950:hover {
+  color: #f1f5f9;
+}
+.dark .hover\:text-brand-700:hover {
+  color: #6bc0f5;
+}
+.dark .group:hover .group-hover\:text-brand-700 {
+  color: #6bc0f5;
+}
+.dark .hover\:border-slate-300:hover {
+  border-color: #33415c;
+}
+.dark .hover\:text-red-600:hover {
+  color: #f87171;
+}
+
+/* ---------- form placeholders ---------- */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #76859e;
+}
+
+/* ---------- selection ---------- */
+.dark ::selection {
+  background: rgba(245, 158, 11, 0.32);
+  color: #f8fafc;
+}
+
+/* gold-700 is a light-theme ink color — lift it on dark surfaces */
+.dark .text-gold-700 {
+  color: #fbbf24;
+}
+.dark .hover\:text-gold-700:hover {
+  color: #fbbf24;
+}
