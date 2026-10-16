@@ -19,7 +19,7 @@ export const ar: Dict = {
     knowledgeBase: "قاعدة المعرفة",
     faq: "الأسئلة الشائعة",
     contact: "اتصل بنا",
-    getQuote: "اطلب عرض سعر",
+    getQuote: "عرض سعر سريع",
     about: "من نحن",
     certifications: "الشهادات",
     clients: "عملاؤنا",
@@ -420,7 +420,7 @@ export const ar: Dict = {
   chat: {
     whatsappMsg: "مرحباً المراقّب، أرغب في مناقشة متطلب GRP.",
     dockLabel: "تحدث معنا",
-    quoteTab: "اطلب عرضاً",
+    quoteTab: "عرض سعر سريع",
     businessHours: "الرد خلال ساعات العمل (الاثنين–السبت، 8–18)",
   },
   notFound: {

@@ -62,6 +62,7 @@ export interface Product {
   faqs: { q: L; a: L }[];
   gallery: GalleryItem[];
   variantAxes?: VariantAxis[];
+  image?: string; // /images/products/<slug>.jpg photo asset
   keyFacts: { label: L; value: L }[];
   relatedProducts: string[];
   boughtWith: string[];
@@ -80,6 +81,7 @@ export interface Application {
 
 export interface Project {
   slug: string;
+  image?: string; // /images/projects/<slug>.jpg photo asset
   title: L;
   sector: string;
   location: L;

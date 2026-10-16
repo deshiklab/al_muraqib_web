@@ -74,7 +74,10 @@ export default function LangSwitcher({
       {open && (
         <div
           role="menu"
-          className="absolute top-full end-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-slate-100 bg-white p-1.5 shadow-dropdown"
+          className={cn(
+            "absolute end-0 z-[90] w-44 overflow-hidden rounded-xl border border-slate-100 bg-white p-1.5 shadow-dropdown",
+            variant === "solid" ? "bottom-full mb-2" : "top-full mt-2"
+          )}
           dir="ltr"
         >
           {locales.map((loc) => (

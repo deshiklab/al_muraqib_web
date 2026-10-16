@@ -1,3 +1,4 @@
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -26,6 +27,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src="/images/backdrops/insights.jpg" />
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_75%_20%,#0284c7_0,transparent_50%),radial-gradient(circle_at_15%_85%,#f59e0b_0,transparent_40%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
           <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2">

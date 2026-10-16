@@ -19,7 +19,7 @@ export const bn: Dict = {
     knowledgeBase: "নলেজ বেস",
     faq: "প্রশ্নোত্তর",
     contact: "যোগাযোগ",
-    getQuote: "কোটেশন নিন",
+    getQuote: "কুইক কোট",
     about: "আমাদের সম্পর্কে",
     certifications: "সার্টিফিকেশন",
     clients: "ক্লায়েন্ট ও আস্থা",
@@ -423,7 +423,7 @@ export const bn: Dict = {
   chat: {
     whatsappMsg: "আল মুরাক্বিব, আমার একটি জিআরপি প্রয়োজনীয়তা নিয়ে আলোচনা করতে চাই।",
     dockLabel: "চ্যাট করুন",
-    quoteTab: "কোট নিন",
+    quoteTab: "কুইক কোট",
     businessHours: "কার্যসময়ে উত্তর (সোম–শনি, ৮–১৮ জিএসটি)",
   },
   notFound: {

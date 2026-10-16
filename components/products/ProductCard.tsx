@@ -26,6 +26,7 @@ export default function ProductCard({
           icon={group?.icon ?? "tank"}
           label={t(product.name, locale)}
           className="aspect-[4/3] w-full transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+        src={product.image}
         />
         {product.featured && (
           <span className="absolute top-3 start-3 bg-gold-500 text-navy-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full">

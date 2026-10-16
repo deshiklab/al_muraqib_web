@@ -3,6 +3,7 @@ import type { Article, Project } from "../types";
 export const projects: Project[] = [
   {
     slug: "five-luxe-jbr-plunge-pools",
+    image: "/images/projects/five-luxe-jbr-plunge-pools.jpg",
     title: { en: "FIVE Luxe JBR — Prefabricated Plunge Pools", ar: "FIVE Luxe JBR — مسابح غطس جاهزة" },
     sector: "hospitality",
     location: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -39,6 +40,7 @@ export const projects: Project[] = [
   },
   {
     slug: "royal-m-hotel-fujairah-lining",
+    image: "/images/projects/royal-m-hotel-fujairah-lining.jpg",
     title: { en: "Royal M Hotel, Fujairah — Tank Lining", ar: "فندق رويال م، الفجيرة — بطانة خزانات" },
     sector: "hospitality",
     location: { en: "Fujairah, UAE", ar: "الفجيرة، الإمارات" },
@@ -75,6 +77,7 @@ export const projects: Project[] = [
   },
   {
     slug: "five-sensoria-rooftop-pools",
+    image: "/images/projects/five-sensoria-rooftop-pools.jpg",
     title: { en: "FIVE Sensoria — Rooftop Plunge Pools", ar: "FIVE Sensoria — مسابح على السطح" },
     sector: "residential",
     location: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -109,6 +112,7 @@ export const projects: Project[] = [
   },
   {
     slug: "samana-parkview-water-storage",
+    image: "/images/projects/samana-parkview-water-storage.jpg",
     title: { en: "Samana ParkView — Panel Water Tanks", ar: "Samana ParkView — خزانات ألواحية" },
     sector: "residential",
     location: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -144,6 +148,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sinyar-nas-3-septic",
+    image: "/images/projects/sinyar-nas-3-septic.jpg",
     title: { en: "Sinyar Nas 3 — Septic & Sewerage System", ar: "سينيار ناس 3 — نظام مخلفات وصرف" },
     sector: "residential",
     location: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -177,6 +182,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fujairah-port-sand-trap",
+    image: "/images/projects/fujairah-port-sand-trap.jpg",
     title: { en: "Fujairah Beach — Sand Trap Buckets", ar: "شاطئ الفجيرة — دلاء فخّار الرمل" },
     sector: "infrastructure",
     location: { en: "Fujairah, UAE", ar: "الفجيرة، الإمارات" },
@@ -210,6 +216,7 @@ export const projects: Project[] = [
   },
   {
     slug: "azizi-towers-cladding",
+    image: "/images/projects/azizi-towers-cladding.jpg",
     title: { en: "Azizi Development — GRP Cladding Elements", ar: "أزيزي — عناصر كسوة GRP" },
     sector: "construction",
     location: { en: "Dubai, UAE", ar: "دبي، الإمارات" },
@@ -243,6 +250,7 @@ export const projects: Project[] = [
   },
   {
     slug: "progress-construction-tanks",
+    image: "/images/projects/progress-construction-tanks.jpg",
     title: { en: "Progress Construction — Tank Farm Retrofit", ar: "بروجريس — تجديد مجموعة خزانات" },
     sector: "industrial",
     location: { en: "Sharjah, UAE", ar: "الشارقة، الإمارات" },

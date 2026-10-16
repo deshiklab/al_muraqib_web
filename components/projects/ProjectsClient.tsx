@@ -11,6 +11,7 @@ import type { Dict } from "@/lib/i18n";
 
 export type ProjectRow = {
   slug: string;
+  image?: string;
   title: string;
   sector: string;
   sectorLabel: string;
@@ -327,7 +328,7 @@ export default function ProjectsClient({
                 className="group block h-full bg-white rounded-[12px] border border-slate-200 overflow-hidden hover:shadow-soft transition-all"
               >
                 <div className="relative">
-                  <ProductArt seed={r.slug} icon="building" kind="installed" label={r.location} className="aspect-[16/10] w-full" />
+                  <ProductArt seed={r.slug} icon="building" kind="installed" label={r.location} className="aspect-[16/10] w-full" src={r.image} />
                   <span className="absolute top-3 start-3 rounded-full bg-navy-950/80 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-gold-400 backdrop-blur-sm">
                     {r.sectorLabel}
                   </span>

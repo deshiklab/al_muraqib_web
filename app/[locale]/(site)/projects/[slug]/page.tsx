@@ -14,6 +14,7 @@ import { serviceList } from "@/lib/data/services";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates } from "@/lib/seo";
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -57,6 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
     <>
       {/* ---------- Hero ---------- */}
       <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src={proj.image ?? "/images/backdrops/projects.jpg"} veil="from-navy-950 via-navy-950/75 to-navy-950/60" />
         <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_85%_15%,#f59e0b_0,transparent_42%),radial-gradient(circle_at_10%_90%,#0369a1_0,transparent_45%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <nav className="text-[13px] text-slate-400 mb-5 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
@@ -108,7 +110,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
               </div>
             </div>
             <div className="rounded-xl overflow-hidden ring-1 ring-white/10">
-              <ProductArt seed={proj.slug} icon="building" kind="installed" label={t(proj.location, l)} className="aspect-[16/10] w-full" />
+              <ProductArt seed={proj.slug} icon="building" kind="installed" label={t(proj.location, l)} className="aspect-[16/10] w-full" src={proj.image} />
             </div>
           </div>
         </div>
@@ -233,6 +235,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
                         kind={(i % 2 === 0 ? "installed" : "product") as "installed" | "product"}
                         label={t(p.name, l)}
                         className="aspect-[4/3] w-full"
+                        src={p.image}
                       />
                       <p className="bg-white px-3 py-2 text-[11px] font-bold text-navy-900 truncate">{t(p.name, l)}</p>
                     </div>
@@ -271,7 +274,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
                       href={`/${l}/projects/${sp.slug}`}
                       className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-slate-200 bg-white transition-all hover:shadow-soft"
                     >
-                      <ProductArt seed={sp.slug} icon="building" kind="installed" label={t(sp.location, l)} className="aspect-[16/9] w-full" />
+                      <ProductArt seed={sp.slug} icon="building" kind="installed" label={t(sp.location, l)} className="aspect-[16/9] w-full" src={sp.image} />
                       <div className="p-4">
                         <p className="text-[10px] font-black uppercase tracking-wider text-brand-700">
                           {sp.year} · {t(sp.location, l)}

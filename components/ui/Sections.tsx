@@ -65,6 +65,12 @@ export function CtaBand({
   void locale;
   return (
     <section className="relative overflow-hidden bg-navy-900">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url("${(process.env.NEXT_PUBLIC_BASE ?? "")}/images/backdrops/cta.jpg")` }}
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-navy-950/70" />
       <div className="absolute inset-0 opacity-[0.16] bg-[radial-gradient(circle_at_15%_20%,#0284c7_0,transparent_45%),radial-gradient(circle_at_85%_80%,#f59e0b_0,transparent_40%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-start">
         <Reveal className="max-w-2xl">

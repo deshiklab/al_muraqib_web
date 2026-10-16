@@ -13,6 +13,7 @@ export default function ProductArt({
   kind = "product",
   className,
   priority,
+  src,
 }: {
   seed: string;
   icon: IconName;
@@ -20,6 +21,8 @@ export default function ProductArt({
   kind?: "product" | "installed" | "drawing";
   className?: string;
   priority?: boolean;
+  /** Optional real photo (public path). Layers over the placeholder; falls back to it if missing. */
+  src?: string;
 }) {
   void priority;
   const pattern =
@@ -40,6 +43,16 @@ export default function ProductArt({
       aria-label={label || seed}
     >
       <div className={cn("absolute inset-0", pattern)} />
+      {src ? (
+        <>
+          {/* CSS background layer: a missing file simply reveals the placeholder art */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url("${(process.env.NEXT_PUBLIC_BASE ?? "") + src}")` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/55 via-transparent to-transparent" />
+        </>
+      ) : (
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
         <span className="rounded-2xl bg-white/10 backdrop-blur-sm p-4 ring-1 ring-white/20">
           <Icon name={icon} className="w-10 h-10 md:w-12 md:h-12 text-gold-400" strokeWidth={1.4} />
@@ -50,6 +63,7 @@ export default function ProductArt({
           </span>
         )}
       </div>
+      )}
       <span className="absolute bottom-3 inset-x-0 text-center text-[9px] tracking-[0.3em] uppercase text-white/40">
         Al Muraqib
       </span>

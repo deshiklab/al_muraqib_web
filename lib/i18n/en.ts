@@ -17,7 +17,7 @@ export const en = {
     knowledgeBase: "Knowledge Base",
     faq: "FAQ",
     contact: "Contact",
-    getQuote: "Get a Quotation",
+    getQuote: "Quick Quote",
     about: "About Us",
     certifications: "Certifications",
     clients: "Clients & Trust",
@@ -421,7 +421,7 @@ export const en = {
   chat: {
     whatsappMsg: "Hello Al Muraqib, I would like to discuss a GRP requirement.",
     dockLabel: "Chat with us",
-    quoteTab: "Get a Quote",
+    quoteTab: "Quick Quote",
     businessHours: "Replies during working hours (Mon–Sat, 8–18 GST)",
   },
   notFound: {

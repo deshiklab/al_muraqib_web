@@ -1,3 +1,4 @@
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -42,6 +43,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
 
   const rows: ProjectRow[] = projects.map((p) => ({
     slug: p.slug,
+    image: p.image,
     title: t(p.title, l),
     sector: p.sector,
     sectorLabel: d.projects.sectors[p.sector as keyof typeof d.projects.sectors] ?? p.sector,
@@ -63,6 +65,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
   return (
     <>
       <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src="/images/backdrops/projects.jpg" />
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_85%_25%,#0369a1_0,transparent_50%),radial-gradient(circle_at_10%_85%,#f59e0b_0,transparent_40%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
           <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2" aria-label="Breadcrumb">

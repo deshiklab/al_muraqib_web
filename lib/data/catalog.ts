@@ -3,6 +3,7 @@ import type { Product } from "../types";
 export const products: Product[] = [
   {
     slug: "hot-press-grp-panel-tank",
+    image: "/images/products/hot-press-grp-panel-tank.jpg",
     group: "water-tanks",
     featured: true,
     name: {
@@ -120,6 +121,7 @@ export const products: Product[] = [
   },
   {
     slug: "cold-press-grp-panel-tank",
+    image: "/images/products/cold-press-grp-panel-tank.jpg",
     group: "water-tanks",
     name: { en: "Cold Press GRP Panel Tank", ar: "خزان GRP ألواحي بالضغط البارد" },
     pitch: {
@@ -205,6 +207,7 @@ export const products: Product[] = [
   },
   {
     slug: "grp-cylindrical-tank",
+    image: "/images/products/grp-cylindrical-tank.jpg",
     group: "water-tanks",
     featured: true,
     name: { en: "GRP Cylindrical Tank", ar: "خزان GRP أسطواني" },
@@ -281,6 +284,7 @@ export const products: Product[] = [
   },
   {
     slug: "prefabricated-grp-plunge-pools",
+    image: "/images/products/prefabricated-grp-plunge-pools.jpg",
     group: "pools",
     featured: true,
     name: { en: "Prefabricated GRP Plunge Pools", ar: "مسابح غطس GRP جاهزة" },
@@ -386,6 +390,7 @@ export const products: Product[] = [
   },
   {
     slug: "bespoke-grp-plunge-pools",
+    image: "/images/products/bespoke-grp-plunge-pools.jpg",
     group: "pools",
     name: { en: "Bespoke GRP Plunge Pools", ar: "مسابح غطس GRP مخصصة" },
     pitch: {
@@ -459,6 +464,7 @@ export const products: Product[] = [
   },
   {
     slug: "grp-lining-on-rcc-tank",
+    image: "/images/products/grp-lining-on-rcc-tank.jpg",
     group: "lining",
     featured: true,
     name: { en: "GRP Lining on RCC Tanks", ar: "بطانة GRP لخزانات الخرسانة" },
@@ -542,6 +548,7 @@ export const products: Product[] = [
   },
   {
     slug: "grp-septic-tank",
+    image: "/images/products/grp-septic-tank.jpg",
     group: "septic",
     name: { en: "GRP Septic & Sewerage Tanks", ar: "خزانات GRP للمخلفات والصرف الصحي" },
     pitch: {
@@ -616,6 +623,7 @@ export const products: Product[] = [
   },
   {
     slug: "grp-planter-box",
+    image: "/images/products/grp-planter-box.jpg",
     group: "architectural",
     name: { en: "GRP Planter Boxes", ar: "صناديق زراعة GRP" },
     pitch: {
@@ -681,6 +689,7 @@ export const products: Product[] = [
   },
   {
     slug: "grp-sand-trap-bucket",
+    image: "/images/products/grp-sand-trap-bucket.jpg",
     group: "specialty",
     name: { en: "GRP Sand Trap Bucket", ar: "دلو فخّار الرمل GRP" },
     pitch: {

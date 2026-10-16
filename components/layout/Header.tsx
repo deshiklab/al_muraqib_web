@@ -147,7 +147,7 @@ export default function Header({ locale, d }: HeaderProps) {
         {/* Utility bar */}
         <div
           className={cn(
-            "hidden lg:block transition-colors",
+            "hidden lg:block transition-colors relative z-[60]",
             transparent ? "bg-navy-950/70 backdrop-blur-sm" : "bg-navy-900"
           )}
         >

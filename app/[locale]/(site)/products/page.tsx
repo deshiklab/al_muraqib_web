@@ -1,3 +1,4 @@
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CatalogClient from "@/components/products/CatalogClient";
@@ -35,6 +36,7 @@ export default async function ProductsPage({
     <>
       {/* Page header */}
       <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src="/images/backdrops/products.jpg" />
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_80%_20%,#0369a1_0,transparent_55%),radial-gradient(circle_at_10%_90%,#f59e0b_0,transparent_40%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
           <nav className="text-sm text-slate-400 mb-4 flex items-center gap-2" aria-label="Breadcrumb">

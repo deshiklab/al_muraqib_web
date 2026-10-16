@@ -168,6 +168,7 @@ export default function ProductHero({
             label={t(current.caption, locale)}
             kind={current.kind}
             className="aspect-[4/3] w-full"
+            src={current.kind === "product" ? product.image : undefined}
           />
         </div>
 

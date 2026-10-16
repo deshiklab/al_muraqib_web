@@ -1,3 +1,4 @@
+import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
@@ -37,6 +38,7 @@ export default async function QuotationPage({
   return (
     <>
       <section className="bg-navy-950 relative overflow-hidden">
+        <TitleBackdrop src="/images/backdrops/contact.jpg" />
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_80%_10%,#f59e0b_0,transparent_45%),radial-gradient(circle_at_15%_90%,#0369a1_0,transparent_50%)]" />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-14 md:py-16 text-center">
           <p className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-500 bg-gold-500/10 ring-1 ring-gold-500/30 rounded-full px-4 py-2">

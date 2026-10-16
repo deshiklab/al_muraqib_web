@@ -74,8 +74,14 @@ export default async function ProductPage({
   return (
     <>
       {/* Breadcrumb header */}
-      <section className="bg-navy-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <section className="bg-navy-950 relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center opacity-40"
+          style={{ backgroundImage: `url("${(process.env.NEXT_PUBLIC_BASE ?? "")}/images/products/${product.slug}.jpg")` }}
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-navy-950/70 to-navy-950" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <nav className="text-[13px] text-slate-400 mb-4 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
             <Link href={`/${l}`} className="hover:text-gold-400">{d.common.home}</Link>
             <span>/</span>
