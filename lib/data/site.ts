@@ -24,13 +24,13 @@ export const site = {
   tawkPropertyId: process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID ?? "",
 };
 
-export const clients: { name: string; logoText: string }[] = [
-  { name: "ASAK", logoText: "ASAK" },
-  { name: "Fibrex", logoText: "FIBREX" },
-  { name: "Progress Construction", logoText: "PROGRESS" },
-  { name: "Azizi", logoText: "AZIZI" },
-  { name: "Penta EMR", logoText: "PENTA" },
-  { name: "NSE", logoText: "NSE" },
+export const clients: { name: string; logoText: string; logo: string }[] = [
+  { name: "ASAK", logoText: "ASAK", logo: "asak" },
+  { name: "Fibrex", logoText: "FIBREX", logo: "fibrex" },
+  { name: "Progress Construction", logoText: "PROGRESS", logo: "progress" },
+  { name: "Azizi", logoText: "AZIZI", logo: "azizi" },
+  { name: "Penta EMR", logoText: "PENTA", logo: "penta" },
+  { name: "NSE", logoText: "NSE", logo: "nse" },
 ];
 
 export const certifications: Certification[] = [

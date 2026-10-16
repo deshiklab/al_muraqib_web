@@ -147,9 +147,13 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
             ))}
             <span className="hidden md:flex gap-3 opacity-60">
               {clients.slice(0, 4).map((c) => (
-                <span key={c.name} className="text-slate-400 font-heading font-bold tracking-wider text-[11px]">
-                  {c.logoText}
-                </span>
+                <img
+                  key={c.name}
+                  src={`${process.env.NEXT_PUBLIC_BASE ?? ""}/images/brands/${c.logo}.png`}
+                  alt={c.name}
+                  loading="lazy"
+                  className="h-5 w-auto rounded-[4px] bg-white px-1.5 py-0.5 object-contain opacity-90 hover:opacity-100 transition-opacity"
+                />
               ))}
             </span>
           </div>

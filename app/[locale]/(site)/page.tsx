@@ -24,6 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { alternates: alternates(l, "/en") };
 }
 
+const base = process.env.NEXT_PUBLIC_BASE ?? "";
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const l = locale as Locale;
@@ -130,9 +132,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Reveal key={b.id} delay={i * 60}>
                 <div className="group h-full rounded-[12px] bg-white/[0.06] ring-1 ring-white/10 p-5 transition-all hover:bg-white/[0.1] hover:ring-gold-500/50">
                   <div className="flex items-center gap-4">
-                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gold-500 font-heading text-[13px] font-black tracking-tight text-navy-950 ring-1 ring-white/20 transition-transform group-hover:scale-105">
-                      {b.logoText.length > 3 ? b.logoText.slice(0, 2) : b.logoText}
-                    </span>
+                    {b.logo ? (
+                      <span className="grid h-14 w-28 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-1.5 ring-1 ring-white/20 transition-transform group-hover:scale-105">
+                        <img
+                          src={`${base}/images/brands/${b.logo}.png`}
+                          alt={t(b.name, l)}
+                          loading="lazy"
+                          className="h-full w-full object-contain"
+                        />
+                      </span>
+                    ) : (
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gold-500 font-heading text-[13px] font-black tracking-tight text-navy-950 ring-1 ring-white/20 transition-transform group-hover:scale-105">
+                        {b.logoText.length > 3 ? b.logoText.slice(0, 2) : b.logoText}
+                      </span>
+                    )}
                     <div className="min-w-0">
                       <p className="text-[10px] font-black uppercase tracking-[0.18em] text-gold-400">{t(b.kind, l)}</p>
                       <h3 className="font-heading font-bold text-lg text-white leading-snug">{t(b.name, l)}</h3>
@@ -282,8 +295,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="mt-10 flex flex-wrap justify-center items-center gap-5 md:gap-10">
             {clients.map((c, i) => (
               <Reveal key={c.name} delay={i * 60}>
-                <span className="grid place-items-center h-14 px-6 rounded-lg bg-slate-50 ring-1 ring-slate-200/70 font-heading font-black text-slate-500 tracking-widest text-sm hover:text-brand-700 hover:ring-brand-600/30 transition-all">
-                  {c.logoText}
+                <span className="grid h-16 min-w-[8.5rem] place-items-center rounded-lg bg-white px-5 ring-1 ring-slate-200/80 transition-all hover:ring-brand-600/40">
+                  <img
+                    src={`${base}/images/brands/${c.logo}.png`}
+                    alt={c.name}
+                    loading="lazy"
+                    className="h-10 w-auto max-w-[7.5rem] object-contain"
+                  />
                 </span>
               </Reveal>
             ))}

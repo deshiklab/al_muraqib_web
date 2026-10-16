@@ -127,7 +127,9 @@ def brands():
     out = []
     for m in re.finditer(r'logoText:\s*"([^"]+)"', s):
         n = re.search(r'name:\s*\{\s*en:\s*"((?:[^"\\]|\\.)*)"', s[m.end(): m.end() + 400])
-        out.append({"mark": m.group(1), "en": unesc(n.group(1)) if n else m.group(1)})
+        lg = re.search(r'logo:\s*"([^"]+)"', s[m.end() - 160: m.end() + 200])
+        out.append({"mark": m.group(1), "en": unesc(n.group(1)) if n else m.group(1),
+                    "logo": lg.group(1) if lg else None})
     return out
 
 def services():
@@ -417,15 +419,30 @@ def main():
     E += sect("OUR BRANDS & PARTNERS", "علاماتنا وشركاؤنا",
               "Two in-house brands plus long-standing supply partners on landmark developments.",
               "علامتان داخليتان مع شركاء توريد موثوقين في مشاريع مميزة.")
-    marks = [b["mark"] for b in P["brands"]]
+    marks = P["brands"]
     per = 4
     brow = []
     bstyle = []
     for ri, r in enumerate(range(0, len(marks), per)):
         chunk = marks[r:r + per]
-        brow.append([Paragraph(f"<font color='white'><b>{m}</b></font>", ParagraphStyle("bm2", fontName="MoX", fontSize=9.4, alignment=1)) for m in chunk])
-        for ci in range(per):
-            bstyle.append(("BACKGROUND", (ci, ri), (ci, ri), C(NAVY900)))
+        cells = []
+        for ci, b in enumerate(chunk):
+            lg = b.get("logo")
+            lp = os.path.join(REPO, "public", "images", "brands", f"{lg}.png") if lg else None
+            if lg and os.path.exists(lp):
+                from PIL import Image as _PIL
+                _w, _h = _PIL.open(lp).size
+                ih = min(9.7 * mm, 34 * mm * _h / _w)
+                iw = min(34 * mm, ih * _w / _h)
+                cells.append(RLImage(lp, width=iw, height=ih))
+                bstyle.append(("BACKGROUND", (ci, ri), (ci, ri), white))
+            else:
+                cells.append(Paragraph(f"<font color='white'><b>{b['mark']}</b></font>",
+                                       ParagraphStyle("bm2", fontName="MoX", fontSize=9.4, alignment=1)))
+                bstyle.append(("BACKGROUND", (ci, ri), (ci, ri), C(NAVY900)))
+        while len(cells) < per:
+            cells.append(Paragraph("", ParagraphStyle("bmx", fontSize=1)))
+        brow.append(cells)
     bt = Table(brow, colWidths=[doc.width / per] * per, rowHeights=[10.5 * mm] * len(brow))
     bt.setStyle(TableStyle([("GRID", (0, 0), (-1, -1), 1.6, white), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
                             ("INNERGRID", (0, 0), (-1, -1), 0, white)] + bstyle))

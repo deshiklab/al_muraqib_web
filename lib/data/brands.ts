@@ -4,6 +4,8 @@ import type { IconName, L } from "@/lib/types";
 export interface Brand {
   id: string;
   logoText: string;
+  /** normalized plate at public/images/brands/<logo>.png (see scripts/build-brand-logos.py) */
+  logo?: string;
   name: L;
   info: L;
   kind: L;
@@ -38,6 +40,7 @@ export const brands: Brand[] = [
   {
     id: "asak",
     logoText: "ASAK",
+    logo: "asak",
     name: { en: "ASAK", ar: "آساك", bn: "এএসএকে" },
     info: {
       en: "Long-standing composite partner — joint delivery of GRP systems across GCC projects.",
@@ -50,6 +53,7 @@ export const brands: Brand[] = [
   {
     id: "fibrex",
     logoText: "FIBREX",
+    logo: "fibrex",
     name: { en: "Fibrex", ar: "فايبركس", bn: "ফাইব্রেक्स" },
     info: {
       en: "FRP profile supply partner for structural and cladding components in our fabrication.",
@@ -62,6 +66,7 @@ export const brands: Brand[] = [
   {
     id: "progress",
     logoText: "PROGRESS",
+    logo: "progress",
     name: { en: "Progress Construction", ar: "بروغرس للإنشاءات", bn: "প্রোগ্রেস কনস্ট্রাকশন" },
     info: {
       en: "Turnkey contracting partner — tank farms and pumping stations delivered with us on site.",
@@ -74,6 +79,7 @@ export const brands: Brand[] = [
   {
     id: "azizi",
     logoText: "AZIZI",
+    logo: "azizi",
     name: { en: "Azizi", ar: "عزيزي", bn: "আজিজি" },
     info: {
       en: "Developer partnership — GRP cladding and pool packages across residential towers.",
