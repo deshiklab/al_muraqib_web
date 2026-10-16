@@ -80,16 +80,20 @@ export default function HeroSlider({
           )}
           aria-hidden={i !== idx}
         >
-          <img
-            src={`${process.env.NEXT_PUBLIC_BASE ?? ""}${s.img}`}
-            alt=""
-            width={1600}
-            height={900}
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchPriority={i === 0 ? "high" : "auto"}
-            decoding="async"
-            className={cn("h-full w-full object-cover", s.object ?? "object-center")}
-          />
+          <picture className="contents">
+            <source srcSet={`${process.env.NEXT_PUBLIC_BASE ?? ""}${s.img.replace(/\.jpg$/, ".avif")}`} type="image/avif" />
+            <source srcSet={`${process.env.NEXT_PUBLIC_BASE ?? ""}${s.img.replace(/\.jpg$/, ".webp")}`} type="image/webp" />
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE ?? ""}${s.img}`}
+              alt=""
+              width={1600}
+              height={900}
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchPriority={i === 0 ? "high" : "auto"}
+              decoding="async"
+              className={cn("h-full w-full object-cover", s.object ?? "object-center")}
+            />
+          </picture>
         </div>
       ))}
 

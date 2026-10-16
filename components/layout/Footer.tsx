@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TrackLink from "@/components/ui/TrackLink";
 import Icon from "@/components/ui/Icon";
 import { site, clients } from "@/lib/data/site";
 import { productGroups } from "@/lib/data/nav";
@@ -72,14 +73,16 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
               </li>
             ))}
             <li className="pt-1">
-              <a
+              <TrackLink
                 href={`${process.env.NEXT_PUBLIC_BASE ?? ""}/company-profile.pdf`}
                 download
+                event="file_download"
+                params={{ file: "company-profile", where: "footer" }}
                 className="inline-flex items-center gap-2 text-gold-400 hover:text-gold-500 font-bold transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" /></svg>
                 {tl(locale, "Company Profile (PDF)", "ملف الشركة (PDF)")}
-              </a>
+              </TrackLink>
             </li>
           </ul>
         </div>

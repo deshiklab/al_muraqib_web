@@ -150,6 +150,13 @@ tsc clean, build green, export gate pending→pass, verified by curl: 0 googleap
 
 ---
 
+## Phase 8 addendum — next tier shipped *(repeat of the same ask → executed the plan's queue)*
+> "What can be done to make the site SEO and Digital Marketing friendly? How to make the site load faster and improve performance?"
+
+Implemented from `docs/SEO-PERFORMANCE-PLAN.md` §B: (1) **AVIF/WebP hero** — new `scripts/emit-avif.mjs` (sharp, idempotent) + `npm run images:avif`; HeroSlider → `<picture>` (avif/webp/jpeg) with `display:contents`, preload retargeted to `.avif`; LCP frame 96→54 KB, all three slides −37% avg; (2) **`file_download` tracking** — new `components/ui/TrackLink.tsx` (dataLayer.push + passthrough anchor), wired on the Company-Profile CTA (about) + footer link with `where` param; noted that `generate_lead`/`whatsapp_click`/`cta_quote_click`/`blog_filter` were already firing via `track()`; (3) **`public/llms.txt`** site brief for AI answer engines. tsc clean, build green, export gate: out/hero contains all 3 variants + llms.txt; server re-verified (picture×3, preload .avif 200 image/avif, jpg fallback intact). Plan doc flipped items 2/5/7 to shipped with re-run instructions.
+
+---
+
 ## Known open items (not yet instructed)
 1. PR → base branch / merge to main.
 2. Custom domain `almuraqib.ae` + real social links, tawk.to IDs, phone/WhatsApp confirmation.

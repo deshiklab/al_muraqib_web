@@ -37,12 +37,12 @@ Grounded audit of this repo (not generic advice). Split into **Shipped**, **Next
 ## B. Next tier (code, when the next session picks it up)
 
 1. **Measure before/after with PageSpeed Insights** — run the CrUX/lab numbers into the table; target LCP < 2.0 s on 4G, CLS < 0.05 (already structurally safe via size hints), TBT < 100 ms (small JS, should pass).
-2. **AVIF/WebP pre-bakes for the export** — static export sets `images.unoptimized`, so browsers get the raw JPEGs. Extend `scripts/optimize-images.mjs` to emit `/<name>.avif` + `<picture>` for the six hero/backdrop images only (avif ≈ −30% over mozjpeg).
+2. ✅ **AVIF/WebP pre-bakes for the export** — `npm run images:avif` (`scripts/emit-avif.mjs`) emits `.avif` (q52) + `.webp` (q66) beside `public/hero/*.jpg`; `HeroSlider` negotiates via `<picture>` with the JPEG as fallback, and the head `<link rel=preload>` points at the AVIF. LCP frame 96→54 KB. Backdrops stay CSS backgrounds (no negotiation there); re-run the script after any hero image swap.
 3. **Per-locale OG cards** (Arabic-text variants) — a small PIL pass in `build-brand-assets.py`-style generator; improves CTR when content is shared in GCC WhatsApp/LinkedIn where most of the audience lives.
 4. **RSS/Atom for blog+KB** — generate at build via a `scripts/gen-feed.mjs` (can't use a route handler in `output: export`); enables auto-distribution + faster discovery of new posts.
-5. **`llms.txt` + `sitemap-news` (if news eligible later)** — cheap files, increasingly picked up by AI answers engines.
+5. ✅ **`llms.txt`** shipped at `public/llms.txt` (company brief, key pages, contacts — keep it in sync when sections are added). `sitemap-news` still only if news-eligible later.
 6. **Offer schema on product pages** (`offers` with `priceSpecification` “from” ranges or `OfferCatalog`) once pricing ranges are approved — unlocks price-capable rich results.
-7. **GA4 event layer** — `track()` helper exists in `lib/utils`; wire `generate_lead` (RFQ submit), `click_whatsapp`, `file_download` (company-profile.pdf), `cta_click` with locale dimension. Without this, ad-platform optimization has nothing to learn from.
+7. ✅ **GA4 event layer** — `generate_lead` (all three RFQ paths, with `ref`/`files`/`via`/`locale`), `whatsapp_click`, `phone_click`, `cta_quote_click {where}`, `blog_filter` engagement already fire through `track()`. Completed now: `file_download {file: "company-profile", where}` on the About CTA + footer link via `components/ui/TrackLink.tsx`. Remaining: declare these as conversions in the GA4 property when `NEXT_PUBLIC_GA_ID` is issued.
 8. **Real product photography** swap (standing item) — genuine images materially improve both engagement and image-search performance.
 9. **404 → route links** are fine; add the sitemap link in the not-found view for crawlers.
 

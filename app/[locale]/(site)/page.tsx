@@ -46,7 +46,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         rel="preload"
         as="image"
         fetchPriority="high"
-        href={`${base}/hero/slide-tanks.jpg`}
+        href={`${base}/hero/slide-tanks.avif`}
       />
 
       {/* ============ HERO SLIDER ============ */}

@@ -11,6 +11,7 @@ import { projects } from "@/lib/data/content";
 import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
 import { alternates, ogImages } from "@/lib/seo";
+import TrackLink from "@/components/ui/TrackLink";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -215,14 +216,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </div>
               </div>
               <div className="relative flex flex-col items-stretch gap-3 min-w-[220px]">
-                <a
+                <TrackLink
                   href={`${process.env.NEXT_PUBLIC_BASE ?? ""}/company-profile.pdf`}
                   download
+                  event="file_download"
+                  params={{ file: "company-profile", where: "about_cta" }}
                   className="inline-flex items-center justify-center gap-2.5 bg-gold-500 hover:bg-gold-400 text-navy-950 font-black text-sm rounded-[12px] px-7 py-3.5 transition-colors"
                 >
                   <Icon name="download" className="w-4.5 h-4.5" />
                   {tl(l, "Download the PDF", "تحميل ملف الشركة")}
-                </a>
+                </TrackLink>
                 <p className="text-center text-xs text-slate-400">
                   {tl(l, "5 pages · A4 · updated 2026", "٥ صفحات · A4 · محدّث ٢٠٦")}
                 </p>
