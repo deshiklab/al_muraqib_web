@@ -5,6 +5,7 @@ import Icon from "@/components/ui/Icon";
 import ArticleCard from "@/components/ui/ArticleCard";
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import JsonLd, { absUrl } from "@/components/seo/JsonLd";
+import BreadcrumbJsonLd from "@/components/seo/Breadcrumbs";
 import HelpfulWidget from "@/components/ui/HelpfulWidget";
 import ProductCard from "@/components/products/ProductCard";
 import ShareButton from "@/components/projects/ShareButton";
@@ -245,6 +246,13 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
       </section>
 
       <CtaBand title={d.home.ctaTitle} text={d.home.ctaText} button={d.home.ctaButton} href={`/${l}/get-quotation`} locale={l} />
+      <BreadcrumbJsonLd
+        locale={l}
+        items={[
+          { name: d.nav.knowledgeBase, path: `/${l}/knowledge-base` },
+          { name: t(doc.title, l) },
+        ]}
+      />
       <JsonLd
         data={{
           "@context": "https://schema.org",

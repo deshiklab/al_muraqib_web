@@ -41,6 +41,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      {/* LCP boost: start the first hero frame with the earliest possible fetch */}
+      <link
+        rel="preload"
+        as="image"
+        fetchPriority="high"
+        href={`${base}/hero/slide-tanks.jpg`}
+      />
+
       {/* ============ HERO SLIDER ============ */}
       <HeroSlider
         locale={l}

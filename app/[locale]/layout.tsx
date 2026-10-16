@@ -1,22 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { getDict, dir, isLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 import "@/app/globals.css";
 import JsonLd, { absUrl } from "@/components/seo/JsonLd";
 import { site } from "@/lib/data/site";
-
-// Fonts loaded at runtime from the visitor's browser (build-host has no
-// access to fonts.googleapis.com). Fallbacks defined in globals.css.
-const fontLinks = (
-  <>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </>
-);
 
 /* No-flash theme init: applies the stored (or OS) theme before first paint.
    Keep in sync with localStorage key in components/layout/ThemeToggle.tsx. */
@@ -70,6 +57,12 @@ export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ar" }, { locale: "bn" }];
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#07101f",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -100,6 +93,8 @@ export async function generateMetadata({
     openGraph: {
       siteName: d.meta.siteName,
       type: "website",
+      locale: { en: "en_US", ar: "ar_AE", bn: "bn_BD" }[locale as string] ?? "en_US",
+      alternateLocale: ["en_US", "ar_AE", "bn_BD"],
       images: [{ url: "/og-card.png", width: 1200, height: 630, alt: d.meta.siteName }],
     },
     twitter: {
@@ -145,7 +140,6 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <head>
-        {fontLinks}
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0f172a" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1222" />

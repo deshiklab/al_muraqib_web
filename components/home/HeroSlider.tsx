@@ -83,7 +83,10 @@ export default function HeroSlider({
           <img
             src={`${process.env.NEXT_PUBLIC_BASE ?? ""}${s.img}`}
             alt=""
+            width={1600}
+            height={900}
             loading={i === 0 ? "eager" : "lazy"}
+            fetchPriority={i === 0 ? "high" : "auto"}
             decoding="async"
             className={cn("h-full w-full object-cover", s.object ?? "object-center")}
           />

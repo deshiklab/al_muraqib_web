@@ -140,6 +140,16 @@ root layout and intentionally has no footer; all `(site)` routes verified EN + A
 
 ---
 
+## Phase 8 — SEO, marketing & performance hardening *(verbatim)*
+> "What can be done to make the site SEO and Digital Marketing friendly? How to make the site load faster and improve performance?"
+
+Audited the repo state (17 generateMetadata routes, alternates/hreflang, JSON-LD stack, robots/sitemap force-static, 104–112 kB First-Load JS).
+**Shipped in this pass:** (1) Google Fonts removed — five @fontsource packages self-host subsetted woff2 via globals.css @imports (kills the render-blocking third-party CSS; ~24 kB per subset, same-origin, immutable); (2) home LCP chain — preload `<link>` + `fetchPriority="high"` + width/height on slide 1, lazy/async on the rest; (3) FAQPage JSON-LD on /faq from the rendered groups; (4) `components/seo/Breadcrumbs.tsx` BreadcrumbList wired into product/blog/KB detail (localized Home label incl. AR); (5) `theme-color` #07101f viewport export, `og:locale`+`alternateLocale`.
+Plan doc: **`docs/SEO-PERFORMANCE-PLAN.md`** — Shipped / Next-tier (AVIF prebakes, per-locale OG cards, RSS, GA4 events incl. generate_lead, Offer schema) / Operations (connect almuraqib.ae first!, GSC submit, GBP, UTM convention, content cadence, directory links).
+tsc clean, build green, export gate pending→pass, verified by curl: 0 googleapis refs, font woff2 200 font/woff2, fetchPriority on hero img, both schemas present EN+AR.
+
+---
+
 ## Known open items (not yet instructed)
 1. PR → base branch / merge to main.
 2. Custom domain `almuraqib.ae` + real social links, tawk.to IDs, phone/WhatsApp confirmation.

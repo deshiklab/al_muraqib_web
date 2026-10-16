@@ -1,4 +1,5 @@
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
+import JsonLd from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -111,6 +112,19 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: groups.flatMap((g) =>
+            g.items.map((it) => ({
+              "@type": "Question",
+              name: it.q,
+              acceptedAnswer: { "@type": "Answer", text: it.a },
+            }))
+          ),
+        }}
+      />
       <section className="bg-navy-950 relative overflow-hidden">
         <TitleBackdrop src="/images/backdrops/insights.jpg" />
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_80%_20%,#0369a1_0,transparent_50%),radial-gradient(circle_at_10%_85%,#f59e0b_0,transparent_40%)]" />

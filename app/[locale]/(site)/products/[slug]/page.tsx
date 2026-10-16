@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import ProductArt from "@/components/ui/ProductArt";
 import JsonLd, { absUrl } from "@/components/seo/JsonLd";
+import BreadcrumbJsonLd from "@/components/seo/Breadcrumbs";
 import ProductCard from "@/components/products/ProductCard";
 import ArticleCard from "@/components/ui/ArticleCard";
 import { Reveal } from "@/components/ui/Motion";
@@ -354,6 +355,13 @@ export default async function ProductPage({
       />
 
       <MobileCtaBar d={d} />
+          <BreadcrumbJsonLd
+            locale={l}
+            items={[
+              { name: d.nav.products, path: `/${l}/products` },
+              { name: t(product.name, l) },
+            ]}
+          />
           <JsonLd
           data={{
             "@context": "https://schema.org",

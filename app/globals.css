@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Self-hosted brand fonts (@fontsource, subsetted woff2 in the build) —
+   no render-blocking third-party CSS. Families match the @theme vars below.
+   Inter 400/600/700 · Montserrat 700/800/900 · Plex Mono 400 ·
+   Noto Kufi Arabic 400/500/700 · Noto Sans Bengali 400/700 */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-ext-400.css";
+@import "@fontsource/montserrat/latin-700.css";
+@import "@fontsource/montserrat/latin-800.css";
+@import "@fontsource/montserrat/latin-900.css";
+@import "@fontsource/montserrat/latin-ext-700.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/noto-kufi-arabic/arabic-400.css";
+@import "@fontsource/noto-kufi-arabic/arabic-500.css";
+@import "@fontsource/noto-kufi-arabic/arabic-700.css";
+@import "@fontsource/noto-sans-bengali/bengali-400.css";
+@import "@fontsource/noto-sans-bengali/bengali-700.css";
+
 /* Class-driven dark mode: <html class="dark"> (set by inline script + toggle) */
 @custom-variant dark (&:where(.dark, .dark *));
 
