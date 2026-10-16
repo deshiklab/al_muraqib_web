@@ -8,11 +8,11 @@ import { getDict, isLocale } from "@/lib/i18n";
 import { site } from "@/lib/data/site";
 import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLocale(locale)) return {};
+  if (!isLocale(locale)) return { ...ogImages("/images/backdrops/contact.jpg"),};
   const l = locale as Locale;
   const d = getDict(locale as Locale);
   return { title: d.contact.title, description: d.contact.intro, alternates: alternates(l, "/en/contact") };

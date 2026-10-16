@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import ArticleCard from "@/components/ui/ArticleCard";
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
+import JsonLd, { absUrl } from "@/components/seo/JsonLd";
 import HelpfulWidget from "@/components/ui/HelpfulWidget";
 import ProductCard from "@/components/products/ProductCard";
 import { Reveal } from "@/components/ui/Motion";
@@ -13,7 +14,7 @@ import { articles, articlesByKind } from "@/lib/data/content";
 import { getProduct } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export function generateStaticParams() {
   return articles.filter((a) => a.kind === "kb").map((a) => ({ slug: a.slug }));
@@ -25,7 +26,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const l = locale as Locale;
   const doc = articles.find((a) => a.slug === slug && a.kind === "kb");
   if (!doc) return {};
-  return { title: t(doc.title, l), description: t(doc.excerpt, l), alternates: alternates(l, `/en/knowledge-base/${slug}`) };
+  return {
+          ...ogImages(doc.image ?? "/images/backdrops/insights.jpg"),
+          title: t(doc.title, l), description: t(doc.excerpt, l), alternates: alternates(l, `/en/knowledge-base/${slug}`) };
 }
 
 export default async function KbArticlePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
@@ -107,6 +110,20 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
       </section>
 
       <CtaBand title={d.home.ctaTitle} text={d.home.ctaText} button={d.home.ctaButton} href={`/${l}/get-quotation`} locale={l} />
-    </>
+          <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            headline: t(doc.title, l),
+            description: t(doc.excerpt, l),
+            datePublished: doc.date,
+            image: absUrl(doc.image ?? "/images/backdrops/insights.jpg"),
+            inLanguage: l,
+            author: { "@id": "https://almuraqib.ae/#organization" },
+            publisher: { "@id": "https://almuraqib.ae/#organization" },
+            mainEntityOfPage: absUrl(`/${l}/knowledge-base/${doc.slug}`),
+          }}
+        />
+  </>
   );
 }

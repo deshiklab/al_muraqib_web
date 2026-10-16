@@ -10,11 +10,11 @@ import { site, certifications } from "@/lib/data/site";
 import { projects } from "@/lib/data/content";
 import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLocale(locale)) return {};
+  if (!isLocale(locale)) return { ...ogImages("/images/backdrops/about.jpg"),};
   const l = locale as Locale;
   const d = getDict(locale as Locale);
   return { title: d.about.title, description: d.about.lead, alternates: alternates(l, "/en/company/about") };

@@ -11,11 +11,11 @@ import { CtaBand } from "@/components/ui/Sections";
 import ProjectsClient from "@/components/projects/ProjectsClient";
 import type { ProjectRow } from "@/components/projects/ProjectsClient";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLocale(locale)) return {};
+  if (!isLocale(locale)) return { ...ogImages("/images/backdrops/projects.jpg"),};
   const l = locale as Locale;
   const d = getDict(l);
   return { title: d.projects.title, description: d.projects.intro, alternates: alternates(l, "/en/projects") };

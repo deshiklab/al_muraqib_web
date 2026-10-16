@@ -157,6 +157,11 @@ export default function ProductHero({
 
   const hasAxes = (product.variantAxes?.length ?? 0) > 0;
 
+  /* Photo per gallery tab: product shot, site install photo, shop-drawing sheet.
+     Files live at /images/{installed,drawings}/<slug>.jpg; missing files reveal the vector placeholder. */
+  const srcFor = (k: "product" | "installed" | "drawing") =>
+    k === "product" ? product.image : `/images/${k === "installed" ? "installed" : "drawings"}/${product.slug}.jpg`;
+
   return (
     <div className="grid items-center lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)] gap-6 lg:gap-10">
       {/* ---------- Gallery ---------- */}
@@ -168,7 +173,7 @@ export default function ProductHero({
             label={t(current.caption, locale)}
             kind={current.kind}
             className="aspect-[4/3] w-full"
-            src={current.kind === "product" ? product.image : undefined}
+            src={srcFor(current.kind)}
           />
         </div>
 
@@ -218,6 +223,7 @@ export default function ProductHero({
                   icon={group?.icon ?? "tank"}
                   kind={item.kind}
                   className="aspect-[4/3] w-full"
+                  src={srcFor(item.kind)}
                 />
               </button>
             ))}

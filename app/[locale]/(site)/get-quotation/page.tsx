@@ -1,5 +1,6 @@
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import RfqPageClient from "@/components/rfq/RfqPageClient";
@@ -14,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLocale(locale)) return {};
+  if (!isLocale(locale)) return { ...ogImages("/images/backdrops/contact.jpg"),};
   const d = getDict(locale as Locale);
   return { title: d.rfq.title, description: d.rfq.subtitle };
 }

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import CatalogClient from "@/components/products/CatalogClient";
 import { getDict, isLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLocale(locale)) return {};
+  if (!isLocale(locale)) return { ...ogImages("/images/backdrops/products.jpg"),};
   const l = locale as Locale;
   const d = getDict(locale as Locale);
   return {

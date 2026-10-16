@@ -16,3 +16,11 @@ export function alternates(locale: Locale, pathEn: string): Metadata["alternates
     languages: { en, ar: en.replace(/^\/en\b/, "/ar"), bn: en.replace(/^\/en\b/, "/bn"), "x-default": en },
   };
 }
+
+/** Per-section Open Graph picture (resolved against metadataBase → absolute). */
+export function ogImages(url: string): Pick<import("next").Metadata, "openGraph" | "twitter"> {
+  return {
+    openGraph: { images: [{ url, width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", images: [url] },
+  };
+}

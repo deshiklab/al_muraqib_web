@@ -13,7 +13,7 @@ import { getProduct } from "@/lib/data/catalog";
 import { serviceList } from "@/lib/data/services";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
 
 export function generateStaticParams() {
@@ -26,7 +26,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const l = locale as Locale;
   const proj = projects.find((p) => p.slug === slug);
   if (!proj) return {};
-  return { title: t(proj.title, l), description: t(proj.scope, l), alternates: alternates(l, `/en/projects/${slug}`) };
+  return {
+          ...ogImages(proj.image ?? "/images/backdrops/projects.jpg"),
+          title: t(proj.title, l), description: t(proj.scope, l), alternates: alternates(l, `/en/projects/${slug}`) };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

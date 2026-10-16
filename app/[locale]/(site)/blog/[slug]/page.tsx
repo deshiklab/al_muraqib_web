@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import ArticleCard from "@/components/ui/ArticleCard";
 import TitleBackdrop from "@/components/ui/TitleBackdrop";
+import JsonLd, { absUrl } from "@/components/seo/JsonLd";
 import ProductCard from "@/components/products/ProductCard";
 import { Reveal } from "@/components/ui/Motion";
 import { CtaBand } from "@/components/ui/Sections";
@@ -12,7 +13,7 @@ import { articles, articlesByKind } from "@/lib/data/content";
 import { getProduct } from "@/lib/data/catalog";
 import { t } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export function generateStaticParams() {
   return articles.filter((a) => a.kind === "blog").map((a) => ({ slug: a.slug }));
@@ -24,7 +25,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const l = locale as Locale;
   const post = articles.find((a) => a.slug === slug && a.kind === "blog");
   if (!post) return {};
-  return { title: t(post.title, l), description: t(post.excerpt, l), alternates: alternates(l, `/en/blog/${slug}`) };
+  return {
+          ...ogImages(post.image ?? "/images/backdrops/insights.jpg"),
+          title: t(post.title, l), description: t(post.excerpt, l), alternates: alternates(l, `/en/blog/${slug}`) };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
@@ -106,6 +109,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       </section>
 
       <CtaBand title={d.home.ctaTitle} text={d.home.ctaText} button={d.home.ctaButton} href={`/${l}/get-quotation`} locale={l} />
-    </>
+          <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: t(post.title, l),
+            description: t(post.excerpt, l),
+            datePublished: post.date,
+            image: absUrl(post.image ?? "/images/backdrops/insights.jpg"),
+            inLanguage: l,
+            author: { "@id": "https://almuraqib.ae/#organization" },
+            publisher: { "@id": "https://almuraqib.ae/#organization" },
+            mainEntityOfPage: absUrl(`/${l}/blog/${post.slug}`),
+          }}
+        />
+  </>
   );
 }

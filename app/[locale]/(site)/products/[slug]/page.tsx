@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import ProductArt from "@/components/ui/ProductArt";
+import JsonLd, { absUrl } from "@/components/seo/JsonLd";
 import ProductCard from "@/components/products/ProductCard";
 import ArticleCard from "@/components/ui/ArticleCard";
 import { Reveal } from "@/components/ui/Motion";
@@ -16,7 +17,7 @@ import { articlesByKind, projects } from "@/lib/data/content";
 import { productGroups, applications } from "@/lib/data/nav";
 import { t, tl } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
-import { alternates } from "@/lib/seo";
+import { alternates, ogImages } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -33,6 +34,7 @@ export async function generateMetadata({
   const product = getProduct(slug);
   if (!product) return {};
   return {
+          ...ogImages(product.image ?? "/images/backdrops/products.jpg"),
     title: `${t(product.name, l)}`,
     description: t(product.pitch, l),
     alternates: alternates(l, `/en/products/${slug}`),
@@ -352,6 +354,18 @@ export default async function ProductPage({
       />
 
       <MobileCtaBar d={d} />
-    </>
+          <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: t(product.name, l),
+            description: t(product.description[0], l),
+            image: product.image ? [absUrl(product.image)] : undefined,
+            url: absUrl(`/${l}/products/${product.slug}`),
+            brand: { "@type": "Organization", name: "Al Muraqib Fiber Glass Industry" },
+            manufacturer: { "@id": "https://almuraqib.ae/#organization" },
+          }}
+        />
+  </>
   );
 }

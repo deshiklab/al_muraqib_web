@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getDict, dir, isLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/types";
 import "@/app/globals.css";
+import JsonLd, { absUrl } from "@/components/seo/JsonLd";
+import { site } from "@/lib/data/site";
 
 // Fonts loaded at runtime from the visitor's browser (build-host has no
 // access to fonts.googleapis.com). Fallbacks defined in globals.css.
@@ -28,6 +30,42 @@ const themeInit = `
 })();
 `;
 
+/* Analytics: drop-in GA4 — set NEXT_PUBLIC_GA_ID (e.g. G-XXXXXXX) at build time to enable. */
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+
+/* Sitewide structured data: Organization + WebSite. */
+const siteGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://almuraqib.ae/#organization",
+      name: site.name,
+      alternateName: site.nameShort,
+      url: site.url,
+      logo: absUrl("/icon.svg"),
+      foundingDate: site.stats.established,
+      email: site.emails.sales,
+      telephone: site.phone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Plot 970-972, Al Bataeh Industrial Area",
+        addressLocality: "Sharjah",
+        addressCountry: "AE",
+      },
+      sameAs: site.socials.map((x) => x.href),
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://almuraqib.ae/#website",
+      url: site.url,
+      name: site.nameShort,
+      publisher: { "@id": "https://almuraqib.ae/#organization" },
+      inLanguage: ["en", "ar", "bn"],
+    },
+  ],
+};
+
 export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ar" }, { locale: "bn" }];
 }
@@ -47,6 +85,9 @@ export async function generateMetadata({
     },
     description: d.home.heroText,
     metadataBase: new URL("https://almuraqib.ae"),
+    verification: process.env.NEXT_PUBLIC_GSC_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GSC_SITE_VERIFICATION }
+      : undefined,
     openGraph: {
       siteName: d.meta.siteName,
       type: "website",
@@ -103,6 +144,17 @@ export default async function LocaleLayout({
       </head>
       <body>
         {children}
+        <JsonLd data={siteGraph} />
+        {GA_ID ? (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`,
+              }}
+            />
+          </>
+        ) : null}
       </body>
     </html>
   );
