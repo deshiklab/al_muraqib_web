@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
 import { cn, tl, track } from "@/lib/utils";
+
+const brandBase = process.env.NEXT_PUBLIC_BASE ?? "";
 import { type Dict } from "@/lib/i18n";
 import { megaColumns } from "@/lib/data/nav";
 import { site } from "@/lib/data/site";
@@ -207,11 +209,18 @@ export default function Header({ locale, d }: HeaderProps) {
             <Link href={prefix} className="flex items-center gap-3 shrink-0 group" aria-label={site.name}>
               <span
                 className={cn(
-                  "grid place-items-center w-11 h-11 rounded-xl transition-colors",
+                  "grid place-items-center w-11 h-11 rounded-xl transition-colors overflow-hidden",
                   transparent ? "bg-white/10 ring-1 ring-white/20" : "bg-navy-900"
                 )}
               >
-                <LogoMark className="w-7 h-7 text-gold-500" />
+                {/* Original Al Muraqib lattice-house mark (white tint for navy chips) */}
+                <img
+                  src={`${brandBase}/images/brand/logo-mark-white.png`}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-9 h-9 object-contain"
+                  style={{ transform: "scale(1.28)" }}
+                />
               </span>
               <span className="flex flex-col leading-none">
                 <span
@@ -432,7 +441,10 @@ export default function Header({ locale, d }: HeaderProps) {
         <div className="fixed inset-0 z-[60] bg-white flex flex-col xl:hidden" role="dialog" aria-modal="true" aria-label={d.nav.menu}>
           <div className="bg-navy-900 text-white">
             <div className="px-4 h-16 flex items-center justify-between">
-              <span className="font-heading font-black text-lg">AL MURAQIB</span>
+              <span className="flex items-center gap-2.5">
+                <img src={`${brandBase}/images/brand/logo-mark-white.png`} alt="" aria-hidden="true" className="w-7 h-7 object-contain" />
+                <span className="font-heading font-black text-lg">AL MURAQIB</span>
+              </span>
               <button onClick={() => setDrawer(false)} aria-label={d.nav.close} className="p-2 rounded-lg hover:bg-white/10 cursor-pointer">
                 <Icon name="close" className="w-6 h-6" />
               </button>
@@ -598,16 +610,6 @@ export default function Header({ locale, d }: HeaderProps) {
 }
 
 /* ---------- sub-components ---------- */
-
-function LogoMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
-      <path d="M16 3 5 7.5v8.2C5 23 10 28.2 16 29.5c6-1.3 11-6.5 11-13.8V7.5L16 3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M10.5 17c1.8-3.4 3.6-5 5.5-5s3.7 1.6 5.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="16" cy="14.5" r="1.6" fill="currentColor" />
-    </svg>
-  );
-}
 
 function NavLink({
   href,

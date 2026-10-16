@@ -24,6 +24,8 @@ import urllib.request
 from io import BytesIO
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BRAND_LOGO = os.path.join(REPO_ROOT, "public", "images", "brand", "logo-mark-white.png")
 FONTS_DIR = os.path.expanduser("~/.profile-assets/fonts")
 OUT = os.path.join(REPO, "public", "company-profile.pdf")
 
@@ -291,7 +293,7 @@ def main():
         return out
 
     E = [Spacer(1, 34 * mm),
-         Table([[ShieldMark(26 * mm)]], colWidths=[doc.width], style=TableStyle([("ALIGN", (0, 0), (-1, -1), "CENTER")])),
+         Table([[RLImage(BRAND_LOGO, 25 * mm, 25 * mm * 438 / 430)]], colWidths=[doc.width], style=TableStyle([("ALIGN", (0, 0), (-1, -1), "CENTER")])),
          Spacer(1, 10 * mm),
          Paragraph("AL MURAQIB", ParagraphStyle("cov", parent=S["whiteX"], fontSize=33, leading=42, alignment=1)),
          Paragraph("FIBER GLASS INDUSTRY L.L.C", S["gold"].clone("gc", fontSize=10.5, alignment=1)),

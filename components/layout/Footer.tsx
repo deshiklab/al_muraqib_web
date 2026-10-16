@@ -17,12 +17,14 @@ export default function Footer({ locale, d }: { locale: Locale; d: Dict }) {
         {/* Brand + newsletter */}
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <span className="grid place-items-center w-11 h-11 rounded-xl bg-white/10 ring-1 ring-white/15">
-              <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7 text-gold-500" aria-hidden="true">
-                <path d="M16 3 5 7.5v8.2C5 23 10 28.2 16 29.5c6-1.3 11-6.5 11-13.8V7.5L16 3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M10.5 17c1.8-3.4 3.6-5 5.5-5s3.7 1.6 5.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <circle cx="16" cy="14.5" r="1.6" fill="currentColor" />
-              </svg>
+            <span className="grid place-items-center w-11 h-11 rounded-xl bg-white/10 ring-1 ring-white/15 overflow-hidden">
+              <img
+                src={`${process.env.NEXT_PUBLIC_BASE ?? ""}/images/brand/logo-mark-white.png`}
+                alt=""
+                aria-hidden="true"
+                className="w-9 h-9 object-contain"
+                style={{ transform: "scale(1.28)" }}
+              />
             </span>
             <div className="leading-none">
               <p className="font-heading font-black text-white text-lg">AL MURAQIB</p>

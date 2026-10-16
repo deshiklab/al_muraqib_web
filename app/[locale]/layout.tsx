@@ -43,7 +43,7 @@ const siteGraph = {
       name: site.name,
       alternateName: site.nameShort,
       url: site.url,
-      logo: absUrl("/icon.svg"),
+      logo: absUrl("/icon.png"),
       foundingDate: site.stats.established,
       email: site.emails.sales,
       telephone: site.phone,
