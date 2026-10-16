@@ -235,6 +235,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     label={t(proj.location, l)}
                     kind="installed"
                     className="aspect-[16/10] w-full"
+                   src={proj.image}
                   />
                   <div className="p-5">
                     <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-700">
