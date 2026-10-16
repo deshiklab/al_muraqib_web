@@ -260,6 +260,7 @@ export default async function KbArticlePage({ params }: { params: Promise<{ loca
           headline: t(doc.title, l),
           description: t(doc.excerpt, l),
           datePublished: doc.date,
+          dateModified: doc.date,
           image: absUrl(doc.image ?? "/images/backdrops/insights.jpg"),
           inLanguage: l,
           author: { "@id": "https://almuraqib.ae/#organization" },

@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "images:opt": "node scripts/optimize-images.mjs public",
-    "images:avif": "node scripts/emit-avif.mjs"
+    "images:avif": "node scripts/emit-avif.mjs",
+    "feed": "python3 scripts/build-feed.py"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "5.3.0",

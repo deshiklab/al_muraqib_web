@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Motion";
 import { CtaBand } from "@/components/ui/Sections";
+import JsonLd from "@/components/seo/JsonLd";
 import { getDict, isLocale } from "@/lib/i18n";
 import { t, tl } from "@/lib/utils";
 import type { IconName, Locale } from "@/lib/types";
@@ -130,6 +131,18 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
+      <JsonLd
+        data={SERVICES.map((svc) => ({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: t(svc.title, l),
+          description: t(svc.desc, l),
+          serviceType: svc.id,
+          provider: { "@id": "https://almuraqib.ae/#organization" },
+          areaServed: ["AE", "SA", "QA", "KW", "BH", "OM"],
+          url: `https://almuraqib.ae/${l}/services#${svc.id}`,
+        }))}
+      />
       <CtaBand title={d.home.ctaTitle} text={d.home.ctaText} button={d.home.ctaButton} href={`/${l}/get-quotation`} locale={l} />
     </>
   );

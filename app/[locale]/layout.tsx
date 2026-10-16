@@ -40,7 +40,39 @@ const siteGraph = {
         addressLocality: "Sharjah",
         addressCountry: "AE",
       },
-      sameAs: site.socials.map((x) => x.href),
+      areaServed: [
+        { "@type": "Country", name: "United Arab Emirates" },
+        { "@type": "Country", name: "Saudi Arabia" },
+        { "@type": "Country", name: "Qatar" },
+        { "@type": "Country", name: "Kuwait" },
+        { "@type": "Country", name: "Bahrain" },
+        { "@type": "Country", name: "Oman" },
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          telephone: site.phone,
+          email: site.emails.sales,
+          availableLanguage: ["English", "Arabic", "Bengali"],
+        },
+      ],
+      // Al Bataeh industrial area centroid — refine when the GBP pins it
+      geo: { "@type": "GeoCoordinates", latitude: 25.4563, longitude: 55.6187 },
+      // only publish sameAs once real profile URLs (with a path) are configured —
+      // bare platform roots would tell Google the org IS facebook.com
+      ...((() => {
+        const real = site.socials
+          .map((x) => x.href)
+          .filter((h) => {
+            try {
+              return new URL(h).pathname.replace(/\/+$/, "").length > 0;
+            } catch {
+              return false;
+            }
+          });
+        return real.length ? { sameAs: real } : {};
+      })()),
     },
     {
       "@type": "WebSite",
@@ -148,6 +180,12 @@ export default async function LocaleLayout({
       <body>
         {children}
         <JsonLd data={siteGraph} />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="AL Muraqib — GRP Insights & Knowledge Base"
+          href="https://almuraqib.ae/feed.xml"
+        />
         {GA_ID ? (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />

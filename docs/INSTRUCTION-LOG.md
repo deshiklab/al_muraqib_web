@@ -157,6 +157,13 @@ Implemented from `docs/SEO-PERFORMANCE-PLAN.md` §B: (1) **AVIF/WebP hero** — 
 
 ---
 
+## Phase 8 addendum 2 — wave 3 of SEO *(verbatim)*
+> "What else can be done for SEO?"
+
+Shipped: (1) **Service JSON-LD** ×3 on the services page (from the SERVICES blocks themselves: name/desc/anchor URL, areaServed GCC, provider @id org); (2) **Organization enrichment** — areaServed 6 countries, contactPoint (sales; EN/AR/BN; phone+email), geo centroid (Al Bataeh), and a **placeholder-safe `sameAs`** filter (bare facebook.com/-style roots are dropped; real profile URLs auto-join the schema); (3) **dateModified** on BlogPosting + TechArticle; (4) **RSS**: `scripts/build-feed.py` → `public/feed.xml` (12 items, per-item hreflang atom links; `npm run feed` after content changes) + head autodiscovery link — implemented as a literal layout `<head>` tag because Next **replaces** (not merges) parent `alternates` when a page defines its own (caught during verification); (5) sitemap/feed confirmed live (120 URLs; feed 200 application/xml; out/ gate green). Plan doc updated (remaining: GA conversions declaration, domain, GBP, per-locale OG cards, Offer schema pending prices).
+
+---
+
 ## Known open items (not yet instructed)
 1. PR → base branch / merge to main.
 2. Custom domain `almuraqib.ae` + real social links, tawk.to IDs, phone/WhatsApp confirmation.

@@ -255,6 +255,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             headline: t(post.title, l),
             description: t(post.excerpt, l),
             datePublished: post.date,
+          dateModified: post.date,
             image: absUrl(post.image ?? "/images/backdrops/insights.jpg"),
             inLanguage: l,
             author: { "@id": "https://almuraqib.ae/#organization" },
